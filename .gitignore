@@ -3,4 +3,55 @@ chat_history
 data
 persist
 .pytest_cache
+
+# Byte-compiled / optimized files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Python environment
+venv/
+env/
+ENV/
+
+# IDE-specific files
+.idea/
+.vscode/
+
+# Dependency management
+__pycache__/
+*.egg-info/
+dist/
+build/
+*.egg
+*.egg-info
+pip-wheel-metadata/
+
+# Compiled Python files
+*.pyc
+
+# Jupyter Notebook temporary files
+.ipynb_checkpoints/
+
+# Log files
+*.log
+
+# Environment variables
 .env
+
+# Django specific
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+
+# macOS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
+
+# Test directories
+__pycache__
