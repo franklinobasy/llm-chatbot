@@ -1,6 +1,6 @@
 from bot.bot import main
 from api import app
-from outlook.tools import get_outlook_emails, export_sender_email
+# from outlook.tools import get_outlook_emails, export_sender_email
 
 
 if __name__ == '__main__':
