@@ -8,12 +8,12 @@ import dotenv
 import os
 import pickle as pkl
 import sys
-from typing import Annotated, Optional
+from typing import Annotated, Optional, Dict, List, Tuple
 
 from langchain.chains import ConversationalRetrievalChain, RetrievalQA
 from langchain.chat_models import ChatOpenAI
 from langchain.document_loaders import DirectoryLoader, TextLoader
-from langchain.embeddings import OpenAIEmbeddings
+from langchain.embeddings import HuggingFaceEmbeddings, OpenAIEmbeddings
 from langchain.indexes import VectorstoreIndexCreator
 from langchain.indexes.vectorstore import VectorStoreIndexWrapper
 from langchain.llms import OpenAI
@@ -47,11 +47,76 @@ def initiate_index(
             index = VectorstoreIndexCreator(
                 vectorstore_kwargs={
                     "persist_directory": persist_dir
-                }
+                },
+                embedding=OpenAIEmbeddings(),
             ).from_loaders([loader])
         else:
-            index = VectorstoreIndexCreator().from_loaders([loader])
+            index = VectorstoreIndexCreator(
+                embedding=OpenAIEmbeddings()
+            ).from_loaders([loader])
     return index
+
+
+def get_history(sender_id: str) -> List[Tuple[str]]:
+    '''
+    Get sender_id chat history
+    '''
+    root_dir = "chat_history"
+    if not os.path.exists(root_dir):
+        os.makedirs(root_dir)
+
+    chat_file = f"{root_dir}/apichats.pkl"
+
+    try:
+        with open(chat_file, "rb") as file:
+            chat_data: Dict[str, List] = pkl.load(file)
+    except FileNotFoundError as e:
+        with open(chat_file, "wb") as file:
+            chat_data: Dict[str, List] = {}
+            pkl.dump(chat_data, file)
+
+    return [] if not chat_data.get(sender_id) else chat_data.get(sender_id)
+
+
+def save_history(sender_id: str, data: List[Tuple[str]]) -> bool:
+    '''
+    Saves sender_id chat history
+    '''
+    root_dir = "chat_history"
+    if not os.path.exists(root_dir):
+        os.makedirs(root_dir)
+
+    chat_file = f"{root_dir}/apichats.pkl"
+    try:
+        with open(chat_file, "rb") as file:
+            chat_data: dict = pkl.load(file)
+
+        chat_data[sender_id] = data
+
+        with open(chat_file, "wb") as file:
+            pkl.dump(chat_data, file)
+
+    except Exception as e:
+        return False
+
+    return True
+
+
+def get_prompt(sender_id: str, prompt: str, use_history: bool = False):
+    index = initiate_index()
+    model = "gpt-3.5-turbo-0301"
+    chat_history = get_history(sender_id) if use_history else []
+
+    chain = ConversationalRetrievalChain.from_llm(
+        llm=ChatOpenAI(model=model),
+        retriever=index.vectorstore.as_retriever(search_kwargs={"k": 1}),
+    )
+
+    result = chain({"question": prompt, "chat_history": chat_history})
+    chat_history.append((prompt, result['answer']))
+    save_history(sender_id, chat_history)
+
+    return result['answer']
 
 
 def main(
@@ -60,7 +125,9 @@ def main(
 ) -> None:
 
     # Create index from vector store
-    index = initiate_index()
+    index = initiate_index(
+        persist=False
+    )
 
     chain = ConversationalRetrievalChain.from_llm(
         llm=ChatOpenAI(model=model),

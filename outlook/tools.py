@@ -32,7 +32,7 @@ def export_sender_email(
     supported_filetypes = {
         'txt': 'txt',
         'csv': 'csv',
-        'xlxs': 'excel'
+        'xlsx': 'excel'
     }
     if format not in supported_filetypes.keys():
         message = f"The specified format type: {format}, is not supported." + \
