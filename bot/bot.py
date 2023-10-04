@@ -17,43 +17,64 @@ from langchain.embeddings import HuggingFaceEmbeddings, OpenAIEmbeddings
 from langchain.indexes import VectorstoreIndexCreator
 from langchain.indexes.vectorstore import VectorStoreIndexWrapper
 from langchain.llms import OpenAI
-from langchain.vectorstores import Chroma
+from langchain.vectorstores import Pinecone
+
+import pinecone
 
 
 dotenv.load_dotenv()
 
+pinecone.init(
+    api_key=os.getenv("PINECONE_API_KEY"),
+    environment=os.getenv("PINECONE_ENV")
+)
+
 
 def initiate_index(
     persist: Annotated[bool, "Set as True or False to persist data"] = False,
-    persist_dir: Annotated[str, "Dir to store persisted data"] = "persist",
+    index_name: Annotated[str, "pinecone index name"] = "ccl-vectorstore",
     data_dir: Annotated[str, "Dir for dataset (documents)"] = 'data/'
 ) -> VectorStoreIndexWrapper:
-    if persist and os.path.exists(persist_dir):
-        print("Reusing index...\n")
-        vectorstore = Chroma(
-            persist_directory=persist_dir,
-            embedding_function=OpenAIEmbeddings()
-        )
-        index = VectorStoreIndexWrapper(vectorstore=vectorstore)
-    else:
-        if not os.path.exists(data_dir):
-            os.makedirs(data_dir)
-        loader = DirectoryLoader(data_dir)
+    if not os.path.exists(data_dir):
+        raise FileNotFoundError(f"Path does not exist: {data_dir}")
 
-        if persist:
-            if not os.path.exists(persist_dir):
-                os.makedirs(persist_dir)
+    loader = DirectoryLoader(data_dir)
 
-            index = VectorstoreIndexCreator(
-                vectorstore_kwargs={
-                    "persist_directory": persist_dir
-                },
-                embedding=OpenAIEmbeddings(),
-            ).from_loaders([loader])
-        else:
-            index = VectorstoreIndexCreator(
+    if persist:
+        if index_name in pinecone.list_indexes():
+            print("Reusing index...\n")
+            vectorstore = Pinecone.from_existing_index(
+                index_name="ccl-vectorstore",
                 embedding=OpenAIEmbeddings()
+            )
+            index = VectorStoreIndexWrapper(vectorstore=vectorstore)
+        else:
+            pinecone.create_index(
+                name=index_name,
+                dimension=1536
+            )
+
+            index = VectorstoreIndexCreator(
+                vectorstore_cls=Pinecone,
+                embedding=OpenAIEmbeddings(),
+                vectorstore_kwargs={
+                    'index_name': 'ccl-vectorstore'
+                }
             ).from_loaders([loader])
+    else:
+        pinecone.create_index(
+            name=index_name,
+            dimension=1536
+        )
+
+        index = VectorstoreIndexCreator(
+            vectorstore_cls=Pinecone,
+            embedding=OpenAIEmbeddings(),
+            vectorstore_kwargs={
+                'index_name': 'ccl-vectorstore'
+            }
+        ).from_loaders([loader])
+
     return index
 
 
