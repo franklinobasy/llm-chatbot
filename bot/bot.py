@@ -5,11 +5,13 @@ Conversational chat bot that leverages on OpenAi GPT-X model
 '''
 
 import dotenv
+import logging
 import os
 import pickle as pkl
 import sys
 from typing import Annotated, Optional, Dict, List, Tuple, Union
 
+import langchain
 from langchain.chains import ConversationalRetrievalChain, RetrievalQA
 from langchain.chat_models import ChatOpenAI
 from langchain.document_loaders import DirectoryLoader, TextLoader
@@ -20,6 +22,9 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Pinecone
 
 import pinecone
+
+from langchain.cache import SQLiteCache
+langchain.llm_cache = SQLiteCache(database_path=".langchain.db")
 
 
 dotenv.load_dotenv()
@@ -60,18 +65,31 @@ def initiate_index(
 
     if index_name in pinecone.list_indexes():
         if persist:
-            print("Reusing index...\n")
-            vectorstore = Pinecone.from_existing_index(
+            logging.info("Reusing index...")
+            index = Pinecone.from_existing_index(
                 index_name="ccl-vectorstore",
                 embedding=OpenAIEmbeddings()
             )
-            index = VectorStoreIndexWrapper(vectorstore=vectorstore)
+            return index
         else:
-            pinecone.delete_index(index_name)
+            logging.warning(
+                '''
+                Index exist but has not been persisted.
+                Delete previous index and create a new one
+                '''
+            )
 
+            logging.info(f'Deleting index with name: {index_name}')
+            pinecone.delete_index(index_name)
+            logging.info(f'Successfully deleted index with name: {index_name}')
+
+            logging.info(f"Creating new index with name: {index_name}")
             pinecone.create_index(
                 name=index_name,
                 dimension=1536
+            )
+            logging.info(
+                f"Successfully created new index with name: {index_name}"
             )
 
             index = Pinecone.from_documents(
@@ -80,10 +98,12 @@ def initiate_index(
                 index_name=index_name
             )
     else:
+        logging.info(f"Creating new index with name: {index_name}")
         pinecone.create_index(
             name=index_name,
             dimension=1536
         )
+        logging.info(f"Successfully created new index with name: {index_name}")
 
         index = Pinecone.from_documents(
             docs,
@@ -139,19 +159,21 @@ def save_history(sender_id: str, data: List[Tuple[str]]) -> bool:
     return True
 
 
-def get_prompt(sender_id: str, prompt: str, use_history: bool = False):
-    index = initiate_index()
+def process_prompt(sender_id: str, prompt: str, use_history: bool = False):
+    index = initiate_index(persist=True)
     model = "gpt-3.5-turbo-0301"
     chat_history = get_history(sender_id) if use_history else []
 
     chain = ConversationalRetrievalChain.from_llm(
-        llm=ChatOpenAI(model=model),
+        llm=ChatOpenAI(model=model, cache=True),
         retriever=index.as_retriever(search_kwargs={"k": 1}),
     )
 
     result = chain({"question": prompt, "chat_history": chat_history})
     chat_history.append((prompt, result['answer']))
-    save_history(sender_id, chat_history)
+
+    if use_history:
+        save_history(sender_id, chat_history)
 
     return result['answer']
 
@@ -167,7 +189,7 @@ def main(
     )
 
     chain = ConversationalRetrievalChain.from_llm(
-        llm=ChatOpenAI(model=model),
+        llm=ChatOpenAI(model=model, cache=True),
         retriever=index.as_retriever(search_kwargs={"k": 1}),
     )
     if not load_history:
