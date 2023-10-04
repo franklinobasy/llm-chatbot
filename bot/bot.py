@@ -8,7 +8,7 @@ import dotenv
 import os
 import pickle as pkl
 import sys
-from typing import Annotated, Optional, Dict, List, Tuple
+from typing import Annotated, Optional, Dict, List, Tuple, Union
 
 from langchain.chains import ConversationalRetrievalChain, RetrievalQA
 from langchain.chat_models import ChatOpenAI
@@ -16,7 +16,7 @@ from langchain.document_loaders import DirectoryLoader, TextLoader
 from langchain.embeddings import HuggingFaceEmbeddings, OpenAIEmbeddings
 from langchain.indexes import VectorstoreIndexCreator
 from langchain.indexes.vectorstore import VectorStoreIndexWrapper
-from langchain.llms import OpenAI
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Pinecone
 
 import pinecone
@@ -30,18 +30,36 @@ pinecone.init(
 )
 
 
+def load_documents(directory: str):
+    loader = DirectoryLoader(directory)
+    documents = loader.load()
+    return documents
+
+
+def split_documents(
+    documents,
+    chunk_size=2000,
+):
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=chunk_size,
+    )
+    docs = text_splitter.split_documents(documents)
+    return docs
+
+
 def initiate_index(
     persist: Annotated[bool, "Set as True or False to persist data"] = False,
     index_name: Annotated[str, "pinecone index name"] = "ccl-vectorstore",
     data_dir: Annotated[str, "Dir for dataset (documents)"] = 'data/'
-) -> VectorStoreIndexWrapper:
+) -> Union[VectorStoreIndexWrapper, Pinecone]:
     if not os.path.exists(data_dir):
         raise FileNotFoundError(f"Path does not exist: {data_dir}")
 
-    loader = DirectoryLoader(data_dir)
+    documents = load_documents(data_dir)
+    docs = split_documents(documents)
 
-    if persist:
-        if index_name in pinecone.list_indexes():
+    if index_name in pinecone.list_indexes():
+        if persist:
             print("Reusing index...\n")
             vectorstore = Pinecone.from_existing_index(
                 index_name="ccl-vectorstore",
@@ -49,38 +67,29 @@ def initiate_index(
             )
             index = VectorStoreIndexWrapper(vectorstore=vectorstore)
         else:
+            pinecone.delete_index(index_name)
+
             pinecone.create_index(
                 name=index_name,
                 dimension=1536
             )
 
-            index = VectorstoreIndexCreator(
-                vectorstore_cls=Pinecone,
+            index = Pinecone.from_documents(
+                docs,
                 embedding=OpenAIEmbeddings(),
-                vectorstore_kwargs={
-                    'index_name': 'ccl-vectorstore'
-                }
-            ).from_loaders([loader])
+                index_name=index_name
+            )
     else:
-        if index_name not in pinecone.list_indexes():
-            pinecone.create_index(
-                name=index_name,
-                dimension=1536
-            )
+        pinecone.create_index(
+            name=index_name,
+            dimension=1536
+        )
 
-            index = VectorstoreIndexCreator(
-                vectorstore_cls=Pinecone,
-                embedding=OpenAIEmbeddings(),
-                vectorstore_kwargs={
-                    'index_name': 'ccl-vectorstore'
-                }
-            ).from_loaders([loader])
-        else:
-            vectorstore = Pinecone.from_existing_index(
-                index_name="ccl-vectorstore",
-                embedding=OpenAIEmbeddings()
-            )
-            index = VectorStoreIndexWrapper(vectorstore=vectorstore)
+        index = Pinecone.from_documents(
+            docs,
+            embedding=OpenAIEmbeddings(),
+            index_name=index_name
+        )
 
     return index
 
@@ -137,7 +146,7 @@ def get_prompt(sender_id: str, prompt: str, use_history: bool = False):
 
     chain = ConversationalRetrievalChain.from_llm(
         llm=ChatOpenAI(model=model),
-        retriever=index.vectorstore.as_retriever(search_kwargs={"k": 1}),
+        retriever=index.as_retriever(search_kwargs={"k": 1}),
     )
 
     result = chain({"question": prompt, "chat_history": chat_history})
@@ -159,7 +168,7 @@ def main(
 
     chain = ConversationalRetrievalChain.from_llm(
         llm=ChatOpenAI(model=model),
-        retriever=index.vectorstore.as_retriever(search_kwargs={"k": 1}),
+        retriever=index.as_retriever(search_kwargs={"k": 1}),
     )
     if not load_history:
         chat_history = []
