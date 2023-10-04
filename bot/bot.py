@@ -62,18 +62,25 @@ def initiate_index(
                 }
             ).from_loaders([loader])
     else:
-        pinecone.create_index(
-            name=index_name,
-            dimension=1536
-        )
+        if index_name not in pinecone.list_indexes():
+            pinecone.create_index(
+                name=index_name,
+                dimension=1536
+            )
 
-        index = VectorstoreIndexCreator(
-            vectorstore_cls=Pinecone,
-            embedding=OpenAIEmbeddings(),
-            vectorstore_kwargs={
-                'index_name': 'ccl-vectorstore'
-            }
-        ).from_loaders([loader])
+            index = VectorstoreIndexCreator(
+                vectorstore_cls=Pinecone,
+                embedding=OpenAIEmbeddings(),
+                vectorstore_kwargs={
+                    'index_name': 'ccl-vectorstore'
+                }
+            ).from_loaders([loader])
+        else:
+            vectorstore = Pinecone.from_existing_index(
+                index_name="ccl-vectorstore",
+                embedding=OpenAIEmbeddings()
+            )
+            index = VectorStoreIndexWrapper(vectorstore=vectorstore)
 
     return index
 
