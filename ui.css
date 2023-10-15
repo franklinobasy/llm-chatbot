@@ -1,0 +1,48 @@
+InputContainer {
+    height: 5;
+}
+
+OutputContainer {
+    padding-top: 2;
+    height: 85%;
+    padding-bottom: 1;
+}
+
+InputContainer Input {
+    height: 3;
+    width: 80%;
+}
+
+ConversationBox {
+}
+
+
+.human-response {
+    align: right top;
+    max-width: 100%;
+    padding-bottom: 3;
+    padding-left: 2;
+    padding-right: 2;
+}
+
+.ai-response {
+    color: greenyellow;
+    align: left top;
+    max-width: 100%;
+    padding-bottom: 3;
+    padding-left: 2;
+    padding-right: 2;
+}
+
+#buttons {
+    /* dock: top; */
+    height: 3;
+}
+
+.switch-button {
+    width: 50%;
+}
+
+.active {
+    background: gray;
+}
