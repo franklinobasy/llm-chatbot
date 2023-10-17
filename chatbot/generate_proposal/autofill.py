@@ -1,6 +1,7 @@
 '''Module for filling fields into text using llm'''
 
-import dotenv
+from typing import List
+import json
 import os
 
 from chatbot.generate_proposal.extractor import TextExtractor
@@ -40,3 +41,46 @@ class AutoFill():
 
         result = self.llm(messages)
         return result.content
+
+
+class AutoFillField():
+    '''
+    class for filling fields with answers
+    '''
+
+    def __init__(self, fields: List[str], model_name='str'):
+        self.__model_name = model_name
+        self.llm = ChatOpenAI(
+            model=self.__model_name,
+            openai_api_key=os.getenv("OPENAI_API_KEY")
+        )
+        self.fields = fields
+
+    def set_context(self, context):
+        self.context = context
+
+    def prepare_prompt(self):
+        prompt = '''
+        Your job is to use the context as a guide to provide answers to each
+        question in the python list. Your are expected find the best suitable
+        answers for each question. Each question appears as keys in the dictionary
+
+        Note:
+        Use the format below as output:{"question": "answer",...}
+        '''
+
+        return prompt
+
+    def fill_fields(self):
+        prompt = self.prepare_prompt()
+        messages = [
+            SystemMessage(
+                content=prompt
+            ),
+            HumanMessage(
+                content=f"context: {self.context}, python list: {self.fields}"
+            ),
+        ]
+
+        result = self.llm(messages)
+        return json.loads(result.content)

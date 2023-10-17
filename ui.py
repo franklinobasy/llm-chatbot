@@ -127,6 +127,18 @@ class ChatBot(App):
 
     def on_button_pressed(self, event: Button.Pressed):
         if event.button.id in ['proposal-generation', 'chat']:
+            if event.button.id == "proposal-generation'":
+                event.button.add_class("active")
+                event.button.ancestors[0].query_one(
+                    "chat",
+                    Button
+                ).remove_class("active")
+            elif event.button.id == "chat'":
+                event.button.add_class("active")
+                event.button.ancestors[0].query_one(
+                    "proposal-generation",
+                    Button
+                ).remove_class("active")
             self.query_one(ContentSwitcher).current = event.button.id
 
 
