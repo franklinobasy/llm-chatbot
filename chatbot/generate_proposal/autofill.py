@@ -61,9 +61,10 @@ class AutoFillField():
 
     def prepare_prompt(self):
         prompt = '''
+        We want to create a proposal using provided fill in the blank template.
         Your job is to use the context as a guide to provide answers to each
         question in the python list. Your are expected find the best suitable
-        answers for each question. Each question appears as keys in the dictionary
+        answers for each question.
 
         Note:
         Use the format below as output:{"question": "answer",...}

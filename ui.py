@@ -9,8 +9,8 @@ from textual.widgets import (
     Label,
 )
 from chatbot.auto_response.auto_response import process_prompt
-
-from chatbot.generate_proposal.autofill import AutoFill
+from chatbot.generate_proposal.autofill import AutoFill, AutoFillField
+from chatbot.generate_proposal.extractor import FieldExtractor
 
 
 class ConversationBox(Label):
@@ -58,9 +58,16 @@ class InputContainer(Horizontal):
             classes="human-response"
         )
 
-        f = AutoFill("gpt-3.5-turbo-0301")
-        f.get_text()
-        response = f.fill_text(human_input)
+        # AI section
+        e = FieldExtractor()
+        e.load_file("data/template1.txt")
+        fields = e.get_fields()
+        a = AutoFillField(fields, "gpt-3.5-turbo-0301")
+        context = human_input
+        a.set_context(context)
+        filled_fields = a.fill_fields()
+        response = e.fill_text(filled_fields)
+        # end
 
         ai_chat = ConversationBox(
             f"🤖Bot:\n{response}",

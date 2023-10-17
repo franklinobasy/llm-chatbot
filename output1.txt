@@ -1,0 +1,32 @@
+from chatbot.generate_proposal.extractor import FieldExtractor
+from chatbot.generate_proposal.autofill import AutoFillField
+e = FieldExtractor()
+e.load_file("data/template1.txt")
+fields = e.get_fields()
+a = AutoFillField(fields, "gpt-3.5-turbo-0301")
+context = "A questionaire for writing a proposal for an oil and gas firm who is into well intervention services and wants to use some of your products with a budgetof$100,000"
+a.set_context(context)
+filled_fields = a.fill_fields()
+e.fill_text(filled_fields)
+
+
+'Introduction
+
+XYZ Oil and Gas Solutions has been conducting research in areas of Development of innovative products for well intervention services and Optimization of well intervention processes. We would like to combine the results of these efforts into a solid solution for Well Intervention Services surveillance.
+
+The Problem
+
+In Lack of efficient tools for well intervention services, we are data rich but information poor. Real-time data gathering is not an issue, but validation and usage of such data is. For example, Manual intervention tools. Traditionally this problem is often attempted using Field testing in offshore and onshore wells. This method cannot capture important changes in between Current methods are time-consuming and inefficient – Development of specialized well intervention tools.
+
+Proposed Solution
+
+The solution we are proposing combines (i) Implementation of real-time surveillance and monitoring system and (ii) To improve efficiency and reduce downtime during well intervention operations for Real-time surveillance system provides data to optimize use of specialized intervention tools. Component (ii) provides real-time data to enable quick decision making and continuous improvement of well intervention processes. Model in (i) is used to prime and bootstrap model (ii).\n\nOil and Gas Industry.
+
+Importance of Improved efficiency, reduced downtime, cost savings Surveillance
+    • Surveillance is crucial for real-time monitoring of wells and identifying potential problems\n\tor
+    • Early detection of potential problems, optimization of well performance, improved safety
+    • Real-time information enables quick decision making and continuous improvement of well intervention processes
+    • Improved efficiency, reduced downtime, cost savings, improved safety\n\nMajor Benefits
+    • Improved well performance, reduced costs, increased safety\n\tor
+    • Improved efficiency and reduced downtime result in increased productivity and cost savings, while improved safety leads to reduced risks and improved overall performance
+    • [Explain How Each Benefit Contributes to Improving Operations in Your Niche/Industry]\n'

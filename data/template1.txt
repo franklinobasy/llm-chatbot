@@ -1,5 +1,3 @@
-BELOW IS A TEMPLATE ON HOW TO WRITE A PROPOSAL USING CYPHERCRESCENT STANDARD
-
 Introduction
 
 [Your Company/Organization Name] has been conducting research in areas of [Research Focus] and [Another Research Focus]. We would like to combine the results of these efforts into a solid solution for [Industry or Niche] surveillance.

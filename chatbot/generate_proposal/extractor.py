@@ -114,7 +114,7 @@ class FieldExtractor(Extractor):
             nonlocal filled_fields
             if filled_fields:
                 replacement = filled_fields.pop(0)
-                return replacement
+                return '[' + replacement + ']'
             else:
                 return match.group(0)  # If field not found, keep it as is
 
