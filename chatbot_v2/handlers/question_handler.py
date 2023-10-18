@@ -9,13 +9,13 @@ from chatbot_v2.handlers.base_handler import (
 
 
 class QuestionHandler(BaseHandler):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, section_type):
+        super().__init__(section_type)
         self.__answered_questions = list()
 
     @property
     def section(self):
-        return self.__section_template
+        return self._section_template
 
     @section.setter
     def section(self, section_type: str):
@@ -26,7 +26,7 @@ class QuestionHandler(BaseHandler):
         self.__section_template = section_templates.get(section_type)
 
     def get_questions(self):
-        questions: Dict[str, str] = self.__section_template[1]
+        questions: Dict[str, str] = self._section_template[1]
         questions_to_use = [
             clean_question(question)[1] for question in questions.items()
         ]

@@ -1,52 +1,38 @@
-from chatbot.generate_proposal.extractor import FieldExtractor
-from chatbot.generate_proposal.autofill import AutoFillField
-e = FieldExtractor()
-e.load_file("data/template1.txt")
-fields = e.get_fields()
-a = AutoFillField(fields, "gpt-3.5-turbo-0301")
-context = "A questionaire for writing a proposal for an oil and gas firm who is into well intervention services and wants to use some of your products with a budget of $100,000"
-a.set_context(context)
-filled_fields = a.fill_fields()
-e.fill_text(filled_fields)
+from chatbot_v2.ai.generate_proposal import AutoFillTemplate
+from chatbot_v2.handlers.question_handler import QuestionHandler
+from chatbot_v2.handlers.template_handler import TemplateHandler
 
 
-# import re
+introQ = QuestionHandler("introduction")
+questions = introQ.get_questions()
+answers = [
+    input(f"{i}). " + question + ": ")
+    for i, question in enumerate(questions, start=1)
+]
+questions_answers = introQ.set_answers(answers)
 
-# # Read the content of the file
-# def read_text_file(file_path):
-#     with open(file_path, 'r', encoding='utf-8') as file:
-#         return file.read()
+introT = TemplateHandler("introduction")
+templates = introT.get_template_data()
 
-# # Define a function to replace words within brackets
-# def replace_words_in_brackets(text, replacement_words):
-#     # Define a regular expression pattern to match words within brackets
-#     pattern = r'\[([^\[\]]+)\]'
+prompt = '''
+You are an AI bot specialized at writing proposal for My company - Cyphercrescent.
+You are expected to read and understand the questions and
+answer provided in the python list. Then from the understanding
+gained, you are expected to choose from the available templates in
+the second python lists provided, and fill the fields enclosed within square brackets in templates with the
+understanding gained from the questions and answer.
 
-#     # Use a function to perform replacements based on the matched words
-#     def repl(match):
-#         nonlocal replacement_words
-#         if replacement_words:
-#             replacement = replacement_words.pop(0)
-#             return '[' + replacement + ']'
-#         else:
-#             return match.group(0)  # If no more replacements, keep the original text inside the brackets
+NOTE: You are expected to choose and fill from the templates the most suitable that
+best fits the questions and answers given.Fill only the options in the square brackets of the chosen template.Make sure to trictly follow the
+template you have chosen.
+'''
 
-
-#     # Use re.sub to replace words within brackets
-#     result = re.sub(pattern, repl, text)
-
-#     return result
-
-# # Specify the file path and replacement words
-# file_path = 'file.txt'  # Replace with the path to your file
-# replacement_words = ['apple', 'banana', 'cherry', 'date']  # Replace with your list of words
-
-# # Read the content from the file
-# text = read_text_file(file_path)
-
-# # Replace words within brackets
-# result_text = replace_words_in_brackets(text, replacement_words)
-
-# # Save or print the result
-# with open('output.txt', 'w', encoding='utf-8') as output_file:
-#     output_file.write(result_text)
+bot = AutoFillTemplate("gpt-3.5-turbo-0301")
+result = bot.fill_template(
+    "introduction",
+    prompt,
+    questions_answers,
+    templates
+)
+print()
+print(result)
