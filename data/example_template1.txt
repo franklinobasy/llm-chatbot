@@ -9,7 +9,7 @@ CypherCrescent R & D has been conducting research in areas of integrated product
 The Problem
 
 In the E & P industry we are data rich but information poor. Real-time data gathering is not an issue, but validation and usage of such data is. For example, timely well-by-well production surveillance and allocation often remains a problem.  Traditionally this problem is often attempted using periodic well test (monthly allocation) in test separators and multiphase meters. This method cannot capture important changes in between tests – snap shots are inadequate.
-d
+
 
 Proposed Solution
 

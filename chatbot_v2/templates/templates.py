@@ -106,10 +106,222 @@ INTRODUNCTION_DESCRIPTION_QUESTION = {
     how it intends to directly address the issue within the Industry or Niche?
     '''
 }
+PROBLEM_TEMPLATE = {
+    "1" : [
+        '''
+        This problem states that The oil and gas industry has abundant data but
+        struggles with effectively validating and utilizing it, particularly for
+        timely well production monitoring and allocation due to reliance on periodic
+        tests that miss crucial in-between changes
+        ''',
+        '''
+        In [Industry or Niche], we are data rich but information poor. Real-time data
+        gathering is not an issue, but validation and usage of such data is. For example,
+        [Specific Problem or Challenge in Your Industry].
+        Traditionally this problem is often attempted using [Traditional Solution]. 
+        This method cannot capture important changes in between [Specific Events or Tests] 
+        [Explanation of Why Current Method is Inadequate].
+        ''',
+    ],
+    "2" : [
+        '''
+        This problem asks How a forward-thinking company leverage its history of innovation
+        to revolutionize a key aspect of its industry.
+        ''',
+        '''
+        Template
+        '''
+    ],
+    "3" : [
+        '''
+        Third problem
+        ''',
+        '''
+        Third problem template
+        '''
+    ],
+    "4" : [
+        '''
+        Fourth problem
+        ''',
+        '''
+        Fourth problem template
+        '''
+    ],
+}
+PROBLEM_DESCRIPTION_QUESTIONS = {
+    "QUESTION 1": ''' 
+    QUESTION
+    ''',
+    "QUESTION 2": '''
+    QUESTIONS
+    ''',
+    "QUESTION 3": '''
+    QUESTIONS
+    ''',
+    "QUESTION 4": '''
+    QUESTIONS
+    ''',
+}
+PROPOSED_SOLUTION_TEMPLATE = {
+    "1": [
+        '''
+        fIRST PROPOSED SOLUTION DESCRIPTION
+        ''',
+        '''
+        PROPOSED TEMPLATE
+        '''
+    ],
+    "2": [
+        '''
+        SECOND PROPOSED SOLUTION DESCRIPTION
+        ''',
+        '''
+        SECOND PROPOSED SOLUTION TEMPLATE
+        '''
+    ],
+    "3": [
+        '''
+        THIRD PROPOSED SOLUTION DESCRIPTION
+        ''',
+        '''
+        THIRD TEMPLATE
+        '''
+    ],
+    "4": [
+        '''
+        FOURTH PROPOSED SOLUTION DESCRIPTION
+        ''',
+        '''
+        FOURTH TEMPLATE
+        '''
+    ],
 
-
+}
+PROPOSED_SOLUTION_QUESTIONS = {
+   "QUESTION 1": ''' 
+    QUESTION
+    ''',
+    "QUESTION 2": '''
+    QUESTIONS
+    ''',
+    "QUESTION 3": '''
+    QUESTIONS
+    ''',
+    "QUESTION 4": '''
+    QUESTIONS
+    ''', 
+} 
+IMPORTANCE_TEMPLATE = {
+        "1": [
+        '''
+        fIRST IMPORTANCE DESCRIPTION
+        ''',
+        '''
+        IMPORTANCE TEMPLATE
+        '''
+    ],
+    "2": [
+        '''
+        SECOND IMPORTANCE DESCRIPTION
+        ''',
+        '''
+        SECOND IMPORTANCE TEMPLATE
+        '''
+    ],
+    "3": [
+        '''
+        THIRD IMPORTANCE DESCRIPTION
+        ''',
+        '''
+        THIRD TEMPLATE
+        '''
+    ],
+    "4": [
+        '''
+        FOURTH IMPORTANCE DESCRIPTION
+        ''',
+        '''
+        FOURTH TEMPLATE
+        '''
+    ],
+}
+IMPORTANCE_QUESTION ={
+    "QUESTION 1": ''' 
+    QUESTION
+    ''',
+    "QUESTION 2": '''
+    QUESTIONS
+    ''',
+    "QUESTION 3": '''
+    QUESTIONS
+    ''',
+    "QUESTION 4": '''
+    QUESTIONS
+    ''',
+}
+BENEFITS_TEMPLATE = {
+    "1": [
+        '''
+        fIRST BENEFIT DESCRIPTION
+        ''',
+        '''
+        BENEFIT TEMPLATE
+        '''
+    ],
+    "2": [
+        '''
+        SECOND BENEFIT DESCRIPTION
+        ''',
+        '''
+        SECOND BENEFIT TEMPLATE
+        '''
+    ],
+    "3": [
+        '''
+        THIRD BENEFIT DESCRIPTION
+        ''',
+        '''
+        THIRD TEMPLATE
+        '''
+    ],
+    "4": [
+        '''
+        FOURTH BENEFIT DESCRIPTION
+        ''',
+        '''
+        FOURTH TEMPLATE
+        '''
+    ], 
+}
+BENEFITS_DESCRIPTION_QUESTION = {
+    "QUESTION 1": ''' 
+    QUESTION
+    ''',
+    "QUESTION 2": '''
+    QUESTIONS
+    ''',
+    "QUESTION 3": '''
+    QUESTIONS
+    ''',
+    "QUESTION 4": '''
+    QUESTIONS
+    ''', 
+}
 section_templates: Dict[str, List[Dict]] = {
     "introduction": [
-        INTRODUCTION_TEMPLATES, INTRODUNCTION_DESCRIPTION_QUESTION
+        INTRODUCTION_TEMPLATES, INTRODUCTION_DESCRIPTION_QUESTION
     ],
+    "Problems": [
+        PROBLEM_TEMPLATES, PROBLEM_DESCRIPTION_QUESTION
+    ],
+    "proposed_solution": [
+        PROPOSED_SOLUTION_TEMPLATES, PROPOSED_SOLUTION_DESCRIPTION_QUESTION
+    ],
+    "importance": [
+        IMPORTANCE_TEMPLATE, IMPORTANCE_DESCRIPTION_QUESTION
+    ],
+    "benefits": [
+        BENEFITS_TEMPLATE, BENEFITS_DESCRIPTION_QUESTION
+    ]
 }
