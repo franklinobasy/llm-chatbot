@@ -86,7 +86,7 @@ INTRODUCTION_TEMPLATES = {
     ],
 }
 
-INTRODUNCTION_DESCRIPTION_QUESTION = {
+INTRODUNCTION_DESCRIPTION_QUESTIONS = {
     "Question 1": '''
     What are the specific areas of research focuses that Cyphercrescent has
     dedicated resources to explore?
@@ -106,33 +106,35 @@ INTRODUNCTION_DESCRIPTION_QUESTION = {
     how it intends to directly address the issue within the Industry or Niche?
     '''
 }
-PROBLEM_TEMPLATE = {
-    "1" : [
+
+PROBLEM_TEMPLATES = {
+    "1": [
         '''
-        This problem states that The oil and gas industry has abundant data but
-        struggles with effectively validating and utilizing it, particularly for
-        timely well production monitoring and allocation due to reliance on periodic
-        tests that miss crucial in-between changes
+        This problem states that The oil and gas industry has abundant data
+        but struggles with effectively validating and utilizing it,
+        particularly for timely well production monitoring and allocation due
+        to reliance on periodic tests that miss crucial in-between changes
         ''',
         '''
-        In [Industry or Niche], we are data rich but information poor. Real-time data
-        gathering is not an issue, but validation and usage of such data is. For example,
-        [Specific Problem or Challenge in Your Industry].
-        Traditionally this problem is often attempted using [Traditional Solution]. 
-        This method cannot capture important changes in between [Specific Events or Tests] 
-        [Explanation of Why Current Method is Inadequate].
+        In [Industry or Niche], we are data rich but information poor.
+        Real-time data gathering is not an issue, but validation and usage of
+        such data is. For example,[Specific Problem or Challenge in Your
+        Industry]. Traditionally this problem is often attempted using
+        [Traditional Solution]. This method cannot capture important changes
+        in between [Specific Events or Tests][Explanation of Why Current
+        Method is Inadequate].
         ''',
     ],
-    "2" : [
+    "2": [
         '''
-        This problem asks How a forward-thinking company leverage its history of innovation
-        to revolutionize a key aspect of its industry.
+        This problem asks How a forward-thinking company leverage its history
+        of innovation to revolutionize a key aspect of its industry.
         ''',
         '''
         Template
         '''
     ],
-    "3" : [
+    "3": [
         '''
         Third problem
         ''',
@@ -140,7 +142,7 @@ PROBLEM_TEMPLATE = {
         Third problem template
         '''
     ],
-    "4" : [
+    "4": [
         '''
         Fourth problem
         ''',
@@ -149,8 +151,9 @@ PROBLEM_TEMPLATE = {
         '''
     ],
 }
+
 PROBLEM_DESCRIPTION_QUESTIONS = {
-    "QUESTION 1": ''' 
+    "QUESTION 1": '''
     QUESTION
     ''',
     "QUESTION 2": '''
@@ -163,7 +166,8 @@ PROBLEM_DESCRIPTION_QUESTIONS = {
     QUESTIONS
     ''',
 }
-PROPOSED_SOLUTION_TEMPLATE = {
+
+PROPOSED_SOLUTION_TEMPLATES = {
     "1": [
         '''
         fIRST PROPOSED SOLUTION DESCRIPTION
@@ -198,8 +202,9 @@ PROPOSED_SOLUTION_TEMPLATE = {
     ],
 
 }
+
 PROPOSED_SOLUTION_QUESTIONS = {
-   "QUESTION 1": ''' 
+    "QUESTION 1": '''
     QUESTION
     ''',
     "QUESTION 2": '''
@@ -210,10 +215,11 @@ PROPOSED_SOLUTION_QUESTIONS = {
     ''',
     "QUESTION 4": '''
     QUESTIONS
-    ''', 
-} 
-IMPORTANCE_TEMPLATE = {
-        "1": [
+    ''',
+}
+
+IMPORTANCE_TEMPLATES = {
+    "1": [
         '''
         fIRST IMPORTANCE DESCRIPTION
         ''',
@@ -246,8 +252,9 @@ IMPORTANCE_TEMPLATE = {
         '''
     ],
 }
-IMPORTANCE_QUESTION ={
-    "QUESTION 1": ''' 
+
+IMPORTANCE_DESCRIPTION_QUESTIONS = {
+    "QUESTION 1": '''
     QUESTION
     ''',
     "QUESTION 2": '''
@@ -260,7 +267,8 @@ IMPORTANCE_QUESTION ={
     QUESTIONS
     ''',
 }
-BENEFITS_TEMPLATE = {
+
+BENEFITS_TEMPLATES = {
     "1": [
         '''
         fIRST BENEFIT DESCRIPTION
@@ -292,10 +300,11 @@ BENEFITS_TEMPLATE = {
         '''
         FOURTH TEMPLATE
         '''
-    ], 
+    ],
 }
-BENEFITS_DESCRIPTION_QUESTION = {
-    "QUESTION 1": ''' 
+
+BENEFITS_DESCRIPTION_QUESTIONS = {
+    "QUESTION 1": '''
     QUESTION
     ''',
     "QUESTION 2": '''
@@ -306,22 +315,23 @@ BENEFITS_DESCRIPTION_QUESTION = {
     ''',
     "QUESTION 4": '''
     QUESTIONS
-    ''', 
+    ''',
 }
+
 section_templates: Dict[str, List[Dict]] = {
     "introduction": [
-        INTRODUCTION_TEMPLATES, INTRODUCTION_DESCRIPTION_QUESTION
+        INTRODUCTION_TEMPLATES, INTRODUNCTION_DESCRIPTION_QUESTIONS
     ],
     "Problems": [
-        PROBLEM_TEMPLATES, PROBLEM_DESCRIPTION_QUESTION
+        PROBLEM_TEMPLATES, PROBLEM_DESCRIPTION_QUESTIONS
     ],
     "proposed_solution": [
-        PROPOSED_SOLUTION_TEMPLATES, PROPOSED_SOLUTION_DESCRIPTION_QUESTION
+        PROPOSED_SOLUTION_TEMPLATES, PROPOSED_SOLUTION_QUESTIONS
     ],
     "importance": [
-        IMPORTANCE_TEMPLATE, IMPORTANCE_DESCRIPTION_QUESTION
+        IMPORTANCE_TEMPLATES, IMPORTANCE_DESCRIPTION_QUESTIONS
     ],
     "benefits": [
-        BENEFITS_TEMPLATE, BENEFITS_DESCRIPTION_QUESTION
+        BENEFITS_TEMPLATES, BENEFITS_DESCRIPTION_QUESTIONS
     ]
 }

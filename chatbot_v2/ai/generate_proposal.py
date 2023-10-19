@@ -44,3 +44,28 @@ class AutoFillTemplate():
 
         result = self.llm(messages)
         return result.content
+
+    def fill_fields(self, fields: List[str], quetions_answers: List[Dict]):
+        prompt = '''
+        We want to create a proposal using provided fill in the blank template.
+        Your job is to use the context as a guide to provide answers to each
+        question in the python list. Your are expected find the best suitable
+        answers for each question.
+
+        Note:
+        Use the format below strictly as output because the output is only need as
+        a python dictionary:
+        {"question": "answer",...}
+        '''
+
+        messages = [
+            SystemMessage(
+                content=prompt
+            ),
+            HumanMessage(
+                content=f"context: {quetions_answers}, python list: {fields}"
+            ),
+        ]
+
+        result = self.llm(messages)
+        return json.loads(result.content)
