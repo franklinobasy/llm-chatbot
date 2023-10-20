@@ -9,7 +9,7 @@ class BaseHandler(ABC):
         if section_type not in section_templates.keys():
             raise ValueError(
                 f"This section type: \"{section_type}\" is not supported.\
-                \nAvailable supported sections are: {section_templates.keys()}"
+                \nAvailable supported sections are: {list(section_templates.keys())}"
             )
         self._section_template = section_templates.get(section_type)
 
