@@ -21,7 +21,8 @@ class QuestionHandler(BaseHandler):
     def section(self, section_type: str):
         if section_type not in section_templates.keys():
             raise ValueError(
-                f"This section type: {section_type} is not supported"
+                f"This section type: \"{section_type}\" is not supported.\
+                \nAvailable supported sections are: {section_templates.keys()}"
             )
         self.__section_template = section_templates.get(section_type)
 
