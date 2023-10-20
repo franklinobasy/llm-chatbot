@@ -1,7 +1,0 @@
-This is a sample text file with [word1] and [word2] enclosed in brackets.
-
-We will use a Python script to replace [word1] with 'apple' and [word2] with 'banana'.
-
-The [word3] and [word4] will not be replaced, as they are not in the list.
-
-Feel free to modify this text for your testing.
