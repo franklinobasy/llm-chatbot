@@ -35,7 +35,6 @@ ABOUT_CYPHERCRESCENT = {
     ],
 }
 
-
 OUR_TEAM = {
     "1" : [
         '''
@@ -409,6 +408,7 @@ BENEFITS_DESCRIPTION_QUESTION = {
     QUESTIONS
     ''',
 }
+
 EXECUTIVE_SUMMARY_TEMPLATE = {
      "1": [
         '''
@@ -513,6 +513,7 @@ EXECUTIVE_SUMMARY_TEMPLATE = {
         '''
     ],
 }
+
 EXECUTIVE_SUMMARY_QUESTION = {
     "QUESTION 1": '''
     How can we enhance metrics extraction from our resource/reservoir in a challenging economic environment by leveraging specific aspects of our operation and identifying short and
