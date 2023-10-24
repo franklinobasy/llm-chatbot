@@ -22,7 +22,7 @@ class Templates(BaseModel):
     Model for Templates
     '''
     section_name: str
-    templates = List[str]
+    templates: List[str]
 
 
 class UserInput(BaseModel):

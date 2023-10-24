@@ -90,7 +90,7 @@ async def generate_proposal(user_input: UserInput):
 
 @router.post("/letter")
 def write_letter(letter_context: LetterContext):
-    context = LetterContext.context
+    context = letter_context.context
     llm = AutoWriteLetter(MODEL_NAME)
     generated_letter = llm.generate(context)
     return LetterResult(
