@@ -10,6 +10,10 @@ from api.v1.models.model import (
     Templates,
     UserInput,
 )
+from api.v1.routes.error_handler import (
+    AnswersMisMatchQuestion,
+    UnknownSectionName
+)
 from chatbot_v2.ai.generate_proposal import AutoFillTemplate
 from chatbot_v2.ai.generate_letter import AutoWriteLetter
 from chatbot_v2.handlers.field_handler import FieldHandler
@@ -60,11 +64,19 @@ async def generate_proposal(user_input: UserInput):
     template_index = user_input.template_index
     answers = user_input.answers
 
+    if section_name not in list(section_templates.keys()):
+        raise UnknownSectionName(section_name)
+
     template_store = TemplateHandler(section_name)
     template = template_store.get_templates()[template_index]
-
-    question_handler = QuestionHandler(section_name)
-    questions_answers = question_handler.set_answers(answers)
+    try:
+        question_handler = QuestionHandler(section_name)
+        questions_answers = question_handler.set_answers(answers)
+    except ValueError:
+        raise AnswersMisMatchQuestion(
+            n_questions=len(question_handler.get_questions()),
+            n_answers=len(answers)
+        )
 
     # Field selection section
     fh = FieldHandler(template)
