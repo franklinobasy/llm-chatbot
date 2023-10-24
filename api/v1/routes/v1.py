@@ -56,7 +56,7 @@ async def get_section_templates(section_id: int):
 
 @router.post("/generate")
 async def generate_proposal(user_input: UserInput):
-    section_name = user_input.name
+    section_name = user_input.section_name
     template_index = user_input.template_index
     answers = user_input.answers
 
