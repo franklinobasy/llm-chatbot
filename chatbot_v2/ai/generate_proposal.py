@@ -53,8 +53,8 @@ class AutoFillTemplate():
         answers for each question.
 
         Note:
-        Use the format below strictly as output because the output is only need as
-        a python dictionary:
+        Use the format below strictly as output because the output is only
+        need as a python dictionary:
         {"question": "answer",...}
         '''
 

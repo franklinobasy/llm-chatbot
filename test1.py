@@ -5,7 +5,7 @@ from chatbot_v2.handlers.field_handler import FieldHandler
 
 
 model_name = "gpt-3.5-turbo-0301"
-section = "executive_summary"
+section = input("What section of the proposal do you want to generate: ")
 
 # Question Section
 introQ = QuestionHandler(section)
