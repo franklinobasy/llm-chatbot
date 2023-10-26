@@ -1,0 +1,24 @@
+The [Organization's Name] annual business planning process is a key 
+strategic activity which mirrors the [Name of the Organization] CHQ planning cycle. 
+In this vein, [Organization's Name] usually embarks upon a [Number]-year strategic 
+planning process which involves an asset-by-asset reserve evaluation, 
+opportunities screening, economic evaluation of projects as well as budget needs which will enable 
+[Organization's Name] meet the financial and production targets set by [Organization's CHQ] 
+within the stipulated period.
+The business planning process involves reserve update, production and cost forecasting, economic analysis, 
+portfolio optimization, capital allocation, work program creation, budget development, and 
+business performance monitoring. In a bid to find a smarter and more efficient way of achieving this goal 
+at the barest minimum man-hour possible, the planning team sought the services of a renowned technology 
+provider – [Technology Provider's Name], to customize and deploy its enterprise planning and budgeting 
+system for [Organization's Name], hereafter, referred to as Enterprise Planning System (EPS).
+[Technology Provider's Name] in collaboration with the highly skilled professionals in the [Organization's Name] 
+P&C department have embarked on intensive research to customize and deploy a software application with robust 
+functionalities to adequately automate the business planning process at [Organization's Name]. 
+
+The system will add the following benefits to [Organization's Name]'s business planning operations:
+
+• Significant man-hour savings in delivering strategic business plans
+• Quick sensitivity analyses on the impact of project addition/removal on the production, cost, and revenue projections
+• Robust audit trail for all business planning elements – reserves, projects portfolio, project readiness checklist, budgets, etc.
+• Single-source-of-truth information on inputs and outputs in the business planning process as well as democratization of key 
+planning information to all stakeholders (with view permission)

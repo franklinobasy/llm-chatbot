@@ -1,0 +1,21 @@
+At [Company Name], we apply innovative [digital technologies/processes] to narrow the gaps of assumptions, enhance processes to optimize 
+[asset review/study] outcomes.
+We infuse the elements of [digitalization/WRFM analytics] to provide reliable value creation that leads to remarkable value realization. 
+To achieve this, we leverage our proprietary technology, [Proprietary Technology Name] – an innovative end-to-end integrated and 
+collaboration technology, developed with the principle of integration of WRFM interpretations ([IoI]) and powered robust analytics 
+functionalities for efficient well, reservoir & facility management. With [Proprietary Technology Name]-driven production system review, 
+we have successfully connected data to proposals that leads to higher intervention success rates for our clients.
+This proposal outlines the methodology to be applied in reviewing the existing well, reservoir and facility data for your delineated field(s). 
+It also shows how the historic data provided will be digitized, dynamic well and reservoir models would be developed and integrated; 
+and how advanced analytics would be used to identify and scientifically ranked to select well intervention candidates for 
+[short term/long term] [goal] for [Client Name].
+The project will comprise of the following stages in line with the scope of work:
+a. Data gathering and digitization
+b. Data wrangling
+c. Well and reservoir modeling with [MBAL/PROSPER]
+d. Integration of WRFM data and interpretations using [Proprietary Technology Name] Enterprise,
+e. Production optimization opportunity identification using [Proprietary Technology Name] Analytics
+f. Detailed review/screening of identified opportunities
+g. Well intervention proposal generation
+In addition to our proprietary solutions- [Proprietary Technology Name], and [Additional Proprietary Solution], a third-party tool -[Third-Party Tool Name] 
+suite will be used by our vastly experienced experts to deliver a reliable production optimization review and proposal to [Client Name] at a net cost of [Cost].
