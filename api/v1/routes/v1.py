@@ -12,7 +12,10 @@ from api.v1.models.model import (
 )
 from api.v1.routes.error_handler import (
     AnswersMisMatchQuestion,
-    UnknownSectionName
+    PathTypeMisMatch,
+    UnknownSectionID,
+    UnknownSectionName,
+    UnknownTemplateID
 )
 from chatbot_v2.ai.generate_proposal import AutoFillTemplate
 from chatbot_v2.ai.generate_letter import AutoWriteLetter
@@ -38,24 +41,36 @@ async def get_all_sections():
 
 @router.get("/questions/{section_id}")
 async def get_section_questions(section_id: int):
-    section_name = list(section_templates.keys())[section_id]
-    section = QuestionHandler(section_name)
-    questions = section.get_questions()
-    return Questions(
-        section_name=section_name,
-        questions=questions
-    )
+    if not isinstance(section_id, int):
+        raise PathTypeMisMatch(section_id)
+
+    try:
+        section_name = list(section_templates.keys())[section_id]
+        section = QuestionHandler(section_name)
+        questions = section.get_questions()
+        return Questions(
+            section_name=section_name,
+            questions=questions
+        )
+    except IndexError:
+        raise UnknownSectionID(section_id)
 
 
 @router.get("/templates/{section_id}")
 async def get_section_templates(section_id: int):
-    section_name = list(section_templates.keys())[section_id]
-    template_store = TemplateHandler(section_name)
-    templates = template_store.get_templates()
-    return Templates(
-        section_name=section_name,
-        templates=templates
-    )
+    if not isinstance(section_id, int):
+        raise PathTypeMisMatch(section_id)
+
+    try:
+        section_name = list(section_templates.keys())[section_id]
+        template_store = TemplateHandler(section_name)
+        templates = template_store.get_templates()
+        return Templates(
+            section_name=section_name,
+            templates=templates
+        )
+    except IndexError:
+        raise UnknownSectionID(section_id)
 
 
 @router.post("/generate")

@@ -17,3 +17,27 @@ class UnknownSectionName(Exception):
         super().__init__(
             f"'{section_name}' is not a supported template section."
         )
+
+
+class UnknownSectionID(Exception):
+    '''Exception class for unsupported section id'''
+    def __init__(self, section_id):
+        super().__init__(
+            f"No section with section_id:'{section_id}'."
+        )
+
+
+class UnknownTemplateID(Exception):
+    '''Exception class for unsupported section id'''
+    def __init__(self, template_id):
+        super().__init__(
+            f"No section with section_id:'{template_id}'."
+        )
+
+
+class PathTypeMisMatch(Exception):
+    '''Exception class for handling wrong query type'''
+    def __init__(self, type_):
+        super().__init__(
+            f"'{type(type_)}' is not supported"
+        )
