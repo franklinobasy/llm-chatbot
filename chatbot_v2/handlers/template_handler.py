@@ -1,4 +1,4 @@
-from typing import Dict
+
 from chatbot_v2.templates.templates import (
     clean_template,
 )
@@ -9,6 +9,7 @@ from chatbot_v2.handlers.base_handler import (
 
 
 class TemplateHandler(BaseHandler):
+    '''Templates handler'''
     def __init__(self, section_type):
         super().__init__(section_type)
 
