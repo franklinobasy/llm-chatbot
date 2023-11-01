@@ -27,10 +27,14 @@ class QuestionHandler(BaseHandler):
         self.__section_template = section_templates.get(section_type)
 
     def get_questions(self):
-        questions: Dict[str, str] = self._section_template[1]
-        questions_to_use = [
-            clean_question(question)[1] for question in questions.items()
-        ]
+        try:
+            questions: Dict[str, str] = self._section_template[1]
+            questions_to_use = [
+                clean_question(question)[1] for question in questions.items()
+            ]
+        except IndexError as e:
+            questions_to_use = []
+
         return questions_to_use
 
     def set_answers(self, answers):
@@ -48,4 +52,3 @@ class QuestionHandler(BaseHandler):
             self.__answered_questions.append(item)
 
         return self.__answered_questions
-

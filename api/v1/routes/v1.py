@@ -10,6 +10,13 @@ from api.v1.models.model import (
     Templates,
     UserInput,
 )
+from api.v1.routes.error_handler import (
+    AnswersMisMatchQuestion,
+    PathTypeMisMatch,
+    UnknownSectionID,
+    UnknownSectionName,
+    UnknownTemplateID
+)
 from chatbot_v2.ai.generate_proposal import AutoFillTemplate
 from chatbot_v2.ai.generate_letter import AutoWriteLetter
 from chatbot_v2.handlers.field_handler import FieldHandler
@@ -34,37 +41,57 @@ async def get_all_sections():
 
 @router.get("/questions/{section_id}")
 async def get_section_questions(section_id: int):
-    section_name = list(section_templates.keys())[section_id]
-    section = QuestionHandler(section_name)
-    questions = section.get_questions()
-    return Questions(
-        section_name=section_name,
-        questions=questions
-    )
+    if not isinstance(section_id, int):
+        raise PathTypeMisMatch(section_id)
+
+    try:
+        section_name = list(section_templates.keys())[section_id]
+        section = QuestionHandler(section_name)
+        questions = section.get_questions()
+        return Questions(
+            section_name=section_name,
+            questions=questions
+        )
+    except IndexError:
+        raise UnknownSectionID(section_id)
 
 
 @router.get("/templates/{section_id}")
 async def get_section_templates(section_id: int):
-    section_name = list(section_templates.keys())[section_id]
-    template_store = TemplateHandler(section_name)
-    templates = template_store.get_templates()
-    return Templates(
-        section_name=section_name,
-        templates=templates
-    )
+    if not isinstance(section_id, int):
+        raise PathTypeMisMatch(section_id)
+
+    try:
+        section_name = list(section_templates.keys())[section_id]
+        template_store = TemplateHandler(section_name)
+        templates = template_store.get_templates()
+        return Templates(
+            section_name=section_name,
+            templates=templates
+        )
+    except IndexError:
+        raise UnknownSectionID(section_id)
 
 
 @router.post("/generate")
 async def generate_proposal(user_input: UserInput):
-    section_name = user_input.name
+    section_name = user_input.section_name
     template_index = user_input.template_index
     answers = user_input.answers
 
+    if section_name not in list(section_templates.keys()):
+        raise UnknownSectionName(section_name)
+
     template_store = TemplateHandler(section_name)
     template = template_store.get_templates()[template_index]
-
-    question_handler = QuestionHandler(section_name)
-    questions_answers = question_handler.set_answers(answers)
+    try:
+        question_handler = QuestionHandler(section_name)
+        questions_answers = question_handler.set_answers(answers)
+    except ValueError:
+        raise AnswersMisMatchQuestion(
+            n_questions=len(question_handler.get_questions()),
+            n_answers=len(answers)
+        )
 
     # Field selection section
     fh = FieldHandler(template)
@@ -90,7 +117,7 @@ async def generate_proposal(user_input: UserInput):
 
 @router.post("/letter")
 def write_letter(letter_context: LetterContext):
-    context = LetterContext.context
+    context = letter_context.context
     llm = AutoWriteLetter(MODEL_NAME)
     generated_letter = llm.generate(context)
     return LetterResult(
