@@ -31,7 +31,7 @@ def files_for_section(base_path, folder_name, get_questions: bool = False):
 
 
 # Define the top-level folder path
-BASE_PATH = r'chatbot_v2\templates\template_files'
+BASE_PATH = r'.\chatbot_v2\templates\template_files'
 
 
 if __name__ == "__main__":
