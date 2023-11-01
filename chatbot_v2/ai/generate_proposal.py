@@ -54,7 +54,8 @@ class AutoFillTemplate():
 
         Note:
         Use the format below strictly as output because the output is only
-        need as a python dictionary:
+        need as a python dictionary,
+        no trailing commas at the end of objects or arrays:
         {"question": "answer",...}
         '''
 

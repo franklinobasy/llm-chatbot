@@ -49,7 +49,7 @@ def create_question(section_name):
 ABOUT_CYPHERCRESCENT = create_section("about", "ABOUT CYPHERCRESCENT SUMMARY")
 OUR_TEAM = create_section("our_team", "OUR TEAM SUMMARY")
 OUR_COMMITMENT = create_section("our_commitment", "OUR COMMITMENT SUMMARY")
-OUR_CLIENTS = create_section("our_client", "OUR CLIENT SUMMARY")
+OUR_CLIENTS = create_section("our_clients", "OUR CLIENT SUMMARY")
 INTRODUCTION_TEMPLATES = create_section("introduction", "INTRODUCTION SUMMARY")
 OVERVIEW_TEMPLATE = create_section("overview", "OVERVIEW TEMPLATE")
 PROBLEM_TEMPLATE = create_section("problem", "PROBLEM SUMMARY")
