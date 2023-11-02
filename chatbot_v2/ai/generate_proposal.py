@@ -55,8 +55,11 @@ class AutoFillTemplate():
         Note:
         Use the format below strictly as output because the output is only
         need as a python dictionary,
-        no trailing commas at the end of objects or arrays:
+        no trailing commas at the end of the dictionary:
+
+        Output Format:
         {"question": "answer",...}
+        
         '''
 
         messages = [
