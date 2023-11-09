@@ -75,19 +75,21 @@ async def get_section_templates(section_id: int):
 
 @router.post("/generate")
 async def generate_proposal(user_input: UserInput):
-    section_name = user_input.section_name
+    section_id = user_input.section_id
     template_index = user_input.template_index
     answers = user_input.answers
 
-    if section_name not in list(section_templates.keys()):
-        raise UnknownSectionName(section_name)
+    try:
+        section_name = list(section_templates.keys())[section_id]
+    except IndexError as _:
+        raise UnknownSectionID(section_id)
 
     template_store = TemplateHandler(section_name)
     template = template_store.get_templates()[template_index]
     try:
         question_handler = QuestionHandler(section_name)
         questions_answers = question_handler.set_answers(answers)
-    except ValueError:
+    except ValueError as _:
         raise AnswersMisMatchQuestion(
             n_questions=len(question_handler.get_questions()),
             n_answers=len(answers)

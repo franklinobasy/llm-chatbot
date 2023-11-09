@@ -29,7 +29,7 @@ class UserInput(BaseModel):
     '''
     Model for user input
     '''
-    section_name: str
+    section_id: int
     template_index: int
     answers: List[str] = []
 
