@@ -53,3 +53,9 @@ class LetterResult(BaseModel):
     Model for Letter generated
     '''
     text: str
+
+
+class ChatPrompt(BaseModel):
+    sender_id: str = None
+    prompt: str
+    use_history: bool = False

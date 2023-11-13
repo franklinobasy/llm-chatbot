@@ -41,3 +41,11 @@ class PathTypeMisMatch(Exception):
         super().__init__(
             f"'{type(type_)}' is not supported"
         )
+
+
+class VectorIndexError(Exception):
+    '''Exception class for handling wrong query type'''
+    def __init__(self, e):
+        super().__init__(
+            f"Something went wrong: '{e}'"
+        )

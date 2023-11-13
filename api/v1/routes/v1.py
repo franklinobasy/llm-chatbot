@@ -2,6 +2,7 @@
 from fastapi import APIRouter
 
 from api.v1.models.model import (
+    ChatPrompt,
     LetterContext,
     LetterResult,
     ProposalResult,
@@ -15,16 +16,23 @@ from api.v1.routes.error_handler import (
     PathTypeMisMatch,
     UnknownSectionID,
     UnknownSectionName,
-    UnknownTemplateID
+    UnknownTemplateID,
+    VectorIndexError
 )
+from chatbot_v2.ai.chat import process_prompt
 from chatbot_v2.ai.generate_proposal import AutoFillTemplate
 from chatbot_v2.ai.generate_letter import AutoWriteLetter
 from chatbot_v2.handlers.field_handler import FieldHandler
 from chatbot_v2.handlers.question_handler import QuestionHandler
 from chatbot_v2.handlers.template_handler import TemplateHandler
+from chatbot_v2.vector_store.index import initiate_index
 
 from chatbot_v2.templates.templates import (
     section_templates
+)
+
+from chatbot_v2.templates.context_config import (
+    CHAT_SYSTEM_PROMPT,
 )
 
 
@@ -125,3 +133,31 @@ def write_letter(letter_context: LetterContext):
     return LetterResult(
         text=generated_letter
     )
+
+
+@router.post("/chat")
+async def chat(request: ChatPrompt):
+    answer = process_prompt(
+        request.sender_id,
+        CHAT_SYSTEM_PROMPT.format(request.prompt),
+        use_history=request.use_history
+    )
+
+    return {
+        'Human': request.prompt,
+        'AI': answer
+    }
+
+
+@router.get("/reset-vector-store")
+def reindex():
+    try:
+        initiate_index(
+            persist=False
+        )
+    except Exception as e:
+        raise VectorIndexError(e)
+    
+    return {
+        "message": "Vector store database refreshed!."
+    }
