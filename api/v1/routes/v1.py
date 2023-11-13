@@ -83,7 +83,12 @@ async def generate_proposal(user_input: UserInput):
         raise UnknownSectionName(section_name)
 
     template_store = TemplateHandler(section_name)
-    template = template_store.get_templates()[template_index]
+
+    try:
+        template = template_store.get_templates()[template_index]
+    except IndexError:
+        raise UnknownTemplateID(template_index)
+
     try:
         question_handler = QuestionHandler(section_name)
         questions_answers = question_handler.set_answers(answers)
