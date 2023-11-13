@@ -21,3 +21,7 @@ formal letter. You are equied to only outpuf the letter
 
 {ABOUT}
 '''
+
+CHAT_SYSTEM_PROMPT = '''
+{}
+'''

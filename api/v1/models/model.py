@@ -29,7 +29,7 @@ class UserInput(BaseModel):
     '''
     Model for user input
     '''
-    section_name: str
+    section_id: int
     template_index: int
     answers: List[str] = []
 
@@ -53,3 +53,9 @@ class LetterResult(BaseModel):
     Model for Letter generated
     '''
     text: str
+
+
+class ChatPrompt(BaseModel):
+    sender_id: str = None
+    prompt: str
+    use_history: bool = False

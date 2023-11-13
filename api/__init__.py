@@ -6,7 +6,8 @@ from api.v1.routes.error_handler import (
     PathTypeMisMatch,
     UnknownSectionID,
     UnknownSectionName,
-    UnknownTemplateID
+    UnknownTemplateID,
+    VectorIndexError
 )
 
 
@@ -36,5 +37,10 @@ async def answer_mismatch_question_exception_handler(request, exc):
 
 
 @app.exception_handler(PathTypeMisMatch)
+async def answer_mismatch_question_exception_handler(request, exc):
+    return JSONResponse(status_code=400, content={"message": str(exc)})
+
+
+@app.exception_handler(VectorIndexError)
 async def answer_mismatch_question_exception_handler(request, exc):
     return JSONResponse(status_code=400, content={"message": str(exc)})
