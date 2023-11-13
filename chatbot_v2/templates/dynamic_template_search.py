@@ -35,7 +35,7 @@ BASE_PATH = r'chatbot_v2\templates\template_files'
 
 
 if __name__ == "__main__":
-    texts = files_for_section(BASE_PATH, "importance", get_questions=True)
+    texts = files_for_section(BASE_PATH, "about", get_questions=False)
 
     for i, text in enumerate(texts):
         print(f"Contents of file {i + 1}:\n{text}\n")
