@@ -2,6 +2,7 @@
 from fastapi import APIRouter
 
 from api.v1.models.model import (
+    ChatPrompt,
     LetterContext,
     LetterResult,
     ProposalResult,
@@ -15,16 +16,23 @@ from api.v1.routes.error_handler import (
     PathTypeMisMatch,
     UnknownSectionID,
     UnknownSectionName,
-    UnknownTemplateID
+    UnknownTemplateID,
+    VectorIndexError
 )
+from chatbot_v2.ai.chat import process_prompt
 from chatbot_v2.ai.generate_proposal import AutoFillTemplate
 from chatbot_v2.ai.generate_letter import AutoWriteLetter
 from chatbot_v2.handlers.field_handler import FieldHandler
 from chatbot_v2.handlers.question_handler import QuestionHandler
 from chatbot_v2.handlers.template_handler import TemplateHandler
+from chatbot_v2.vector_store.index import initiate_index
 
 from chatbot_v2.templates.templates import (
     section_templates
+)
+
+from chatbot_v2.templates.context_config import (
+    CHAT_SYSTEM_PROMPT,
 )
 
 
@@ -75,12 +83,14 @@ async def get_section_templates(section_id: int):
 
 @router.post("/generate")
 async def generate_proposal(user_input: UserInput):
-    section_name = user_input.section_name
+    section_id = user_input.section_id
     template_index = user_input.template_index
     answers = user_input.answers
 
-    if section_name not in list(section_templates.keys()):
-        raise UnknownSectionName(section_name)
+    try:
+        section_name = list(section_templates.keys())[section_id]
+    except IndexError as _:
+        raise UnknownSectionID(section_id)
 
     template_store = TemplateHandler(section_name)
 
@@ -92,7 +102,7 @@ async def generate_proposal(user_input: UserInput):
     try:
         question_handler = QuestionHandler(section_name)
         questions_answers = question_handler.set_answers(answers)
-    except ValueError:
+    except ValueError as _:
         raise AnswersMisMatchQuestion(
             n_questions=len(question_handler.get_questions()),
             n_answers=len(answers)
@@ -128,3 +138,31 @@ def write_letter(letter_context: LetterContext):
     return LetterResult(
         text=generated_letter
     )
+
+
+@router.post("/chat")
+async def chat(request: ChatPrompt):
+    answer = process_prompt(
+        request.sender_id,
+        CHAT_SYSTEM_PROMPT.format(request.prompt),
+        use_history=request.use_history
+    )
+
+    return {
+        'Human': request.prompt,
+        'AI': answer
+    }
+
+
+@router.get("/reset-vector-store")
+def reindex():
+    try:
+        initiate_index(
+            persist=False
+        )
+    except Exception as e:
+        raise VectorIndexError(e)
+    
+    return {
+        "message": "Vector store database refreshed!."
+    }
