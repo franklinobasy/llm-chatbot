@@ -3,9 +3,9 @@ import os
 import pinecone
 
 import langchain
-from langchain.cache import SQLiteCache
+# from langchain.cache import SQLiteCache
 
-langchain.llm_cache = SQLiteCache(database_path=".langchain.db")
+# langchain.llm_cache = SQLiteCache(database_path=".langchain.db")
 
 dotenv.load_dotenv()
 

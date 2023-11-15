@@ -1,12 +1,12 @@
-from typing import Annotated, Optional, Dict, List, Tuple, Union
+from typing import Annotated, Dict, List, Tuple, Union
+import time
 import logging
 import os
 import pickle as pkl
 
 
-from langchain.document_loaders import DirectoryLoader, TextLoader
-from langchain.embeddings import HuggingFaceEmbeddings, OpenAIEmbeddings
-from langchain.indexes import VectorstoreIndexCreator
+from langchain.document_loaders import DirectoryLoader
+from langchain.embeddings import OpenAIEmbeddings
 from langchain.indexes.vectorstore import VectorStoreIndexWrapper
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Pinecone
@@ -70,6 +70,11 @@ def initiate_index(
                 name=index_name,
                 dimension=1536
             )
+
+            # Wait for index to be created
+            while not pinecone.describe_index(index_name).status['ready']:
+                time.sleep(1)
+            
             logging.info(
                 f"Successfully created new index with name: {index_name}"
             )
@@ -85,6 +90,11 @@ def initiate_index(
             name=index_name,
             dimension=1536
         )
+
+        # Wait for index to be created
+        while not pinecone.describe_index(index_name).status['ready']:
+            time.sleep(1)
+
         logging.info(f"Successfully created new index with name: {index_name}")
 
         index = Pinecone.from_documents(
