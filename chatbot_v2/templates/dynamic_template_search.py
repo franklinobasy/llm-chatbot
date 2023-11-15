@@ -37,7 +37,7 @@ BASE_PATH = os.path.join(
 
 
 if __name__ == "__main__":
-    texts = files_for_section(BASE_PATH, "about", get_questions=True)
+    texts = files_for_section(BASE_PATH, "our_clients", get_questions=True)
 
     for i, text in enumerate(texts):
         print(f"Contents of file {i + 1}:\n{text}\n")
