@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        ANSIBLE_PLAYBOOK_PATH = '/path/to/ansible/playbook/deploy.yml'
+        ANSIBLE_PLAYBOOK_PATH = '/home/ubuntu/iac/playbooks/deploy.yml'
     }
 
     stages {
@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     // Run Ansible playbook
-                    sh "ansible-playbook -i '${ANSIBLE_PLAYBOOK_PATH}'"
+                    sh "ansible-playbook '${ANSIBLE_PLAYBOOK_PATH}'"
                 }
             }
         }
