@@ -12,7 +12,11 @@ class FieldHandler:
         matches = [match + '?' for match in matches]
         return matches
 
-    def fill_template(self, filled_fields: Dict):
+    def fill_template(self, list_filled_fields: List):
+        filled_fields = {}
+        
+        for item in list_filled_fields:
+            filled_fields[item["question"]] = item["answer"]
 
         filled_fields = list(filled_fields.values())
         pattern = r'\[([^\[\]]+)\]'
