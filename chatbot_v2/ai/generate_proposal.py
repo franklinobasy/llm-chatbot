@@ -74,5 +74,5 @@ class AutoFillTemplate():
         ]
 
         result = self.llm(messages)
-        logging.info(result)
+        print(result)
         return json.loads(result.content)
