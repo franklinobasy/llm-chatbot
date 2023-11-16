@@ -5,10 +5,7 @@ import pinecone
 import langchain
 from langchain.cache import SQLiteCache
 
-try:
-    langchain.llm_cache = SQLiteCache(database_path=".langchain.db")
-except Exception as e:
-    print(e)
+langchain.llm_cache = SQLiteCache(database_path=".langchain.db")
 
 dotenv.load_dotenv()
 
