@@ -26,6 +26,4 @@ class FieldHandler:
                 return match.group(0)  # If field not found, keep it as is
 
         filled_template = re.sub(pattern, repl, self.__template)
-        with open('output2.txt', 'w', encoding='utf-8') as output_file:
-            output_file.write(filled_template)
         return filled_template
