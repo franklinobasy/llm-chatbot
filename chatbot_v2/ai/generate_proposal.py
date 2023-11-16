@@ -1,5 +1,7 @@
 '''Module for filling fields into text using llm'''
 
+import logging
+
 from typing import Dict, List
 import json
 import os
@@ -72,4 +74,5 @@ class AutoFillTemplate():
         ]
 
         result = self.llm(messages)
+        logging.info(result)
         return json.loads(result.content)
