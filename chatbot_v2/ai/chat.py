@@ -11,7 +11,7 @@ def process_prompt(sender_id: str, prompt: str, use_history: bool = False):
     chat_history = get_history(sender_id) if use_history else []
 
     chain = ConversationalRetrievalChain.from_llm(
-        llm=ChatOpenAI(model=model, cache=False),
+        llm=ChatOpenAI(model=model, cache=True),
         retriever=index.as_retriever(search_kwargs={"k": 1}),
     )
 
