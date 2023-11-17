@@ -3,8 +3,10 @@ from langchain.chat_models import ChatOpenAI
 
 from chatbot_v2.vector_store.index import get_history, initiate_index, save_history
 from chatbot_v2.configs.constants import MODEL_NAME
+from utilities import duration
 
 
+@duration
 def process_prompt(sender_id: str, prompt: str, use_history: bool = False):
     index = initiate_index(persist=True)
     model = MODEL_NAME

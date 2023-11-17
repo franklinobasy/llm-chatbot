@@ -12,6 +12,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Pinecone
 
 from chatbot_v2.vector_store import pinecone
+from utilities import duration
 
 
 def load_documents(directory: str):
@@ -33,6 +34,7 @@ def split_documents(
     return docs
 
 
+@duration
 def initiate_index(
     persist: Annotated[bool, "Set as True or False to persist data"] = False,
     index_name: Annotated[str, "pinecone index name"] = "ccl-vectorstore",
@@ -42,12 +44,13 @@ def initiate_index(
     if not os.path.exists(data_dir):
         raise FileNotFoundError(f"Path does not exist: {data_dir}")
 
-    documents = load_documents(data_dir)
-    docs = split_documents(documents)
+    if not persist or index_name not in pinecone.list_indexes():
+        documents = load_documents(data_dir)
+        docs = split_documents(documents)
 
     if index_name in pinecone.list_indexes():
         if persist:
-            logging.info("Reusing index...")
+            print("Reusing index...")
             index = Pinecone.from_existing_index(
                 index_name="ccl-vectorstore",
                 embedding=OpenAIEmbeddings()
@@ -57,7 +60,7 @@ def initiate_index(
             logging.warning(
                 '''
                 Index exist but has not been persisted.
-                Delete previous index and create a new one
+                Deleting previous index and create a new one
                 '''
             )
 
