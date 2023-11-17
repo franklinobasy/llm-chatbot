@@ -15,6 +15,10 @@ from chatbot_v2.vector_store import pinecone
 from utilities import duration
 
 
+chat_history_root_dir = "../chat_history"
+
+
+@duration
 def load_documents(directory: str):
     ''''''
     loader = DirectoryLoader(directory)
@@ -22,6 +26,7 @@ def load_documents(directory: str):
     return documents
 
 
+@duration
 def split_documents(
     documents,
     chunk_size=2000,
@@ -109,15 +114,15 @@ def initiate_index(
     return index
 
 
+@duration
 def get_history(sender_id: str) -> List[Tuple[str]]:
     '''
     Get sender_id chat history
     '''
-    root_dir = "chat_history"
-    if not os.path.exists(root_dir):
-        os.makedirs(root_dir)
+    if not os.path.exists(chat_history_root_dir):
+        os.makedirs(chat_history_root_dir)
 
-    chat_file = f"{root_dir}/apichats.pkl"
+    chat_file = f"{chat_history_root_dir}/apichats.pkl"
 
     try:
         with open(chat_file, "rb") as file:
@@ -130,15 +135,15 @@ def get_history(sender_id: str) -> List[Tuple[str]]:
     return [] if not chat_data.get(sender_id) else chat_data.get(sender_id)
 
 
+@duration
 def save_history(sender_id: str, data: List[Tuple[str]]) -> bool:
     '''
     Saves sender_id chat history
     '''
-    root_dir = "chat_history"
-    if not os.path.exists(root_dir):
-        os.makedirs(root_dir)
+    if not os.path.exists(chat_history_root_dir):
+        os.makedirs(chat_history_root_dir)
 
-    chat_file = f"{root_dir}/apichats.pkl"
+    chat_file = f"{chat_history_root_dir}/apichats.pkl"
     try:
         with open(chat_file, "rb") as file:
             chat_data: dict = pkl.load(file)
@@ -152,4 +157,3 @@ def save_history(sender_id: str, data: List[Tuple[str]]) -> bool:
         return False
 
     return True
-

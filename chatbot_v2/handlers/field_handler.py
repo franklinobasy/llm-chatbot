@@ -1,17 +1,20 @@
 import re
 from typing import Dict, List
 
+from utilities.tools import duration
+
 
 class FieldHandler:
     def __init__(self, template: str):
         self.__template = template
 
+    @duration
     def get_fields_from_template(self):
         pattern = r'\[([^\[\]]+)\]'
         matches: List[str] = re.findall(pattern, self.__template)
         matches = [match + '?' for match in matches]
         return matches
-
+    @duration
     def fill_template(self, list_filled_fields: List):
         filled_fields = {}
         

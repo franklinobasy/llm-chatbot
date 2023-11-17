@@ -13,6 +13,8 @@ from langchain.prompts import PromptTemplate, ChatPromptTemplate, HumanMessagePr
 from langchain.output_parsers import ResponseSchema
 from langchain.output_parsers import StructuredOutputParser
 
+from utilities.tools import duration
+
 
 response_schema = [
     ResponseSchema(
@@ -67,6 +69,7 @@ class AutoFillTemplate():
         result = self.llm(messages)
         return result.content
 
+    @duration
     def fill_fields(self, fields: List[str], quetions_answers: List[Dict]):
         template_string = '''
         We want to create a proposal using provided fill in the blank template.
