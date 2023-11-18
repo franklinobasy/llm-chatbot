@@ -161,3 +161,8 @@ def reindex():
     return {
         "message": "Vector store database refreshed!."
     }
+
+
+@router.get("/health")
+def get_health():
+    return {"message": "Everything is good here 👀"}
