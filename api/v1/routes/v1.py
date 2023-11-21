@@ -1,7 +1,18 @@
 #!/bin/python3
-from fastapi import APIRouter
+import os
+from typing import Annotated
+from fastapi import (
+    File,
+    UploadFile,
+    APIRouter,
+    HTTPException,
+)
+
+from fastapi.responses import JSONResponse
+
 
 from api.v1.models.model import (
+    BuildIndexForId,
     ChatPrompt,
     LetterContext,
     LetterResult,
@@ -10,6 +21,7 @@ from api.v1.models.model import (
     Sections,
     Templates,
     UserInput,
+    UploadRequestModel
 )
 from api.v1.routes.error_handler import (
     AnswersMisMatchQuestion,
@@ -34,6 +46,12 @@ from chatbot_v2.templates.templates import (
 from chatbot_v2.templates.context_config import (
     CHAT_SYSTEM_PROMPT,
 )
+
+from utilities.aws_tools import BucketUtil
+from uuid import uuid4
+
+
+bucket_util = BucketUtil(bucket_name="ccl-chatbot-document-store")
 
 
 router = APIRouter()
@@ -149,10 +167,55 @@ async def chat(request: ChatPrompt):
     }
 
 
-@router.get("/reset-vector-store")
-def reindex():
+@router.post("/upload")
+async def upload_files(
+    id,
+    files: Annotated[
+        list[UploadFile], File(description="Multiple files as UploadFile")
+    ]
+):
+    uploaded_files = []
+
+    try:
+        for file in files:
+            # Upload the file directly to S3
+            ext = file.filename.split(".").pop()
+            # Generate a unique filename
+            file_name = f"{uuid4().hex}.{ext}"
+            
+            # Read the content of the file
+            content = await file.read()
+
+            # Upload the file content to S3
+            success = bucket_util.upload_file(id, file_name, content)
+            if success:
+                uploaded_files.append(file.filename)
+            else:
+                raise HTTPException(status_code=500, detail=f"Failed to upload file: {file.filename}")
+    except Exception as e:
+        # Handle errors if needed
+        return JSONResponse(content={"error": str(e)}, status_code=500)
+    
+    # Start building index
+    try:
+        print("Building new index...")
+        initiate_index(
+            id=id,
+            persist=False
+        )
+        print("Index build complete.")
+    except Exception as e:
+        raise VectorIndexError(e)
+    
+    return JSONResponse(content={"uploaded_files": uploaded_files}, status_code=200)
+
+
+@router.post("/reset-vector-store")
+def reindex(buid_index_id: BuildIndexForId):
+    id = buid_index_id.id
     try:
         initiate_index(
+            id = id,
             persist=False
         )
     except Exception as e:

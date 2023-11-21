@@ -1,4 +1,6 @@
-from typing import List
+from fastapi import File, UploadFile
+
+from typing import Annotated, List
 from pydantic import BaseModel
 
 
@@ -59,3 +61,15 @@ class ChatPrompt(BaseModel):
     sender_id: str = None
     prompt: str
     use_history: bool = False
+
+
+
+class UploadRequestModel(BaseModel):
+    sender_id: str
+    files:  Annotated[
+        list[UploadFile], File(description="Multiple files as UploadFile")
+    ]
+
+
+class BuildIndexForId(BaseModel):
+    id: str

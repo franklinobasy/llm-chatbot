@@ -120,50 +120,25 @@ class BucketUtil():
         
         return ids
 
-    def upload_files(self, id, source_path):
-        """Upload files to an S3 bucket inside a folder with the specified ID
-
-        :param id: Folder ID to use for organizing the files
-        :param source_path: Path to the files or folder to upload
-        :return: True if files were uploaded successfully, else False
-        """
-
-        # If source_path is a file, upload it
-        if os.path.isfile(source_path):
-            return self.upload_file(id, source_path)
-
-        # If source_path is a directory, upload all files in the directory
-        elif os.path.isdir(source_path):
-            success = True
-            for root, dirs, files in os.walk(source_path):
-                for file in files:
-                    file_path = os.path.join(root, file)
-                    success &= self.upload_file(id, file_path)
-            return success
-
-        else:
-            logging.error(f"Invalid source_path: {source_path}")
-            return False
-
-    def upload_file(self, id, file_path):
+    def upload_file(self, id, file_name, file_content):
         """Upload a file to an S3 bucket inside a folder with the specified ID
 
         :param id: Folder ID to use for organizing the files
-        :param file_path: Path to the file to upload
+        :param file_name: Name to be used for the uploaded file
+        :param file_content: Content of the file to upload
         :return: True if file was uploaded, else False
         """
-
-        # Extract the file name from the file_path
-        file_name = os.path.basename(file_path)
 
         # Append the folder ID to the object_name to create a folder structure
         object_name = f"{id}/{file_name}"
 
         try:
-            response = self.s3_client.upload_file(file_path, self.bucket_name, object_name)
+            # Use put_object to upload file content directly
+            self.s3_client.put_object(Body=file_content, Bucket=self.bucket_name, Key=object_name)
         except ClientError as e:
             logging.error(e)
             return False
+
         return True
 
     def download_files(self, id):
@@ -176,7 +151,7 @@ class BucketUtil():
             raise FolderNotFoundError(id, self.bucket_name)
         
         storage_path = os.path.join(
-            self.__BIN, id
+            os.getcwd(), self.__BIN, id
         )
 
         os.makedirs(storage_path, exist_ok=True)
@@ -308,6 +283,7 @@ def main():
         bucket_name="ccl-chatbot-document-store"
     )
     print(util.bucket_name)
+    print(util.create_upload_presigned_url("1"))
 
 
 if __name__ == "__main__":

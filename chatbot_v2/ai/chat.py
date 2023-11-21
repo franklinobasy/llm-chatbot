@@ -8,7 +8,7 @@ from utilities import duration
 
 @duration
 def process_prompt(sender_id: str, prompt: str, use_history: bool = False):
-    index = initiate_index(persist=True)
+    index = initiate_index(id=sender_id, persist=True)
     model = MODEL_NAME
     chat_history = get_history(sender_id) if use_history else []
 

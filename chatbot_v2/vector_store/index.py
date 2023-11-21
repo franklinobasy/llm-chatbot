@@ -13,9 +13,11 @@ from langchain.vectorstores import Pinecone
 
 from chatbot_v2.vector_store import pinecone
 from utilities import duration
+from utilities.aws_tools import BucketUtil
 
 
 chat_history_root_dir = "../chat_history"
+bucket_util = BucketUtil(bucket_name="ccl-chatbot-document-store")
 
 
 @duration
@@ -41,15 +43,16 @@ def split_documents(
 
 @duration
 def initiate_index(
+    id: str = None,
     persist: Annotated[bool, "Set as True or False to persist data"] = False,
-    index_name: Annotated[str, "pinecone index name"] = "ccl-vectorstore",
-    data_dir: Annotated[str, "Dir for dataset (documents)"] = 'data/'
 ) -> Union[VectorStoreIndexWrapper, Pinecone]:
     ''''''
-    if not os.path.exists(data_dir):
-        raise FileNotFoundError(f"Path does not exist: {data_dir}")
+    data_dir = os.path.join(os.getcwd(), "bin", id)
+    # index_name = f"tempuser-{id}"
+    index_name = "ccl-vectorstore"
 
     if not persist or index_name not in pinecone.list_indexes():
+        bucket_util.download_files(id)
         documents = load_documents(data_dir)
         docs = split_documents(documents)
 
@@ -57,7 +60,7 @@ def initiate_index(
         if persist:
             print("Reusing index...")
             index = Pinecone.from_existing_index(
-                index_name="ccl-vectorstore",
+                index_name=index_name,
                 embedding=OpenAIEmbeddings()
             )
             return index
@@ -110,6 +113,10 @@ def initiate_index(
             embedding=OpenAIEmbeddings(),
             index_name=index_name
         )
+    
+    if not persist:
+        # clear bin
+        bucket_util.delete_from_bin(id)
 
     return index
 
