@@ -59,6 +59,7 @@ class LetterResult(BaseModel):
 
 class ChatPrompt(BaseModel):
     sender_id: str = None
+    conversation_id: str = "1"
     prompt: str
     use_history: bool = False
 

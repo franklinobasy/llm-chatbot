@@ -157,8 +157,9 @@ def write_letter(letter_context: LetterContext):
 async def chat(request: ChatPrompt):
     answer = process_prompt(
         request.sender_id,
+        request.conversation_id,
         CHAT_SYSTEM_PROMPT.format(request.prompt),
-        use_history=request.use_history
+        use_history=request.use_history,
     )
 
     return {
