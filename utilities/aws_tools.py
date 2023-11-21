@@ -78,14 +78,14 @@ class BucketUtil():
         '''
 
         self.bucket_name = bucket_name
-
-        if region is None:
-            self.s3_client = boto3.client('s3')
-            self.s3_resource = boto3.resource('s3')
-        else:
-            self.s3_client = boto3.client('s3', region_name=region)
-            self.s3_resource = boto3.resource('s3', region_name=region)
-
+        
+        self.s3_client = boto3.client(
+            's3',
+            aws_access_key_id=os.getenv("AWS_ACCESS_KEY"),
+            aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
+            region_name=region
+        )
+        
         # Check that the bucket exists
         try:
             self.s3_client.head_bucket(Bucket=self.bucket_name)
