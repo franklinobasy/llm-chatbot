@@ -71,7 +71,7 @@ IMPORTANCE_DESCRIPTION_QUESTION = create_question("importance")
 BENEFITS_DESCRIPTION_QUESTION = create_question("benefits")
 EXECUTIVE_SUMMARY_QUESTION = create_question("executive_summary")
 
-
+# templates
 section_templates: Dict[str, List[Dict]] = {
     "about_cyphercrescent": [
         ABOUT_CYPHERCRESCENT
