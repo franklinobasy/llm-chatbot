@@ -1,0 +1,166 @@
+# COMMAS (,)
+
+Rule 1
+Comma is used to separate items in a list, words or group of words.
+Example:
+1.	The manager told the staff to bring to work their identification cards, offer letters, and payslips.
+2.	The newly elected president promised the citizens of the country increased minimum wage, improved housing, better healthcare, and free education.
+
+Rule 2
+Use a comma to separate two adjectives when the order of the adjectives is interchangeable.
+
+Example:
+1.	Port Harcourt is a clean, beautiful city.
+We could also say: Port Harcourt is a beautiful, clean city.
+
+2.	The tourists lodged in an expensive holiday resort
+We would not say: The tourists lodged in a holiday expensive resort.
+
+In the above example, comma is not needed.
+
+Another way to determine if a comma is needed is to mentally put and between the two adjectives. If the result still makes sense, add the comma. In the examples above, a clean and beautiful city makes sense, but an expensive and holiday resort does not.
+
+Rule 3
+In sentences where two independent clauses are joined by connectors such as and, or, but, etc., put a comma at the end of the first clause.
+
+Example:
+Incorrect: He took his child to school and he drove the car.
+Correct: He took his child to school, and he drove the car.
+Some writers omit the comma if the clauses are short.
+
+Example:
+I am fair and she is dark.
+
+Rule 4
+If the subject does not appear in front of the second verb, a comma is generally unnecessary.
+
+Example: 
+She left her office but did not take her car key.
+
+Rule 5
+When starting a sentence with a dependent clause, use a comma after it.
+
+Example: 
+If you are happy with me, join me to celebrate.
+
+Follow the same principle with introductory phrases.
+
+Example: 
+With the stage fully set, the dancers trooped out to perform.
+
+Rule 6
+A comma is usually unnecessary when the sentence starts with an independent clause followed by a dependent clause.
+
+Example: 
+Please inform the manager if you are not coming to work.
+
+Rule 7
+Use commas to set off nonessential words, clauses, and phrases.
+
+Example: 
+Incorrect: Jane the janitor swept the floor.
+Correct: Jane, the janitor, swept the floor.
+Incorrect: The students know that they were wrong refused to take correction.
+Correct: The students, knowing they were wrong, refused to take corrections.
+
+Other examples:
+Incorrect: My cousin, Mike arrived.
+Correct: My cousin, Mike, arrived.
+Incorrect: The three employees, Amina, Kola, and Jane are off duty.
+Correct: The three employees, Amina, Kola, and Jane, are off duty.
+
+Rule 8
+If something or someone is sufficiently identified, the description that follows is considered nonessential and should be surrounded by commas.
+
+Example:
+1. Amaka, who has the book, is in the classroom.
+If we already know which Amaka is meant, the description is not essential.
+
+2. The girl who has the book is in the classroom.
+We do not know which girl is meant without further description; therefore, no commas are used.
+Rule 9
+Use a comma after certain words that introduce a sentence, such as well, yes, why, hello, hey, etc.
+
+Example:
+1. Why, I can't believe this!
+2. No, you can't have a dollar.
+
+Rule 10
+Use commas to set off the name, nickname, term of endearment, or title of a person directly addressed.
+
+Example:
+1. Will you, Nkem, do me this favour?
+2. Yes, my dear, I will.
+3. Good day, Teacher.
+
+Rule 11
+Use a comma to separate the day of the month from the year, and—what most people forget!—always put one after the year, also.
+
+Example: 
+It was in the Guardian’s March 05, 2018, edition.
+No comma is necessary for just the month and year.
+
+Example: It was in a March 2018 article.
+
+Rule 12
+Use a comma to separate a city from its state, and remember to put one after the state, also.
+
+Example:
+I'm from Port Harcourt, South-South, region.
+
+Rule 13
+Use commas to introduce or interrupt direct quotations.
+
+Example:
+He said, "I don't care."
+"Why," I asked, "don't you care?"
+
+Rule 14
+If the quotation comes before he said, she wrote, they reported, Dana insisted, or a similar attribution, end the quoted material with a comma, even if it is only one word.
+Example:
+1. "I don't care," he said.
+2. "Stop," he said.
+
+Rule 15
+If a quotation functions as a subject or object in a sentence, it might not need a comma.
+
+Example:
+1. Is "I don't care" all you can say to me?
+2. Saying "Stop the car" was a mistake.
+
+Rule 16
+If a quoted question ends in midsentence, the question mark replaces a comma.
+
+Example: 
+"Will you still be my friend?" she asked.
+
+Rule 17
+Use a comma to separate a statement from a question.
+
+Example: 
+I can go, can't I?
+
+Rule 18
+Use a comma to separate contrasting parts of a sentence.
+
+Example: 
+That is my money, not yours.
+
+Rule 18
+Use a comma before and after certain introductory words or terms, such as namely, that is, i.e., e.g., and for instance, when they are followed by a series of items.
+
+Example: 
+You may be required to bring many items, e.g., sleeping bags, pans, and warm clothing.
+
+Rule 19
+A comma should precede the term etc. Many authorities also recommend a comma after etc. when it is placed midsentence.
+
+Example: 
+Sleeping bags, pans, warm clothing, etc., are in the tent.
+
+## Serial Commas
+The serial comma (sometimes referred to as the Oxford comma) is usually the final comma in a list of things.
+
+Use serial commas in a list of things.
+
+Example: The student had in his bag a pen, an eraser, and books.

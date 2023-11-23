@@ -166,7 +166,8 @@ def process_prompt(prompt: PromptModel) -> tuple:
 def get_prompts_from_conversation(
     user_id: str,
     conversation_id: str,
-    collection: Collection = collection
+    collection: Collection = collection,
+    use_model: bool = True,
 ) -> List[PromptModel]:
     """
     Get all prompts from a specific conversation for a user.
@@ -182,6 +183,8 @@ def get_prompts_from_conversation(
         target_conversation = next((conv for conv in conversations if conv["conversation_id"] == conversation_id), None)
         if target_conversation:
             prompts = target_conversation.get("prompts", [])
+            if use_model:
+                return [PromptModel(**prompt) for prompt in prompts]
             return [process_prompt(PromptModel(**prompt)) for prompt in prompts]
         else:
             logging.info(f"Conversation '{conversation_id}' not found for user '{user_id}'.")

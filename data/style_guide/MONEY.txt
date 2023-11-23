@@ -1,0 +1,28 @@
+# MONEY
+
+Rule 1
+Currency symbols should be placed before the number, with no spaces.
+
+Example: His monthly remuneration is N200,000.
+
+Rule 2
+Thousands should be separated by commas.
+
+Example: Ken was fortunate to find N5,000 in his bag. 
+
+
+Rule 3
+Decimals should be separated by full stops.
+
+Example: Fred’s total tax for the month is N550.88. 
+
+Rule 4 
+When you reach numbers in the millions and billions, write out the full word (instead of all those zeros).
+
+Example: The total value of the newly awarded contract is N2.5 billion. 
+
+Rule 5
+Do not write out the currency if you've already indicated an amount with a currency symbol.
+
+Example: I just received a credit alert of N10 million from my bank. AND NOT
+I just received a credit alert of N10 million naira from my bank. 

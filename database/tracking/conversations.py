@@ -18,7 +18,8 @@ def get_conversation_prompts(sender_id: str, conversation_id):
 
     result = get_prompts_from_conversation(
         user_id=sender_id,
-        conversation_id=conversation_id
+        conversation_id=conversation_id,
+        use_model=False
     )
     
     return result

@@ -1,0 +1,126 @@
+# DASHES AND HYPHENS
+Dashes and hyphens are different. Dashes separate words into parenthetical statements, while hyphens join two or more words together into a compound word. 
+
+Hyphens are not separated by spaces, while a dash has a space on either side.
+13.1 	Em Dashes (—)
+The em dash is usually the widest of the en dash and the hyphen.
+
+There are two types of dashes, which are:
+•	The em dash (—), which is usually longer.
+•	The en dash (–), which is usually shorter.
+
+Rule 1:
+Use em dash in certain instances to replace some punctuations like, a colon (:), a bracket (), 
+
+Rule 2:
+Use em dash to replace intentionally omitted letters. In this case, em dash could appear in pairs or threesomes.
+
+Example: A generous donor, – – –, offered to pay for the child’s medical bill.
+
+Rule 3:
+Do not use more than two em dashes in a sentence except when you use them to replace intentionally omitted letters.
+
+Rule 4:
+There should be no spaces on either side of the em dash.    
+
+## En Dashes (–)
+The en dash is usually shorter than the em dash and longer than the hyphen.
+
+Rule 1:
+The en dash is often used to indicate spans of time or ranges of numbers. 
+
+Example: The required age for the interview is between ages 18 - 20. 
+
+Rule 2:
+The en dash could be used in place of versus.
+
+Example:
+The Nigeria–Argentina world cup match was very entertaining.
+
+Rule 3:
+Use the en dash to show a pairing or partnership.
+
+Example:
+The Nigeria–Ghana bilateral relationship has yielded tremendous economic results to both countries.
+
+Rule 4:
+To keep construction parallel, do not use the en dash with the word “from”.
+
+Example: 
+The required age for the interview is from 18 to 20. (Correct)
+The required age for the interview is from 18 – 20. (Wrong) 
+
+To find em dash and en dash, use the “insert symbol” command.
+
+## Hyphens (-)
+Usage  
+	The hyphen is used to join compound words or words that are linked in the grammar of a sentence (e.g in-house technology, rock-forming).
+	Use a hyphen to indicate the division of a word at the end of a line, or to indicate a missing or implied element (e.g. short- and long-term).
+	Use a hyphen between the tens and units number when writing out the numbers twenty-one to ninety-nine in words. Just like that! Do not use hyphens for other numbers. 
+Example
+Incorrect: Two-hundred-fifty-six.
+Correct: Two hundred fifty-six.
+(Use hyphen between tens and units only.) 
+	Use a hyphen between the numerator and denominator when a fraction is written out in words and the fraction is an adjective. 
+Example
+Incorrect: Two-thirds of the Senate overrode the veto. 
+(Here two thirds is a noun, not an adjective.) 
+Correct: Two thirds of the Senate overrode the veto. 
+Incorrect: A two thirds majority overrode the veto. 
+(Here two thirds is an adjective modifying majority.) 
+Correct: A two-thirds majority overrode the veto. 
+	Use a colon at the end of a sentence or phrase that introduces a list.
+	Do not capitalise the word following a colon within a sentence unless the word is a proper noun or the text following the colon is a complete sentence. However, always capitalise the first word of each item in a list. 
+	Use a colon to separate the title of a book or article from its subtitle. (e.g., SEPAL User Guide: Launching SEPAL.)
+	Use only one space after a colon in both online and printed text. 
+	Use colons to introduce quotations that are formal or lengthy.  (e.g., The Asset Manager said: SEPAL has added tremendous value to our asset management experience.)
+	Hyphens within a word can make some words clearer. 
+	They are frequently used with prefixes ending with the same vowel as the root begins with to show pronunciation or emphasize meaning. 
+	They are also frequently used to distinguish between words.
+Example
+1.	co-op (instead of coop, also prefix ending with same vowel as root beginning) 
+2.	re-elect (prefix ending with same vowel as root beginning) 
+3.	re-form the clay pot (instead of reform, which has a different meaning)
+4.	re-sign a contract (instead of resign, which could mean nearly the opposite) 
+	Sometimes words may be combined mistakenly. A hyphen can help the reader understand what is meant. 
+Example
+Incorrect: The guard captured five foot soldiers.
+(Is it five-foot soldiers, or five foot-soldiers?) 
+Correct: The guard captured five foot-soldiers.
+	Hyphens can be used as prefixes or suffices (e.g., post-dated, pre-payed.)
+	Hyphens can be used to sustain communication continuity when a line is broken.
+
+	The Use of Hyphens in “Single User” and “Multi User”
+According to the Microsoft Style Guide, the general principle is that you do not hyphenate words beginning with “multi” unless it is necessary to avoid confusion or if multi is followed by a proper noun. However, use “multiuser” as a noun, and “multi-user” as an adjective.
+
+The same principle applies in the use of “single user” or “end user”.
+	“Single user” (not “Single User” and not “single user”) if it is a noun and it begins a sentence.
+	“Single-user” if it is an adjective.
+	“Multiuser” (not “Multi-user”) if it is a noun.
+	“Multi-user” if it is an adjective.
+
+Example
+•	Make the single-user stable and suitable for clients – 
+•	Continue to use it as the last official build until multi-user is ready.
+•	Resolve all the outstanding issues in the single-user and make it the official last build for the single-user application.
+•	All new features after the last build will only be added to the multi-user application.
+•	Get everybody involved in this effort.
+
+•	Make multi-user stable and suitable for clients.
+•	Transfer all the functionalities in the single-user application to the multi-user application. 
+•	No further new work on the single-user application apart from bugs noticed by clients.
+•	It replaces the single-user application as the official commercial build for both single-user and multi-user applications.
+•	Get everybody involved in this effort.
+
+CypherCrescent’s Style
+•	Make the single user stable and suitable for clients.
+•	Continue to use it as the last official build until multiuser is ready.
+•	Resolve all the outstanding issues in the single user and make it the official last build for the single-user application.
+•	Add all new features only to the multi-user application after the last build of the single user.
+•	Get everybody involved in this effort.
+
+•	Make multiuser stable and suitable for clients.
+•	Transfer all the functionalities in the single-user application to the multi-user application. 
+•	Carry out no other new work on the single-user application apart from bugs noticed by clients.
+•	Replace the single-user application as the official commercial build for both single-user and multi-user applications.
+•	Get everybody involved in this effort.

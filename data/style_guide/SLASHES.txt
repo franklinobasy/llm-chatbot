@@ -1,0 +1,9 @@
+# SLASHES
+Slash Marks (/)
+This is used to represent exclusive or inclusive, or division and fractions. It is also used as a date separator.
+
+Rules
+	Do not use a slash mark as a substitute for or. If the user interface uses a slash in this way, follow the interface in describing the label, but use or in describing the corresponding action.
+	In the user interface, an ellipsis is typically used to show truncation, as in a programme name, or to indicate on menus and in dialog boxes that a dialog box will appear to obtain more information from the user. Do not use an ellipsis in this context in documentation.
+	Use a slash mark in constructions that imply a combination. 
+	Use a slash mark to separate parts of an Internet address (use a double slash after the protocol name): \\server\CypherCrescent File Services\cyphercrescent staff\User 

@@ -1,0 +1,112 @@
+# BASICS OF A BUSINESS EMAIL
+
+## From; To; Cc; Bcc
+	From refers to the sender or source of the mail. 
+	To refers to the recipient(s) of the mail.
+	Cc refers to parties that are copied in a mail.
+	Bcc refers to parties to be blind copied in a mail
+
+How to Reply a Mail
+When replying a mail with other people in copy, reply to everyone and ensure no one in the originating mail is left out.
+## Subject Line
+A good subject line must be S. P. A. M.
+S – Short
+P – Personable
+A – Attention-getting
+M – Meaningful to the reader
+
+1. Short
+The subject line should have a maximum of 49 characters. The characters also include spaces.
+
+2. Personable
+The subject line should appeal to and relate personally to the reader. Imagine what the reader wants to hear from you and use that knowledge to craft the subject lines.
+
+3. Attention-getting
+The subject line most importantly, aims at grabbing the reader’s attention. One way to do this is using humour. Humour is a wonderful way to attract attention to emails as long as it is relevant and suitable to the readers. 
+
+4. Meaningful to the reader
+Subject lines of emails should be meaningful to the readers. To achieve this, the following should be adhered to:
+
+
+	Exclusivity
+Email subject lines should imply exclusivity. Subject lines about special services to clients, VIP invitations and privileges can make the readers feel really privileged, and therefore more likely to open the email.
+
+	Specificity
+Subject lines should address specific issues or items that relate to the readers. Vagueness or ambiguity should be avoided.
+
+	Believability
+Believability implies that subject lines should be credible enough to the readers. Don’t promise something with your subject line that you don’t deliver on in the body of the message. There should be consistency between the subject line and the body of the message.
+
+Subject Line Mistakes to Avoid
+1.	THE ALL-CAPS SCREAMER 
+Avoid all caps in your subject lines because it sounds like you are yelling at your readers. This also applies to the body of the message.
+
+
+2.	The Punctuation Abuser!!!!!
+Like all-caps, punctuations should not be abused. When you use more than one punctuation mark it will seem as if you are yelling (!!!). One exclamation point or one question mark serves its purpose.
+
+3.	The Generic Nature
+Subject lines should be specific in nature. Avoid the use of subject lines that are generic. Telling the recipients what exactly to expect in the mail will go a long way in making them read the mail. 
+	
+Generic subject lines such as “Weekly Updates,” “Monthly Review” or “Daily Highlights” are not enticing or descriptive enough. It is ideal to always highlight your most interesting topics in the subject line.
+
+4.	The Desperate Crier, i.e. “Open Me!”
+Begging for an open makes you sound desperate and will not give you the engagement you desire. 
+
+5.	The Grammar or Spelling Mistake Eyesore
+Prevent grammar and spelling errors by using spell check; ask at least one other person to proofread your entire email including the subject line.
+6.3	Salutation
+Use the recipient’s first name in the greeting when you have a friendly relationship with the recipient. 
+
+Greeting: Dear Chukwuemeka,
+Use a courtesy title, a professional title and a last name when you have a formal relationship with the recipient.
+
+Greeting: Dear Mr Chukwuemeka,  
+Dear Prof. Chukwuemeka                    
+
+Use a title and a last name when you writing to someone who is much older than you or someone you hold in high esteem.
+
+Use the title “Miss” or “Mrs” when you are sure that a woman would prefer to be addressed as such. Otherwise use the title Ms or leave the title out.
+
+Use “Miss” for a young girl who is less than 18, “Ms” for an unmarried woman who is above 18 and for a woman whose marital status you are not sure of, and “Mrs” for a married woman.
+
+Use “Master” for a young boy who is less than 18, “Mr” for both a man who is above 18 and a married man. 
+
+Mses is for more than one woman with the title “Ms”. 
+
+Messrs is for more than one man with the title Mr. Its use is quite formal and traditional. You may use Mr. with each man’s name instead.       
+
+For communications outside Nigeria, use “Mx” when you write to someone who prefers a gender-neutral courtesy title. If you have transgender friends and associates, find out which courtesy titles they prefer.
+
+Body of the Email
+a.	Introductory Statement
+Some suggested introductory statements are:
+	Thank you for your email…
+	Thank you for visiting our Technology Centre…
+
+b.	Background Information
+Background information should be preceded by statements such as:
+	Further to our discussion…
+	We are pleased to inform you…
+
+Other Rules to Observe in the Body of the Email
+	Keep your mail simple and focused, so the purpose of your mail is clear.
+	The first paragraph should include an introduction and a brief explanation of your reason for writing. 
+	The second paragraph (and any following paragraphs) should explain further your reasons for writing. 
+	The final paragraph should reiterate the reason you are writing and thank the reader for reviewing your request.
+	Single space your letter and justify your letter to the left. Leave a blank line between each paragraph.
+	Single space your letter and leave a space between each paragraph
+	Left justify your letter, so that your contact information, the date, the letter, and your signature are all aligned to the left.
+	Use a plain font like Calibri, which is the approved font for official communications.
+## Complimentary Closing
+When you do not use the name of the recipient. 
+When you use “Dear Sir” or “Dear Madam” as the salutation, the complimentary closing will be “Yours faithfully”, not Yours Faithfully, not Yours sincerely.
+
+When you use the name of the recipient in the salutation.
+For example, “Dear Mr Friday” or “Dear Mrs Kate” as the salutation. 
+
+The complimentary closing will be “Yours sincerely”, not Your Sincerely, not Yours Faithfully.
+
+The invented title Ms. has widely displaced Miss on both sides of the Atlantic. Ms conflates Miss and Mrs to provide a feminine form that, like Mr, does not indicate marital status. 
+British usage: Ms Jones
+American usage: Ms. Jones

@@ -1,0 +1,58 @@
+# BULLETED AND NUMBERED LISTS
+Bulleted and numbered lists could be used at any time to create a list. However, use numbered list to show steps in a process.
+
+The rules below apply to both bullet points and numbered lists.
+
+## Punctuating Bullet Points
+
+Rule 1:
+Use a full stop after every bullet point that is a sentence. 
+
+Rule 2:
+Use a full stop after every bullet point or numbered list that completes the introductory stem. 
+
+Example of Bullet Points that Complete the Introductory Stem
+I prefer living in Port Harcourt because of its:
+•	Garden City status.
+•	Clement weather condition.
+•	Economic importance to Nigeria.
+
+Rule 3:
+Use no punctuation after bullet points that are not sentences and that do not complete the stem. 
+Below is another example that does not need full stops.
+These are the reasons why I prefer living in Port Harcourt:
+•	Garden City status
+•	Clement weather condition
+•	Economic importance to Nigeria
+
+Exception to the Rule of Putting Full Stops After Bullet Points that Complete the Stem Sentence
+If the bullet points are one word or a short phrase, do not use end punctuation. 
+
+Example:
+I prefer living in Port Harcourt because of its:
+•	Weather
+•	Culture
+•	Business opportunities
+•	Security
+
+## Capitalisation of Bullet Points
+Rule 1:
+Capitalise a bullet point list if the introductory stem that precedes the bullet point is followed by a punctuation mark
+
+Example
+I prefer living in Port Harcourt because of its:
+•	Weather
+•	Culture
+•	Business opportunities
+•	Security
+
+Rule 2:
+Do not capitalise a bullet point if the introductory stem that precedes the bullet point is not followed by a punctuation mark
+
+Example
+I prefer living in Port Harcourt because of its
+•	weather
+•	culture
+•	business opportunities
+•	security
+

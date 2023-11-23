@@ -1,0 +1,74 @@
+# DATES AND TIMES
+
+## Dates
+How to write the year
+Years should always be written in numbers, whether or not they begin a sentence.
+
+Example 1: The year 2015 has been regarded as the most profitable year in the history of the company
+
+Example 2: 2015 has been regarded as the most profitable year in the history of the company, 
+
+How to write the month and day
+Write the month and then the date in numerals.
+
+Example: Ken’s birthday is January 20.
+
+If the date is a single digit, i.e. any day before 10, use “0” before the number to make it double digits.
+
+Example: Helen’s birthday is June 03.
+
+How to write dates with days of the week
+Use a comma after the days of the week and a comma before the year.
+
+Example: I will be returning from my trip on Saturday, March 02, 2019.
+
+How to write centuries
+When writing centuries, do not use apostrophe before s.
+
+Example 1: I prefer the fashion styles of the 1900s (correct)
+
+Example 2: I prefer the fashion styles of the 1900’s (wrong)
+
+Example 3: I prefer the fashion styles of the nineteen hundreds (correct)
+
+Example 4: I prefer the fashion styles of the Nineteenth Century (correct)
+
+How to write decades
+Decades should be written as two-digit numbers with an apostrophe before them and an s after them.
+
+Example 1: Mary graduated from the college in the ’70s.
+
+Example 2: Mary graduated from the college in the 1970s.
+
+Example 3: Mary graduated from the college in the nineties.
+
+Writing dates as numerals
+Use the following format with hyphens in between:
+
+dd(day)-mm(month)-year
+
+Example: To write June 16, 2019 as numerals will be:
+16-06-2019
+
+
+
+How to write dates in presentation slides
+
+## Time
+Rule 1
+Use numerals when writing time.
+
+Example: 
+1. He arrived his office today at 8:30 a.m., and not – 
+    He arrived his office today at eight-thirty a.m.
+
+2. The children are expected to go to bed at 9.00 p.m.
+
+Note how the time is written, and how they are spaced: “8:30 a.m. and 9.00 p.m.”
+
+Rule 2
+It is better to use noon and midnight rather than 12:00 p.m. or 12:00 a.m.
+
+Example: 
+1. Employees’ lunch break commences at 12.00 noon.
+2. All applicants are expected to send in their applications before 12.00 midnight today.

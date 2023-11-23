@@ -1,0 +1,27 @@
+# FULL STOPS (.)
+The full stop is the simplest of the punctuation marks to use.
+Generally, full stops are placed at the end of a sentence to signify a break. However, full stops have several other applications in technical writing. 
+Rule 1
+It is used at the end of a sentence.
+
+Example: She is a happy girl.
+
+Rule 2
+It is used at the end of an indirect question.
+
+Example: I am asking what your name is.
+
+Rule 3
+It is used in abbreviations.
+
+Example: My month of graduation is Feb. 2016.
+
+Rule 4
+It is used at the end of a command.
+
+Example: Stand up.
+
+Rule 5
+It used in numbers.
+
+Example: 55.7 (fifty-five point seven)

@@ -1,0 +1,89 @@
+# NUMBERS
+
+Rule 1. 
+Spell out all numbers beginning a sentence.
+Example:
+Twenty-five students were present in the class.
+
+Exception:
+When a year begins a sentence, you do not need to spell it out.
+
+Example:
+2019 is a promising year.
+Rule 2a
+Hyphenate all compound numbers from twenty-one through ninety-nine.
+Example:
+Twenty-five passengers were in the bus. 
+Rule 2b. Hyphenate all written-out fractions.
+Example:
+We recovered about two-thirds of the stolen cash.
+One-half is slightly less than five-eighths.
+
+However, do not hyphenate terms like a third or a half.
+
+Rule 3a. With figures of four or more digits, use commas. Count three spaces to the left to place the first comma. Continue placing commas after every three digits. 
+
+Important: Do not include decimal points when doing the counting.
+Example:
+2,250 people
+N1,500,000.35
+
+Note: Some choose not to use commas with four-digit numbers, but this practice is not recommended.
+
+Rule 3b 
+It is not necessary to use a decimal point or a Naira (currency) sign when writing out sums of less than a naira.
+
+Not Advised: He had only N0.50.
+Better:
+He had only fifty kobo.
+OR
+He had only 50 kobo.
+
+Rule 3c. Do not add the word "kobo" or “Naira” to figures preceded by a naira sign.
+Incorrect: I have N1,250 naira in my bank account.
+Correct: I have N1,250 in my bank account.
+
+Rule 4b 
+Using numerals for the time of day has become widely accepted.
+
+Example:
+The flight leaves at 6:22 a.m.
+Please arrive by 12:30 p.m. sharp.
+However, we could also spell out the time, particularly when using o'clock.
+
+Example:
+She takes the four forty-five flight.
+The baby wakes up at five o'clock in the morning.
+
+Rule 5
+Mixed fractions are often expressed in figures unless they begin a sentence.
+
+Example:
+We expect a 7 1/2 percent wage increase from the government.
+Seven and one-half percent was the expected wage increase from the government.
+
+Rule 6. The simplest way to express large numbers is usually best.
+
+Example: Twenty-nineteen (simpler than two thousand and nineteen)
+Large round numbers are often spelled out; but be consistent within a sentence.
+
+Example:
+Consistent: You can earn from one million to five million naira.
+Inconsistent: You can earn from one million naira to 5 million naira.
+Inconsistent: You can earn from N1 million to five million naira.
+
+Rule 7. Write decimals using figures. As a courtesy to readers, many writers put a zero in front of the decimal point.
+
+Example:
+The plant grew 0.55 inches last year.
+The plant grew only 0.05 inches this year.
+
+Rule 8a. When writing out a number of three or more digits, the word “and” is not necessary. However, use the word “and” to express any decimal points that may accompany these numbers.
+
+Example:
+Five thousand one hundred fifty-five naira
+Five thousand one hundred fifty-five naira and thirty-five kobo
+
+Rule 8b. When writing out numbers above 999, do not use commas.
+Incorrect: Five thousand, one hundred fifty-five naira, and thirty-five kobo
+Correct: Five thousand one hundred fifty-five naira and thirty-five kobo

@@ -1,0 +1,23 @@
+# FIGURES AND TABLES
+
+## Figures
+Figures should be numbered as follows:
+Figure 1, Figure 2, etc., and not Fig 1, Fig 2, etc.
+
+# TABLES
+## Tables
+Rule 1:
+Tables should all have a uniform alignment, either left, centre, right, or justified.
+
+Rule 2:
+Tables should be numbered accordingly. 
+
+Rule 3:
+Items in the table should be numbered properly and serially.
+
+
+Guidelines for labelling images, figures, and tables for easy referencing
+
+
+Please add content/guidelines
+
