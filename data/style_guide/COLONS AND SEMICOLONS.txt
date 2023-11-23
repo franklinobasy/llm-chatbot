@@ -1,0 +1,35 @@
+# COLONS AND SEMICOLONS
+
+## Colons (:)
+
+A colon is used to indicate:
+1.	The introduction of a quotation or a list of items, and (e.g., Well schematic components: parker and blast joint, etc. are inventible requirements to complete a well). 
+
+2.	The separation of two clauses of which the second expands or illustrates the first. (e.g., SEPAL: The innovative well and reservoir management solution.)
+
+Guide
+	Use a colon at the end of a sentence or phrase that introduces a list.
+	Do not capitalise the word following a colon within a sentence unless the word is a proper noun or the text following the colon is a complete sentence. However, always capitalise the first word of each item in a list. 
+	Use a colon to separate the title of a book or article from its subtitle. (e.g., SEPAL User Guide: Launching SEPAL.)
+	Use only one space after a colon in both online and printed text. 
+	Use colons to introduce quotations that are formal or lengthy.  (e.g., The Asset Manager said: SEPAL has added tremendous value to our asset management experience.)
+
+## Semicolons (;)
+Semicolons are used to separate independent clauses in three different cases. 
+1.	When there are no conjunctions separating the clauses.
+
+Example
+	Incorrect: I like SEPAL, Gift likes it too. (Semicolon needed) 
+	Correct: I like SEPAL; Gift likes it too.
+
+2.	When the clauses are separated by a conjunctive adverb or other parenthetical expression set off by commas.
+
+Example
+	The Pecon database development project is demanding; nevertheless, I enjoy the experience. 
+(“Nevertheless” is a conjunctive adverb.) 
+
+3. 	When the clauses themselves contain commas. 
+
+Example
+	Bernard prefers the PowerPoint format, the static format; but Osa prefers the XML format.
+(Since clause already has comma, semicolon separating the clauses is needed to make sentence clear.) 

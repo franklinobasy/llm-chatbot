@@ -1,0 +1,22 @@
+# CONTACT DETAILS
+
+## Writing Phone Numbers
+Rule 1:
+When writing to a local recipient, local phone numbers are to be written as follows: 08021000200
+
+Rule 2:
+When writing to a foreign recipient, local phones numbers are to be written as follows: 
+(+234) 8021000200
+
+Rule 3:
+Foreign phone numbers are to be written as follows: (+123) 80210002000
+
+## Writing Email Addresses
+Rule 1:
+Write email addresses in lower case. 
+
+Rule 2:
+When an email address ends in a sentence, do not follow it with a full stop as it could obstruct users copying the address.
+
+Example:
+For more information, you can contact info.ccl@ccl.ng 

@@ -1,0 +1,56 @@
+# PARALLELISM
+Parallelism is the constructive use of sentence elements that correspond grammatically or are identical in meaning, sound, structure, or metre. 
+The practice of parallelism adds evenness, effectiveness, and steadiness to the documentation, and it also impacts the meaning of thoughts and ideas being presented. Parallelism may involve repetition of some words, but more generally involves repetition of parts of speech (e.g. nouns, verbs, adjectives).
+
+## The Use of Parallelism
+Example:
+	Ifeanyi enjoys reading his books, watching movies, and plays football  X  
+	Tola enjoys reading her books, watching movies, and playing volley football √
+	Akpan receives information, gives information, and analyses information  √
+	Gerard receives information, gives information, and analysed information X  
+
+The newly elected president promised the citizens of the country increased minimum wage, improved housing, better healthcare, and free education.
+
+Other examples of parallelism:  
+	Earn, eat, and exercise
+	Grow, glow, gloat
+	Plan, preach, and proclaim
+The above examples have the following common features:
+i.	They are all alliterations with the letters “E”, “G”, and “P”.
+ii.	They are all verbs
+A bad example of parallelism will be:
+	Earn, living, and to play
+	Studying, beneficial, and remedy.
+	Orange, apple, banana, and bicycle
+
+1.	Parallelism is used to balance verbs with verbs, nouns with nouns, prepositional phrases with prepositional phrases, participles with participles, infinitives with infinitives and clauses with clauses. 
+Example
+	Kuro is a good developer; he enjoys looping and editing his scripts.
+	Data sorting and structuring are recommended activities before an effective engineering analysis.
+	Amara came back from work; had her dinner and went to bed.
+
+2.	Parallelism is used with elements joined by coordinating conjunctions.
+Example
+	Daniel likes reading and solving optimisation problems.
+	Daniel likes to read and to solve optimisation problems.
+
+3.	Parallelism is used with elements in comparison.
+Example
+	Tunde is more excited about drawing new well schematics with SEPAL than working with the previous image file copies. (Correct)
+	Tunde is more excited about drawing new well schematics with SEPAL than work with the previous image file copies. (Wrong)
+
+4.	Parallelism is used with elements joined by linking words.
+Example
+	Our clients not only want their well and reservoir data digitised but also to reveal potential intervention opportunities.
+	Our clients want their well and reservoir data not only digitised, but also to reveal potential intervention opportunities.
+
+5.	Parallelism is used with elements in lists or in a series.
+When you have a list, maintain parallel construction. Perhaps the most important factor affecting the meaning and coherence of a list within a sentence is parallel construction: all the items in the list need to have the same logical and grammatical structure. 
+That is to say, the items in the list need to be: all single words of the same part of speech (e.g., all nouns, all adjectives, and all verbs); all phrases of the same structure (e.g., all verbal phrases, all noun phrases, and all prepositional phrases); all subordinate clauses; or all main clauses (i.e., full sentences). 
+
+Example
+Sammy and his sister are very talented in:
+	determining optimal well production rates, 
+	solving and teaching partial differential equations,
+	analysing and recreate production trends, and
+	preparing African dishes.

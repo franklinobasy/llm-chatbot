@@ -1,0 +1,21 @@
+# APOSTROPHES
+Apostrophe (‘)
+Apostrophe is used to indicate either possession (e.g., Anita's book) or the omission of letters or numbers (e.g., can’t; class of ’99).
+
+Rule 1:
+Form the possessive case of a singular noun by adding an apostrophe and an s, even if the singular noun ends in s, x, or z. 
+
+Example: I know that both Mr Silas and Miss Juan have dogs, but I do not know if Mr Silas’s dogs are wild.
+
+Rule 2: 
+For plural nouns that end in s, form the possessive case by adding only an apostrophe. 
+
+Example: From the election results, it is clear Donald Trump was the masses’ choice.)
+
+Guide
+	For plural nouns that end in s, form the possessive case by adding only an apostrophe. (e.g., From the election results, it is clear Donald Trump was the masses’ choice.)
+	Avoid forming possessives from company names.
+	Do not use the possessive form of product names or feature names.
+	Differentiate between the contraction it’s (it is) and possessive pronoun its.
+	Never use an apostrophe with possessive pronouns (yours, not your’s).
+	Do not use an apostrophe to indicate the plural of a singular noun (programmes, not programme’s).

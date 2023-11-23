@@ -1,14 +1,26 @@
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chat_models import ChatOpenAI
 
-from chatbot_v2.vector_store.index import get_history, initiate_index, save_history
+from chatbot_v2.vector_store.index import initiate_index
 from chatbot_v2.configs.constants import MODEL_NAME
+from database.mongodb.models import PromptModel
+from utilities import duration
+from database.tracking.conversations import (
+    get_conversation_prompts,
+    save_prompt
+)
 
 
-def process_prompt(sender_id: str, prompt: str, use_history: bool = False):
-    index = initiate_index(persist=True)
+@duration
+def process_prompt(
+    sender_id: str,
+    conversation_id: str,
+    prompt: str,
+    use_history: bool = False
+):
+    index = initiate_index(id=sender_id, persist=True)
     model = MODEL_NAME
-    chat_history = get_history(sender_id) if use_history else []
+    chat_history = get_conversation_prompts(sender_id, conversation_id)
 
     chain = ConversationalRetrievalChain.from_llm(
         llm=ChatOpenAI(model=model, cache=True),
@@ -19,6 +31,10 @@ def process_prompt(sender_id: str, prompt: str, use_history: bool = False):
     chat_history.append((prompt, result['answer']))
 
     if use_history:
-        save_history(sender_id, chat_history)
+        prompt = PromptModel(
+            question=prompt,
+            answer=result["answer"]
+        )
+        save_prompt(sender_id, conversation_id, prompt)
 
     return result['answer']

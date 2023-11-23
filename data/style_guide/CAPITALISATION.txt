@@ -1,0 +1,91 @@
+# CAPITALISATION
+Proper capitalisation helps to preserve an intended information transmission from sender to receiver both in informal and formal communication settings. It is an important aspect of writing as it relates directly to the organisation of the written document, whereas, improper use of capitalisation can greatly affect the semantics and structure of the written document. 
+The purpose of capitalisation is to help show the reader the importance of different words. For example, let us look at how capitalisation can show importance with some nouns. Remember, a noun is the person, place, thing, or idea. 
+
+Look at these two phrases: 'The White House' and 'the white house.' Because the first phrase is capitalised, you as the reader know it is more important. Capitalised, it refers to the house the President of the United States lives in; lowercase, it refers to any house that is white. In this example, you can see how capitalisation shows the clear meaning of words.
+
+## Forms of Capitalisation
+The common forms of capitalisation are:
+1.	Upper Case Capitalisation: when all the letters in a sentence are capitalised 
+Example: EDITORIAL STYLE GUIDE
+2.	Lower case capitalisation: when all the letters in a sentence are not capitalised
+Example: editorial style guide
+3.	Title Case Capitalisation: only the first letter of each word in a sentence is capitalised 
+Example: Editorial Style Guide
+4.	Sentence Case Capitalisation: only the first letter of the word starting the sentence is capitalised
+Example: Editorial style guide
+5.	Toggle Case Capitalisation: any letter of the word can be capitalised in no particular order, this is usually done for aesthetic reasons. 
+Example: EditoRiaL stYle GuiDe
+Note: This type of capitalisation is not used in CypherCrescent.
+
+N/B: The upper, lower and toggle case capitalisation types are not exactly challenging. The complication in capitalisation lies with the title case and sentence case capitalisation.
+
+## Rules of Capitalisation
+There are standard rules of capitalisations set globally for effective communication. These rules serve as guides to the proper use of capitalisation in writing. 
+Capitalise the First Word of a Sentence
+
+Capitalise the first word of a sentence.
+Example
+	A good developer should enjoy coding and scripting. 
+	Data sorting and structuring are recommended activities before an effective engineering analysis.
+	What is the official closing time?
+Capitalise proper nouns
+A proper noun is a name used for a person, place, or organisation, spelled with an initial capital letter, e.g. Ahmed, Port Harcourt, Nigeria, United Nations.
+
+Capitalise names of relatives (to indicate family relationship) when used with name
+Example
+	We decided to visit Aunty Favour and not our other aunties.
+Capitalise names of relatives when used as proper name
+Example
+	She ate with Uncle and not with her aunty.
+Capitalise titles
+Capitalise titles –
+i.	When a title precedes a name.
+Example
+Many civil servants came out to welcome Governor Wike.       
+ii.	Do not capitalise titles that follow names.
+Example
+Many civil servants came out to welcome the governor. 
+
+iii.	Capitalise titles when used in direct address.
+Example
+We the civil servants urge you, Governor, to pay up all our financial entitlements.
+9.3. 	Additional Notes on Capitalisation
+Capitalise very high-ranking government officials’ titles even when not followed by a name or used in direct address when a specific individual is referred to
+Example
+The ministers are loyal to the President of Nigeria.
+If no specific individual is referred to, do not capitalise titles of even very high-ranking government officials
+Example
+Nigerians will prefer a president who will sincerely fight corruption.
+Capitalise important words in compound titles used with names, but do not capitalise prefixes or suffixes added to the titles.
+Example
+The civil servants were excited when the Governor-elect visited them.
+Capitalise directions that are names, such as North, South, East, and West when used as sections of the country
+Example
+The South-South people of Nigeria are agitating for resource control.
+Do not capitalise directions when used as compass directions.
+Example
+Mr Frank lives one kilometre south of the River Benue.
+Capitalise days of the week, months of the year, and holidays.
+Example
+Friday, May, Democracy Day
+Capitalise seasons, when used in a title.
+Example
+This Summer Olympics will be the most memorable.
+
+Do not capitalise the names of seasons if they are used generally.
+Example
+This harmattan has been the harshest in recent years.
+Capitalise intellectual property rights.
+Example
+SEPAL, Toyota, Pepsi, Honda, WhatsApp
+Note: Capitalisation in registered trademarks must be consistent with the trademarks.
+Capitalise the first word in a sentence that is a direct quote, even if the direct quote comes in the middle of a sentence.
+Example
+The employees asked, “Can we resume on Monday?”
+Capitalise the first word of a sentence following a colon if it is a complete sentence.
+Example
+All through the meeting, James was quiet: He lost a bet.
+Do not capitalise the first word of a list following a colon if the list is not a complete sentence.
+Example
+The teacher told the students to bring the following items to school: pens, notebooks, wrist-watch.

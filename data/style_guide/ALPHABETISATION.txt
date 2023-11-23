@@ -1,0 +1,23 @@
+# ALPHABETISATION
+
+Alphabetisation means to alphabetically arrange a series, list, or file. 
+
+It is done in the following ways:
+
+The A-B-C Order
+This is done by placing words in a series or list in an A-B-C order, according to the first letter of each word.
+
+Example: Account, Budget, Cost
+
+If the First Letters are the Same
+If the first letters are the same, look out for the second letters. If the second letters are the same, look out for the third letters, etc.
+
+Example: Account, Affirm, Appoint, 
+
+Alphabetising Titles
+Do not consider articles like, “a”, “an”, and “the” as part of the title. Place those articles at the end of the title and separate them with a comma.
+
+Example:
+Company Profile, The
+Shareholders’ Details, The
+Annual Report, An

@@ -1,18 +1,25 @@
 import re
 from typing import Dict, List
 
+from utilities.tools import duration
+
 
 class FieldHandler:
     def __init__(self, template: str):
         self.__template = template
 
+    @duration
     def get_fields_from_template(self):
         pattern = r'\[([^\[\]]+)\]'
         matches: List[str] = re.findall(pattern, self.__template)
         matches = [match + '?' for match in matches]
         return matches
-
-    def fill_template(self, filled_fields: Dict):
+    @duration
+    def fill_template(self, list_filled_fields: List):
+        filled_fields = {}
+        
+        for item in list_filled_fields:
+            filled_fields[item["question"]] = item["answer"]
 
         filled_fields = list(filled_fields.values())
         pattern = r'\[([^\[\]]+)\]'
@@ -26,6 +33,4 @@ class FieldHandler:
                 return match.group(0)  # If field not found, keep it as is
 
         filled_template = re.sub(pattern, repl, self.__template)
-        with open('output2.txt', 'w', encoding='utf-8') as output_file:
-            output_file.write(filled_template)
         return filled_template

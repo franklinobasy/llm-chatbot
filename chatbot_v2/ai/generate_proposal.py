@@ -1,11 +1,35 @@
 '''Module for filling fields into text using llm'''
 
+import logging
+
 from typing import Dict, List
 import json
 import os
 
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
+
+from langchain.prompts import PromptTemplate, ChatPromptTemplate, HumanMessagePromptTemplate
+from langchain.output_parsers import ResponseSchema
+from langchain.output_parsers import StructuredOutputParser
+
+from utilities.tools import duration
+
+
+response_schema = [
+    ResponseSchema(
+        name="question",
+        description="This is the question asked"
+    ),
+    ResponseSchema(
+        name="answer",
+        description="This is the answer you provided"
+    ),
+]
+
+
+output_parser = StructuredOutputParser.from_response_schemas(response_schema)
+format_instructions = output_parser.get_format_instructions()
 
 
 class AutoFillTemplate():
@@ -45,8 +69,9 @@ class AutoFillTemplate():
         result = self.llm(messages)
         return result.content
 
+    @duration
     def fill_fields(self, fields: List[str], quetions_answers: List[Dict]):
-        prompt = '''
+        template_string = '''
         We want to create a proposal using provided fill in the blank template.
         Your job is to use the context as a guide to provide answers to each
         question in the python list. Your are expected find the best suitable
@@ -58,18 +83,20 @@ class AutoFillTemplate():
         no trailing commas at the end of the dictionary:
 
         Output Format:
-        {"question": "answer",...}
+        {format_instructions}
+        
+        Wrap your final output with closed and open brackets (a list of json objects)
         
         '''
 
-        messages = [
-            SystemMessage(
-                content=prompt
-            ),
-            HumanMessage(
-                content=f"context: {quetions_answers}, python list: {fields}"
-            ),
-        ]
+        prompt = ChatPromptTemplate(
+            messages=[
+                HumanMessagePromptTemplate.from_template(template_string)
+            ],
+            partial_variables={"format_instructions": format_instructions}
+        )
+        
+        messages_for_list_prompt = prompt.format_messages(format_instructions=format_instructions)
 
-        result = self.llm(messages)
+        result = self.llm(messages_for_list_prompt)
         return json.loads(result.content)
