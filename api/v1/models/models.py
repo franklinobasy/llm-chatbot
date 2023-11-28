@@ -90,3 +90,7 @@ class Input(BaseModel):
 class Output(BaseModel):
     # Define your output fields here
     result: dict
+
+
+class NDAPrompt(BaseModel):
+    answers: list

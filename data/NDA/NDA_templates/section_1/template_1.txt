@@ -1,4 +1,3 @@
-SECTION ONE
 Client Name:
 [XYZ]
 Client Address:

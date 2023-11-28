@@ -17,6 +17,7 @@ from api.v1.models.models import (
     Input,
     LetterContext,
     LetterResult,
+    NDAPrompt,
     ProposalResult,
     Questions,
     Sections,
@@ -35,6 +36,7 @@ from api.v1.routes.error_handler import (
 from chatbot_v2.ai.chat import process_prompt
 from chatbot_v2.ai.generate_proposal import AutoFillTemplate
 from chatbot_v2.ai.generate_letter import AutoWriteLetter
+from chatbot_v2.ai.generate_nda import GenerateNDA, templates
 from chatbot_v2.ai.style_engine import StyleGuide
 from chatbot_v2.configs.constants import MODEL_NAME
 from chatbot_v2.handlers.field_handler import FieldHandler
@@ -244,3 +246,19 @@ async def get_prompts_from_conversation_(user_id, conversation_id):
         user_id, conversation_id
     )
     return prompts
+
+
+@router.get('/NDA/questions')
+async def get_nda_questions():
+    return templates.prepare_questions()
+
+
+@router.post('/NDA/generate')
+async def nda_generate(input_data: NDAPrompt):
+    generator = GenerateNDA(answers=input_data.answers)
+    result = generator.handle_sections()
+    return JSONResponse(
+        content={
+            "NDA": result
+        }
+    )
