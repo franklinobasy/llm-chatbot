@@ -1,0 +1,123 @@
+IT IS HEREBY AGREED as follows:
+1.Definitions:
+
+In this agreement, the following words shall have the following meanings:
+
+	“Confidential information” means all or any of the following:
+1.1.all information relating to any of the parties to this Agreement, which is obtained by the Receiving Party or its Representatives, 
+whether before or after the date of this Agreement, either in writing, orally, by observation at the offices or other premises of the 
+Disclosing Party or in any other form in connection with paragraph (ii) of this agreement from or pursuant to discussions with the 
+Disclosing Party or its directors, officers, employees, agents, auditors, attorneys, consultants or advisors ("Representatives");
+1.2.all Intellectual Property, analysis, plans, reports, compilations, studies, data, material, manuals, business plans, financial 
+information, opinions, forecasts of whatever nature and other documents, whether prepared by the Receiving Party or any of its Representatives, 
+which contain or otherwise reflect or are generated from such information; and
+1.3.all information relating to the approach of the Receiving Party and the discussions and negotiations with the Disclosing Party in connection 
+with paragraph (ii) of this agreement.
+1.4.the transaction which may include company information, documents, reports, data, maps, models and interpretations, external consultant 
+technical reports, summaries, commercial, contractual and financial information.
+“Disclosing Party/Parties” means any Party to this agreement that is disclosing confidential information
+
+“Receiving party/Parties” means the party receiving confidential information
+
+
+2.The Receiving Party hereby undertakes as follows:
+(a).    That in furtherance of Paragraph (iii) of this agreement, that certain confidential information would be passed unto the Receiving Party. 
+(b).	That all confidential information that it would receive from the Disclosing Party, remains the property of the Disclosing party.
+
+(c).	The Receiving Party hereby agrees that it shall not use, commercialise or disclose any confidential information it receives from the 
+Disclosing Party to any person, or entity except under the terms of this Agreement
+
+
+3.The undertakings in this Agreement do not apply to Confidential Information which:
+3.1.  is or becomes available to the public otherwise than as a result of an unauthorised disclosure by the Receiving Party or any of its Representatives;
+
+3.2.  is already possessed or developed by the Receiving Party or its Representatives (as can be demonstrated by the Receiving Party or its Representative) 
+from a source other than the Disclosing Party or its Representatives, provided that such information is not subject to an obligation (direct or indirect, 
+implied or otherwise) of confidentiality to the Disclosing Party or any of its Representatives; or
+
+3.3.    becomes available to the Receiving Party or its Representatives on a non-confidential basis from a source other than the Disclosing Party. Provided 
+that such source is not (to the best of the Receiving Party's knowledge) bound directly or indirectly or impliedly by an obligation of confidentiality to 
+the Disclosing Party or any of its Representatives; and
+
+3.4.    is required to be disclosed by any applicable law or regulation, or by any government, court of competent jurisdiction, stock exchange or regulator.
+
+4.In consideration of the Disclosing Party agreeing to make such information available to the Receiving Party, the Receiving Party agrees with and undertakes 
+to the Disclosing Party as set out below.
+I.Inform the Disclosing Party as soon as practicably possible if the Receiving Party becomes aware that Confidential Information has been disclosed to or 
+obtained by an unauthorised third party.
+II.The Receiving Party will notify all of its Representatives to whom Confidential Information is to be disclosed of the confidential nature of the Information, 
+and the obligations of the Receiving Party under this Agreement, and shall use its reasonable endeavors to ensure that each Representative will comply with the 
+terms of this Agreement as if that person had given the undertakings contained in this Agreement in place of the Receiving Party (the foregoing shall apply to):
+a.employees, officers, and directors of Receiving Party;
+b.employees, officers, and directors of an Affiliated Company of Receiving Party ("Affiliated Company" means any company or legal entity that controls, or is controlled by,
+ or that is controlled by an entity that controls, a Party). "Control" means the direct or indirect ownership of more than fifty (50) percent of the voting rights in a company or other legal entity.;
+c.any consultant, advisor, representative or agent retained by Receiving Party whether they be an Independent Contractor or Sub-Contractor or its Affiliated Company; or 
+d.any bank, financial institution, or entity funding or proposing to fund, participation by Receiving Party in the Area, including any consultant retained by such bank, 
+financial institution, or entity.
+III.For the avoidance of doubt, the Parties agree that any breach of the confidential nature of any information disclosed to the Receiving Party pursuant to and/or 
+in relation to this Agreement by any Representative of the Receiving Party shall be deemed as a breach of obligation pursuant to this Agreement by the Receiving Party.
+
+5.RETURN OF DOCUMENTS
+On the earlier of either the date of expiration of the term of this Agreement, termination of this Agreement, or a written request from the Disclosing Party, 
+the Receiving Party shall destroy or return to the Disclosing Party promptly (and in any event within seven (7) days), all Confidential Information of the 
+Disclosing Party in its possession or control and erase the same from all media or electronic storage device in its possession or control and if requested  by the Disclosing Party, 
+shall provide written confirmation to the Disclosing Party to that effect.
+ 
+6.NON-USE AND NON-DISCLOSURE
+Each Party agrees not to use any Confidential Information of the other Party for any purpose except to evaluate and engage in discussions concerning a potential business relationship between the Parties.  
+Each Party agrees not to publish, disclose, transmit or otherwise make available any Confidential Information of the other Party to any third parties or to disclose such Confidential Information to such 
+Party’s Affiliated Companies or such Party’s or its Affiliated Companies’ directors, officers, employees, consultants or professional advisors (collectively, along with such Party’s Affiliated Companies, 
+the “Representatives”), except to those Representatives of the receiving Party who are required to have the information in order for the receiving Party to evaluate or engage in discussions concerning the 
+contemplated business relationship and only if such Representatives are subject to obligations of confidentiality that are equivalent to those contained in this Agreement.  Each Party shall be liable for 
+any breach of this Agreement by its Representatives.
+6.MAINTENANCE OF CONFIDENTIALITY 
+Each Party agrees that it shall take reasonable measures to protect the secrecy of and avoid disclosure and unauthorized use of the Confidential Information of the other Party.  Without limiting the foregoing, 
+each Party shall take at least those measures that it takes to protect its own confidential information.  Neither Party shall make any copies of the Confidential Information of the other Party unless the same 
+are previously approved in writing by the other Party (unless such copies are solely for the use of the Representatives to be able to properly evaluate the proposed transaction between the Parties). 
+1.No Obligation.  This Agreement does not constitute any form of partnership or association between Parties. Nothing herein shall obligate either Party to proceed with any transaction between them or 
+otherwise form a business relationship, and each Party reserves the right, in its sole discretion, to terminate at any time the discussions concerning the possible business relationship being explored by the Parties.
+
+7.No Warranty.  ALL CONFIDENTIAL INFORMATION IS PROVIDED “AS IS”.  EACH PARTY MAKES NO WARRANTIES, EXPRESSED, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY, COMPLETENESS OR THE RESULTS TO BE OBTAINED FROM THE USE THEREOF.  
+None of the Confidential Information disclosed by the Parties hereunder is subject to any representation, warranty, or indemnity by either Party to the other with respect to the infringement of trademarks, patents, copyrights; 
+mask works rights or other rights of third persons. Further, the disclosing Party shall not have any liability to the receiving Party resulting from any use of the Confidential Information.
+
+8.INDEMNITY
+The Receiving Party shall indemnify the Disclosing Party and each of its Representatives and hold each of them harmless against all loss, expense, cost, liability or damage that may arise directly from the unauthorized 
+disclosure or use of the Confidential Information or any part of it in breach of this Agreement or the enforcement of any rights against the Receiving Party under this Agreement.
+
+9.NON-CIRCUMVENTION
+The Parties hereby bind themselves and guarantee to each other that they shall not directly or indirectly contact or communicate with, avoid or bypass any Party from any Transactions between the Parties’ contacts, or 
+interfere with the relationship of any Party and its contacts for the purpose of gaining any benefit, whether such benefit is monetary or otherwise, or submit a request for a product or service to, any contact, entity, or 
+institution introduced by a Disclosing Party to a Receiving Party without the prior case-by-case written approval of the Disclosing Party authorizing such contact or communication.
+
+10.REMEDIES
+I.Each Party acknowledges and agrees that damages alone would not be an adequate remedy for a breach of this agreement and that each party shall be entitled to seek the remedies of injunction, 
+specific performance and other relief for any threatened or actual breach of this agreement under applicable law.
+II.The rights, powers and remedies provided by this Agreement are cumulative and do not exclude any rights, powers or remedies provided by law or by any other document other than this Agreement. 
+No provisions in this Agreement excluding or limiting liability shall operate in favor of any person guilty of fraud.
+
+11.SEVERABILITY AND NON-SEVERABILITY 
+If any provision of this Agreement is held to be invalid or unenforceable, that provision shall (to the extent that it is invalid or unenforceable) be given no effect and shall be deemed not to 
+be included in this Agreement, but without invalidating any of the remaining provisions.
+
+12.DURATION
+This Agreement shall be in force for a period of two (2) years after the date of completion or abandonment or termination of the Transaction; provided that, in the case of any Confidential 
+Information that constitutes an Intellectual Property such as trade secret, copyright, patent etc of the disclosing Party, the confidentiality obligations imposed hereunder shall remain in 
+effect following the date of such termination for so long as such Confidential Information continues to constitute a trade secret of the disclosing Party under applicable law.
+
+13.TERMINATION
+I.This Agreement may be determined by either party giving the other party a 14 (fourteen) day notice in writing of its intention. This is without prejudice to the right of the parties to 
+settle all outstanding obligations and enforce by right of action or decree of specific performance of all terms and conditions to the extent of performance of the obligation done or 
+undertaken by such party on a pro rata basis
+
+12.	GOVERNING LAW AND ARBITRATION
+This agreement and any dispute or claim arising out of or in connection with it or its subject matter or formation (including non-contractual disputes or claims) shall be governed by 
+and construed in accordance with Nigerian law. 
+The Parties shall take all reasonable steps to amicably resolve any dispute or misunderstanding that may arise between them, in relation to this Agreement. Where the Parties are unable 
+to resolve any dispute amicably within thirty days of the occurrence of such dispute, the parties shall each appoint an arbitrator and both arbitrators jointly appointing a third arbitrator 
+who shall serve as a presiding arbitrator and the parties hereby submit to Arbitration in accordance with the Arbitration and Conciliation Act Cap A18, Laws of the Federal Republic of Nigeria 
+2004 and the decision of the Arbitrator shall be final as between the Parties in connection with this Agreement. The arbitration shall be in English Language and shall hold in Port Harcourt.
+
+11.	NOTICES
+Any notice(s) to be given pursuant to this MOU shall be in writing and shall be deemed to be correctly delivered if delivered at the address of the Parties first above written or by email 
+sent to the official email address of either Party or that of an officer designated for by either Party for such purpose. 

@@ -19,11 +19,11 @@ def clean_question(item: Tuple) -> Tuple[str, str]:
     return item
 
 
-def create_section(section_name, c_summary):
+def create_section(section_name, c_summary, base_path=BASE_PATH):
     '''Creates a section'''
     dict_ = {}
     for i, template in enumerate(
-        files_for_section(BASE_PATH, section_name),
+        files_for_section(base_path, section_name),
         start=1
     ):
         values = [
@@ -34,11 +34,11 @@ def create_section(section_name, c_summary):
     return dict_
 
 
-def create_question(section_name):
+def create_question(section_name, base_path=BASE_PATH):
     '''Create a section questions'''
     dict_ = {}
     for i, question in enumerate(
-        files_for_section(BASE_PATH, section_name, get_questions=True),
+        files_for_section(base_path, section_name, get_questions=True),
         start=1
     ):
         dict_[f"Question {i}"] = question

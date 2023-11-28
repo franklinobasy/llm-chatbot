@@ -1,0 +1,13 @@
+Client Name:
+[XYZ]
+Client Address:
+[...]
+Purpose of NDA
+The purpose of the NDA (Non-Disclosure Agreement) between CCL and NUIMS on Gas Digitalisation 
+is to establish a confidential relationship regarding information related to gas digitalisation, 
+encompassing sourcing, market aspects, and infrastructure. This involves developing software or 
+a digital platform/technology that helps to integrate gas components taking into consideration source,
+infrastructure, and market. This agreement ensures that both parties involved will maintain the confidentiality 
+of sensitive data, proprietary technology, strategies, and any other confidential information exchanged during 
+discussions or collaborations. Its goal is to protect the shared information from unauthorized disclosure or use, 
+fostering a secure environment for collaboration and innovation in the gas digitalisation domain.
