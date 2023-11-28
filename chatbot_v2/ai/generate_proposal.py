@@ -41,7 +41,8 @@ class AutoFillTemplate():
         self.__model_name = model_name
         self.llm = ChatOpenAI(
             model=self.__model_name,
-            openai_api_key=os.getenv("OPENAI_API_KEY")
+            openai_api_key=os.getenv("OPENAI_API_KEY"),
+            cache=True
         )
 
     def fill_template(
