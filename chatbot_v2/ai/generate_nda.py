@@ -29,11 +29,11 @@ class GenerateNDA:
     @duration
     def handle_section(self, section, context):
         PROMPT = f'''
-        Your job is to the questions and answers given below
+        Your job is to use the questions and answers given below
         to edit and rewrite the given text:
 
-        Note that the output must contain only the editted Text.
-        if there is nothing to edit, return only original Text.
+        Note that the output must contain only the edited Text.
+        if there is nothing to edit, return only the original Text.
         
         The questions and answer below are meant to replace every
         information about XYZ, because XYZ is just a place holder.
@@ -66,4 +66,3 @@ class GenerateNDA:
         sections[3] = self.handle_section(sections[3], context)
         
         return "\n".join(sections)
-    

@@ -53,6 +53,7 @@ from chatbot_v2.templates.context_config import (
 from database.mongodb.tools import (
     get_user_conversations,
     get_prompts_from_conversation,
+    create_conversation
 )
 
 from utilities.aws_tools import BucketUtil
@@ -246,6 +247,12 @@ async def get_prompts_from_conversation_(user_id, conversation_id):
         user_id, conversation_id
     )
     return prompts
+
+
+@router.get('/conversation/create/{user_id}')
+def create_new_conversation(user_id):
+    conversation_id = create_conversation(user_id)
+    return conversation_id
 
 
 @router.get('/NDA/questions')
