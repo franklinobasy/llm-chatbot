@@ -24,9 +24,9 @@ def create_conversation(
     :param collection: MongoDB collection.
     :return: Conversation ID if created, None if already exists.
     """
+    conversation_id = uuid4().hex
     existing_user = collection.find_one({"_id": user_id})
     if not existing_user:
-        conversation_id = uuid4().hex
         current_time = datetime.utcnow()
         conversation_data = ConversationModel(
             date_created=current_time,
@@ -34,13 +34,23 @@ def create_conversation(
             conversation_id=conversation_id,
             prompts=[]
         )
-        result = collection.insert_one({
+        collection.insert_one({
             "_id": user_id,
             "conversations": [conversation_data.model_dump()]
         })
         return conversation_id
     else:
-        return None
+        collection.update_one(
+            {"_id": user_id},
+            {"$push": {"conversations": {
+                "conversation_id": conversation_id,
+                "date_created": datetime.utcnow(),
+                "date_modified": datetime.utcnow(),
+                "prompts": []
+            }}}
+        )
+        logging.info(f"Conversation '{conversation_id}' added to user '{user_id}'.")
+        return conversation_id
 
 
 def delete_conversation(
