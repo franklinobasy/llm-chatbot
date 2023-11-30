@@ -262,7 +262,11 @@ async def get_nda_questions():
 
 @router.post('/NDA/generate')
 async def nda_generate(input_data: NDAPrompt):
-    generator = GenerateNDA(answers=input_data.answers)
+    try:
+        generator = GenerateNDA(answers=input_data.answers)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    
     result = generator.handle_sections()
     return JSONResponse(
         content={
