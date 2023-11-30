@@ -260,7 +260,7 @@ async def get_nda_questions():
     return templates.prepare_questions()
 
 
-@router.post('/NDA/generate')git 
+@router.post('/NDA/generate')
 async def nda_generate(input_data: NDAPrompt):
     try:
         generator = GenerateNDA(answers=input_data.answers)
