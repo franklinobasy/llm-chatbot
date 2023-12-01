@@ -51,6 +51,7 @@ from chatbot_v2.templates.context_config import (
 )
 
 from database.mongodb.tools import (
+    delete_conversation,
     get_user_conversations,
     get_prompts_from_conversation,
     create_conversation
@@ -175,9 +176,10 @@ async def upload_files(
     try:
         for file in files:
             # Upload the file directly to S3
-            ext = file.filename.split(".").pop()
+            # ext = file.filename.split(".").pop()
             # Generate a unique filename
-            file_name = f"{uuid4().hex}.{ext}"
+            # file_name = f"{uuid4().hex}.{ext}"
+            file_name = file.filename
 
             # Read the content of the file
             content = await file.read()
@@ -203,6 +205,56 @@ async def upload_files(
         raise VectorIndexError(e)
 
     return JSONResponse(content={"uploaded_files": uploaded_files}, status_code=200)
+
+
+@router.get('/user/{user_id}/documents/list')
+def list_user_uploaded_docs(user_id):
+    docs = bucket_util.list_files_in_folder(user_id)
+    return JSONResponse({
+        "docs": docs
+    })
+
+
+@router.delete('/user/{user_id}/documents')
+def delete_all_user_documents(user_id):
+    try:
+        result = bucket_util.delete_from_bucket(user_id)
+    except Exception as e:
+        return HTTPException(
+            status_code=404,
+            detail=e
+        )
+    return JSONResponse(
+        {
+            'success': result
+        }
+    )
+
+
+@router.delete('/user/{user_id}/documents/{file_name}')
+def delete_user_one_document(user_id, file_name):
+    try:
+        result = bucket_util.delete_file_in_folder(user_id, file_name)
+    except Exception as e:
+        return HTTPException(
+            status_code=404,
+            detail=e
+        )
+    
+    # Start building index
+    try:
+        print("Building new index...")
+        initiate_index(id=id, persist=False)
+        print("Index build complete.")
+    except Exception as e:
+        raise VectorIndexError(e)
+    
+    return JSONResponse(
+        {
+            'success': result,
+            'file_name': file_name
+        }
+    )
 
 
 @router.post("/reset-vector-store")
@@ -253,6 +305,11 @@ async def get_prompts_from_conversation_(user_id, conversation_id):
 def create_new_conversation(user_id):
     conversation_id = create_conversation(user_id)
     return conversation_id
+
+
+@router.delete('/conversation/delete/{user_id}/{conversation_id}')
+def delete_user_conversation(user_id, conversation_id):
+    return delete_conversation(user_id, conversation_id)
 
 
 @router.get('/NDA/questions')
