@@ -9,11 +9,12 @@ import logging
 
 class S3BucketNotFoundError(BotoCoreError):
     """Bucket not found exception class."""
-    fmt = 'S3 bucket not found: {bucket_name}'
+    fmt = 'Could not find bucket - {bucket_name}, or {e}'
 
-    def __init__(self, bucket_name, **kwargs):
+    def __init__(self, bucket_name, e ='', **kwargs):
         """Bucket not found exception class."""
         kwargs['bucket_name'] = bucket_name
+        kwargs['e'] = e
         super().__init__(**kwargs)
 
 
@@ -105,7 +106,7 @@ class BucketUtil():
                     )
             else:
                 raise S3BucketNotFoundError(
-                    bucket_name=self.bucket_name
+                    bucket_name=self.bucket_name, e=e
                 )
 
     def list_ids(self):
@@ -119,7 +120,27 @@ class BucketUtil():
         ]
         
         return ids
+    
+    def list_files_in_folder(self, id):
+        """List all files in a specific folder ID.
 
+        :param id: Folder ID to list files from
+        :return: List of file names in the folder, or an empty list if the folder is empty or not found
+        """
+        if id not in self.list_ids():
+            raise FolderNotFoundError(id, self.bucket_name)
+
+        try:
+            # List objects in the bucket with the specified prefix (id)
+            objects = self.s3_client.list_objects_v2(Bucket=self.bucket_name, Prefix=f"{id}/")
+
+            file_names = [os.path.basename(obj['Key']) for obj in objects.get('Contents', [])]
+            return file_names
+
+        except ClientError as e:
+            logging.error(e)
+            return []
+    
     def upload_file(self, id, file_name, file_content):
         """Upload a file to an S3 bucket inside a folder with the specified ID
 
@@ -141,6 +162,28 @@ class BucketUtil():
 
         return True
 
+    def delete_file_in_folder(self, id, file_name):
+        """Delete a file from a specific folder in the S3 bucket.
+
+        :param id: Folder ID from which to delete the file
+        :param file_name: Name of the file to delete
+        :return: True if the file was deleted successfully, else False
+        """
+        if id not in self.list_ids():
+            raise FolderNotFoundError(id, self.bucket_name)
+
+        try:
+            # Construct the object key using the folder ID and file name
+            object_key = f"{id}/{file_name}"
+
+            # Delete the object from the S3 bucket
+            self.s3_client.delete_object(Bucket=self.bucket_name, Key=object_key)
+
+            return True
+        except ClientError as e:
+            logging.error(e)
+            return False
+    
     def download_files(self, id):
         '''Downloads files from s3
         
@@ -283,7 +326,12 @@ def main():
         bucket_name="ccl-chatbot-document-store"
     )
     print(util.bucket_name)
-    print(util.create_upload_presigned_url("1"))
+    folder_id = "1"
+    files_in_folder = util.list_files_in_folder(folder_id)
+    if files_in_folder:
+        print(f"Files in folder {folder_id}: {files_in_folder}")
+    else:
+        print(f"No files found in folder {folder_id}.")
 
 
 if __name__ == "__main__":

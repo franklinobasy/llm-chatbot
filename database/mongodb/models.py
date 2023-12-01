@@ -1,5 +1,5 @@
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from uuid import uuid4
 from typing import List
 
@@ -10,13 +10,13 @@ class PromptModel(BaseModel):
     
 
 class ConversationModel(BaseModel):
-    date_created: datetime = datetime.utcnow()
-    date_modified: datetime = datetime.utcnow()
-    conversation_id: str = uuid4().hex
+    date_created: datetime = Field(default_factory=datetime.utcnow)
+    date_modified: datetime = Field(default_factory=datetime.utcnow)
+    conversation_name: str = "New conversation"
+    conversation_id: str = Field(default_factory=lambda: uuid4().hex)
     prompts: List[PromptModel] = []
 
 
 class UserModel(BaseModel):
-    user_id: str = str(uuid4().hex)
+    user_id: str = Field(default_factory=lambda: uuid4().hex)
     conversations: List[ConversationModel] = []
-

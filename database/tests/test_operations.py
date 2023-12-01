@@ -1,16 +1,16 @@
-# test_tools.py
+# test_combined.py
 import pytest
 from datetime import datetime
+from pymongo import MongoClient
 from database.mongodb.tools import (
-    create_conversation, 
-    delete_conversation, 
-    add_prompt_to_conversation, 
+    create_conversation,
+    create_user_if_not_exists,
+    delete_conversation,
+    add_prompt_to_conversation,
     get_user_conversations,
-    get_prompts_from_conversation  # Added import for the new function
+    get_prompts_from_conversation
 )
 from database.mongodb.models import UserModel, ConversationModel, PromptModel
-from pymongo import MongoClient
-
 
 @pytest.fixture(scope="module")
 def test_collection():
@@ -21,6 +21,11 @@ def test_collection():
     yield test_collection
     # Teardown: Drop the test collection after tests
     test_db.drop_collection('test_collection')
+
+def test_create_user_if_not_exists(test_collection):
+    user_id = "test_user_id"
+    result = create_user_if_not_exists(user_id, collection=test_collection)
+    assert result
 
 def test_create_conversation(test_collection):
     user_id = "test_user_id"
