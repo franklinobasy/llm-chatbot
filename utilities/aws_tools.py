@@ -34,8 +34,8 @@ class FolderNotFoundError(BotoCoreError):
 
     def __init__(self, id, bucket_name, **kwargs):
         """Folder not found exception class."""
-        kwargs[id] = id
-        kwargs[bucket_name] = bucket_name
+        kwargs['id'] = id
+        kwargs['bucket_name'] = bucket_name
         super().__init__(**kwargs)
 
 
@@ -45,8 +45,8 @@ class FilesDownloadError(BotoCoreError):
 
     def __init__(self, id, bucket_name, **kwargs):
         """Files download error exception class."""
-        kwargs[id] = id
-        kwargs[bucket_name] = bucket_name
+        kwargs['id'] = id
+        kwargs['bucket_name'] = bucket_name
         super().__init__(**kwargs)
 
 
@@ -128,7 +128,7 @@ class BucketUtil():
         :return: List of file names in the folder, or an empty list if the folder is empty or not found
         """
         if id not in self.list_ids():
-            raise FolderNotFoundError(id, self.bucket_name)
+            raise FolderNotFoundError(id=id, bucket_name=self.bucket_name)
 
         try:
             # List objects in the bucket with the specified prefix (id)

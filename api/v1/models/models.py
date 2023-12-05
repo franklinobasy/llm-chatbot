@@ -1,6 +1,6 @@
 from fastapi import File, UploadFile
 
-from typing import Annotated, List
+from typing import Annotated, List, Optional
 from pydantic import BaseModel
 
 
@@ -38,6 +38,16 @@ class UserInput(BaseModel):
     section_id: int
     template_index: int
     answers: List[str] = []
+    
+
+class UserInput2(BaseModel):
+    """
+    Model for user input
+    """
+
+    section_id: int
+    template_index: int = -1
+    context: str
 
 
 class ProposalResult(BaseModel):
