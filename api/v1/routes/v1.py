@@ -22,6 +22,7 @@ from api.v1.models.models import (
     Templates,
     UserInput,
     UploadRequestModel,
+    UserInput2,
 )
 from api.v1.routes.error_handler import (
     AnswersMisMatchQuestion,
@@ -35,6 +36,7 @@ from chatbot_v2.ai.chat import process_prompt
 from chatbot_v2.ai.generate_proposal import AutoFillTemplate
 from chatbot_v2.ai.generate_letter import AutoWriteLetter
 from chatbot_v2.ai.generate_nda import GenerateNDA, templates
+from chatbot_v2.ai.gnerate_proposal_2 import AutoGenerateSection
 from chatbot_v2.ai.style_engine import StyleGuide
 from chatbot_v2.configs.constants import MODEL_NAME
 from chatbot_v2.handlers.field_handler import FieldHandler
@@ -177,6 +179,30 @@ async def generate_proposal(user_input: UserInput):
     filled_templates = fh.fill_template(filled_fields)
 
     return ProposalResult(text=filled_templates)
+
+
+@router.post('/generate/proposal')
+async def generate_proposal_2(user_input: UserInput2):
+    """ Version 2: Generate a proposal section """
+    section_id = user_input.section_id
+    template_index = user_input.template_index
+    context = user_input.context
+    
+    try:
+        section_name = list(section_templates.keys())[section_id]
+    except IndexError as _:
+        raise UnknownSectionID(section_id)
+    
+    generator = AutoGenerateSection(MODEL_NAME, section_name)
+    
+    # prepare template
+    generator.section_template(template_index)
+    
+    # prepare questions
+    generator.template_questions()
+    
+    result = generator.generate_section(context)
+    return result
 
 
 @router.post("/letter")
