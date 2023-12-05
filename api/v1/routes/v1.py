@@ -183,6 +183,7 @@ async def generate_proposal(user_input: UserInput):
 
 @router.post('/generate/proposal')
 async def generate_proposal_2(user_input: UserInput2):
+    """ Version 2: Generate a proposal section """
     section_id = user_input.section_id
     template_index = user_input.template_index
     context = user_input.context
