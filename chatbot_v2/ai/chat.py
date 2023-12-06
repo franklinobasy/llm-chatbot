@@ -20,14 +20,14 @@ def process_prompt(
 ):
     # index = initiate_index(id=sender_id, persist=True)
     chat_history = get_conversation_prompts(sender_id, conversation_id)
-    context = "If there isn't relevant information in the context above, use your discretion and prior knowledge to answer the user's question"
+    # context = "If there isn't relevant information in the context above, use your discretion and prior knowledge to answer the user's question"
 
     # Initialize the LLM with the specified model name and parameters
     # Prepare memory
     memory = ConversationBufferMemory()
     for qa in chat_history:
-        memory.chat_memory.add_user_message(qa["question"])
-        memory.chat_memory.add_ai_message(qa["answer"])
+        memory.chat_memory.add_user_message(qa[0])
+        memory.chat_memory.add_ai_message(qa[1])
         
     llm = ChatOpenAI(model=MODEL_NAME, cache=True, temperature=1)
 
