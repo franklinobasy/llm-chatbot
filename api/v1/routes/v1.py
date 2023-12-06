@@ -36,7 +36,7 @@ from chatbot_v2.ai.chat import process_prompt
 from chatbot_v2.ai.generate_proposal import AutoFillTemplate
 from chatbot_v2.ai.generate_letter import AutoWriteLetter
 from chatbot_v2.ai.generate_nda import GenerateNDA, templates
-from chatbot_v2.ai.gnerate_proposal_2 import AutoGenerateSection
+from chatbot_v2.ai.generate_proposal_2 import AutoGenerateSection
 from chatbot_v2.ai.style_engine import StyleGuide
 from chatbot_v2.configs.constants import MODEL_NAME
 from chatbot_v2.handlers.field_handler import FieldHandler

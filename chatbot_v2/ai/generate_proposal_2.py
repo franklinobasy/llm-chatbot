@@ -34,12 +34,12 @@ class AutoGenerateSection:
     The name of the section is {section_type}.
     
     A list of questions has been given below, followed by a template example
-    of how the proposal section. A context will be provided to help you
+    of how the proposal section shoud be. A context will be provided to help you
     answer the questions. Note that answering the questions will help you
     with more information on how to write the section of the proposal.
     
     if no question is supplied, or/and no template is supplied, feel free
-    to generate the tplate using the context provided.
+    to generate the template using the context provided.
     
     NOTE: You are expected to only write the specified section of the template.
     You are free to get creative with the generation of the section whether template
