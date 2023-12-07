@@ -58,7 +58,7 @@ def process_prompt(
 
     return result['answer']
 
-
+@duration
 def process_prompt_2(
     sender_id: str,
     conversation_id: str,
