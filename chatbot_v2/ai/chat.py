@@ -44,7 +44,8 @@ def process_prompt(
     )
     
     # Execute the chain to get the result
-    result = chain({"question": prompt, "chat_history": chat_history})
+    # result = chain({"question": prompt, "chat_history": chat_history})
+    result = chain.run(input=prompt)
 
     # chat_history.append((prompt, result['answer']))
 
@@ -52,11 +53,13 @@ def process_prompt(
         # Save the prompt and answer to the database
         prompt_model = PromptModel(
             question=prompt,
-            answer=result["answer"]
+            # answer=result["answer"]
+            answer=result
         )
         save_prompt(sender_id, conversation_id, prompt_model)
 
-    return result['answer']
+    # return result['answer']
+    return result
 
 @duration
 def process_prompt_2(
