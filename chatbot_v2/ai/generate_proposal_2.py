@@ -88,3 +88,23 @@ class AutoGenerateSection:
 
         result = self.llm(messages)
         return result.content
+    
+    def generate_section_2(self, context):
+        prompt = self.HUMAN_PROMPT.format(
+            section_type=self.section_type,
+            context=context,
+            questions=self.qs,
+            template=self.ts
+        )
+
+        messages = [
+            SystemMessage(
+                content=self.SYSTEM_PROMPT
+            ),
+            HumanMessage(
+                content=prompt
+            ),
+        ]
+
+        for chunck in self.llm.stream(input=messages):
+            yield chunck.content

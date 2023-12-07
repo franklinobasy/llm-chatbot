@@ -57,3 +57,7 @@ Thumbs.db
 __pycache__
 
 .langchain.db
+
+test.py
+test.json
+test1.py
