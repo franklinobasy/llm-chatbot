@@ -20,7 +20,7 @@ class AutoWriteLetter:
             model=self.__model_name,
             openai_api_key=os.getenv("OPENAI_API_KEY"),
             cache=True,
-            stream=True
+            streaming=True
         )
 
     @duration
