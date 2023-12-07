@@ -20,7 +20,7 @@ class AutoGenerateSection:
             model=self.__model_name,
             openai_api_key=os.getenv("OPENAI_API_KEY"),
             cache=True,
-            stream=True
+            streaming=True
         )
         self.section_type = section_type
 

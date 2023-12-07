@@ -71,17 +71,17 @@ def process_prompt_2(
         memory.chat_memory.add_user_message(qa[0])
         memory.chat_memory.add_ai_message(qa[1])
         
-    llm = ChatOpenAI(model=MODEL_NAME, cache=True, temperature=1)
+    llm = ChatOpenAI(model=MODEL_NAME, cache=True, temperature=1, streaming=True)
     
-    chain = ConversationChain(
-        llm=llm,
-        memory=memory
-    )
+    # chain = ConversationChain(
+    #     llm=llm,
+    #     memory=memory,
+    # )
     
     result = ""
-    for chunck in chain.stream(input=prompt):
-        result += chunck['response']
-        yield chunck['response']
+    for chunck in llm.stream(input=prompt):
+        result += chunck.content
+        yield chunck.content
 
     chat_history.append((prompt, result))
     
