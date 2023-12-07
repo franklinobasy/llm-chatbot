@@ -18,7 +18,8 @@ class AutoWriteLetter:
         self.llm = ChatOpenAI(
             model=self.__model_name,
             openai_api_key=os.getenv("OPENAI_API_KEY"),
-            cache=True
+            cache=True,
+            stream=True
         )
 
     def generate(self, context):
@@ -33,3 +34,16 @@ class AutoWriteLetter:
 
         result = self.llm(messages)
         return result.content
+    
+    def generate_2(self, context):
+        messages = [
+            SystemMessage(
+                content=LETTER_SYSTEM_PROMPT
+            ),
+            HumanMessage(
+                content=f"context: {context}"
+            ),
+        ]
+
+        for chunck in self.llm.stream(input=messages):
+            yield chunck.content

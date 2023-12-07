@@ -7,7 +7,7 @@ from fastapi import (
     APIRouter,
     HTTPException,
 )
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 
 from api.v1.models.models import (
     BuildIndexForId,
@@ -32,7 +32,7 @@ from api.v1.routes.error_handler import (
     UnknownTemplateID,
     VectorIndexError,
 )
-from chatbot_v2.ai.chat import process_prompt
+from chatbot_v2.ai.chat import process_prompt, process_prompt_2
 from chatbot_v2.ai.generate_proposal import AutoFillTemplate
 from chatbot_v2.ai.generate_letter import AutoWriteLetter
 from chatbot_v2.ai.generate_nda import GenerateNDA, templates
@@ -204,6 +204,31 @@ async def generate_proposal_2(user_input: UserInput2):
     result = generator.generate_section(context)
     return result
 
+@router.post('/generate/proposal/2')
+async def generate_proposal_2(user_input: UserInput2):
+    """ Version 2: Generate a proposal section """
+    section_id = user_input.section_id
+    template_index = user_input.template_index
+    context = user_input.context
+    
+    try:
+        section_name = list(section_templates.keys())[section_id]
+    except IndexError as _:
+        raise UnknownSectionID(section_id)
+    
+    generator = AutoGenerateSection(MODEL_NAME, section_name)
+    
+    # prepare template
+    generator.section_template(template_index)
+    
+    # prepare questions
+    generator.template_questions()
+    
+    return StreamingResponse(
+        generator.generate_section_2(context),
+        media_type='text/event-stream'
+    )
+
 
 @router.post("/letter")
 def write_letter(letter_context: LetterContext):
@@ -219,6 +244,24 @@ def write_letter(letter_context: LetterContext):
     llm = AutoWriteLetter(MODEL_NAME)
     generated_letter = llm.generate(context)
     return LetterResult(text=generated_letter)
+
+
+@router.post("/letter/2")
+def write_letter_2(letter_context: LetterContext):
+    """Write a letter based on the provided context.
+
+    Args:
+        letter_context (LetterContext): Context data for generating the letter.
+
+    Returns:
+        LetterResult: A response containing the generated letter text.
+    """
+    context = letter_context.context
+    llm = AutoWriteLetter(MODEL_NAME)
+    return StreamingResponse(
+        llm.generate_2(context),
+        media_type='text/event-stream'
+    )
 
 
 @router.post("/chat")
@@ -239,6 +282,27 @@ async def chat(request: ChatPrompt):
     )
 
     return {"Human": request.prompt, "AI": answer}
+
+
+@router.post("/chat/2")
+async def chat_2(request: ChatPrompt):
+    """Initiate a chat and process the user prompt.
+
+    Args:
+        request (ChatPrompt): Chat prompt data including sender ID, conversation ID, and prompt.
+
+    Returns:
+        dict: A dictionary containing the user prompt and AI-generated response.
+    """
+    return StreamingResponse(
+        process_prompt_2(
+            request.sender_id,
+            request.conversation_id,
+            CHAT_SYSTEM_PROMPT.format(request.prompt),
+            use_history=request.use_history,
+        ),
+        media_type='text/event-stream'
+    )
 
 
 @router.post("/upload")
