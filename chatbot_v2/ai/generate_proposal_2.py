@@ -19,7 +19,8 @@ class AutoGenerateSection:
         self.llm = ChatOpenAI(
             model=self.__model_name,
             openai_api_key=os.getenv("OPENAI_API_KEY"),
-            cache=True
+            cache=True,
+            stream=True
         )
         self.section_type = section_type
 
