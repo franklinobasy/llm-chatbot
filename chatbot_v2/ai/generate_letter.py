@@ -6,6 +6,7 @@ import os
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
 from chatbot_v2.templates.context_config import LETTER_SYSTEM_PROMPT
+from utilities.tools import duration
 
 
 class AutoWriteLetter:
@@ -22,6 +23,7 @@ class AutoWriteLetter:
             stream=True
         )
 
+    @duration
     def generate(self, context):
         messages = [
             SystemMessage(
@@ -34,7 +36,8 @@ class AutoWriteLetter:
 
         result = self.llm(messages)
         return result.content
-    
+
+    @duration
     def generate_2(self, context):
         messages = [
             SystemMessage(

@@ -9,6 +9,7 @@ from langchain.prompts import PromptTemplate, ChatPromptTemplate, HumanMessagePr
 from langchain.output_parsers import ResponseSchema, StructuredOutputParser
 from chatbot_v2.handlers.question_handler import QuestionHandler
 from chatbot_v2.handlers.template_handler import TemplateHandler
+from utilities.tools import duration
 
 # Remove unnecessary imports: json, logging, and duration (if not used elsewhere)
 
@@ -68,7 +69,7 @@ class AutoGenerateSection:
         qh = QuestionHandler(self.section_type)
         self.qs = qh.get_questions()
 
-
+    @duration
     def generate_section(self, context):
         prompt = self.HUMAN_PROMPT.format(
             section_type=self.section_type,
@@ -89,6 +90,7 @@ class AutoGenerateSection:
         result = self.llm(messages)
         return result.content
     
+    @duration
     def generate_section_2(self, context):
         prompt = self.HUMAN_PROMPT.format(
             section_type=self.section_type,
