@@ -64,5 +64,19 @@ class GenerateNDA:
         sections[0] = self.handle_section(sections[0], context)
         sections[1] = self.handle_section(sections[1], context)
         sections[3] = self.handle_section(sections[3], context)
-        
+
         return "\n".join(sections)
+
+    @duration
+    def handle_sections_2(self, chunk_size=500):
+        context = "Use the questions and answers supplied to edit the text."
+        sections = templates.prepare_sections()
+        sections[0] = self.handle_section(sections[0], context)
+        sections[1] = self.handle_section(sections[1], context)
+        sections[3] = self.handle_section(sections[3], context)
+        
+        text = "\n".join(sections)
+        
+        chunks = [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]
+        for chunk in chunks:
+            yield chunk

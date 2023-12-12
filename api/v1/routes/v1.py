@@ -182,7 +182,7 @@ async def generate_proposal(user_input: UserInput):
 
 
 @router.post('/generate/proposal')
-async def generate_proposal_2(user_input: UserInput2):
+async def generate_proposal(user_input: UserInput2):
     """ Version 2: Generate a proposal section """
     section_id = user_input.section_id
     template_index = user_input.template_index
@@ -204,6 +204,7 @@ async def generate_proposal_2(user_input: UserInput2):
     result = generator.generate_section(context)
     return result
 
+
 @router.post('/generate/proposal/2')
 async def generate_proposal_2(user_input: UserInput2):
     """ Version 2: Generate a proposal section """
@@ -220,6 +221,12 @@ async def generate_proposal_2(user_input: UserInput2):
     
     # prepare template
     generator.section_template(template_index)
+    
+    if section_name in generator.no_llm_sections:
+        return StreamingResponse(
+            generator.stream_section_generation(chunk_size=100),
+            media_type='text/event-stream'
+        )
     
     # prepare questions
     generator.template_questions()
@@ -588,4 +595,28 @@ async def nda_generate(input_data: NDAPrompt):
         content={
             "NDA": result
         }
+    )
+
+
+@router.post('/NDA/generate/2')
+async def nda_generate_2(input_data: NDAPrompt):
+    """Generate an NDA based on user input.
+
+    Args:
+        input_data (NDAPrompt): Input data containing answers for generating an NDA.
+
+    Returns:
+        JSONResponse: A response containing the generated NDA.
+    
+    Raises:
+        HTTPException: If there is an error during NDA generation.
+    """
+    try:
+        generator = GenerateNDA(answers=input_data.answers)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    
+    return StreamingResponse(
+        generator.handle_sections_2(),
+        media_type='text/event-stream'
     )

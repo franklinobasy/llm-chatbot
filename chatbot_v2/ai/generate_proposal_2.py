@@ -1,6 +1,6 @@
 '''Module for proposal auto-generation'''
 
-from typing import Dict, List
+from typing import Dict, List, Union
 import os
 
 from langchain.chat_models import ChatOpenAI
@@ -23,6 +23,12 @@ class AutoGenerateSection:
             streaming=True
         )
         self.section_type = section_type
+        self.no_llm_sections = [
+            "about_cyphercrescent",
+            "our_team",
+            "our_commitment",
+            "our_clients"
+        ]
 
     SYSTEM_PROMPT = '''
     You are a professional proposal writer that works in Cycphercrescent.
@@ -64,7 +70,7 @@ class AutoGenerateSection:
         if index != -1:
             if index >= len(ts):
                 raise IndexError("Index out of range for template list")
-        self.ts: List = ts if index == -1 else ts[index]
+        self.ts: Union[List, str] = ts if index == -1 else ts[index]
 
     def template_questions(self):
         qh = QuestionHandler(self.section_type)
@@ -109,5 +115,19 @@ class AutoGenerateSection:
             ),
         ]
 
-        for chunck in self.llm.stream(input=messages):
-            yield chunck.content
+        for chunk in self.llm.stream(input=messages):
+            yield chunk.content
+
+    @duration
+    def generate_controller(self, context=None, chunk_size=10):
+        if self.section_type in self.no_llm_sections:
+            return self.stream_section_generation
+        else:
+            return self.generate_section_2
+        
+    @duration
+    def stream_section_generation(self, chunk_size):
+        text = self.ts
+        chunks = [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]
+        for chunk in chunks:
+            yield chunk
