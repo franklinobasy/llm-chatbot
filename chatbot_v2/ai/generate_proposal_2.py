@@ -35,10 +35,12 @@ class AutoGenerateSection:
     Cyphercrscent mission is to co-create innovative technology solutions
     for enterprises to accelerate adoption of sustainable digitalisation
     practices.
+    
+    You role is to write a particular section of a proposal.
     '''
 
     HUMAN_PROMPT = '''
-    You are expected to write of a section of the proposal.
+    You are expected to write only a section of the proposal.
     The name of the section is {section_type}.
     
     A list of questions has been given below, followed by a template example

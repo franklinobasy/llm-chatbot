@@ -220,7 +220,10 @@ async def generate_proposal_2(user_input: UserInput2):
     generator = AutoGenerateSection(MODEL_NAME, section_name)
     
     # prepare template
-    generator.section_template(template_index)
+    try:
+        generator.section_template(template_index)
+    except IndexError as _:
+        raise UnknownSectionID(section_id)
     
     if section_name in generator.no_llm_sections:
         return StreamingResponse(
