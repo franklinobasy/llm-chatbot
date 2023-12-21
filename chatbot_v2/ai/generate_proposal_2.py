@@ -37,6 +37,7 @@ class AutoGenerateSection:
     practices.
     
     You role is to write a particular section of a proposal.
+    Do not include any conclution after writing the section.
     '''
 
     HUMAN_PROMPT = '''
@@ -52,6 +53,7 @@ class AutoGenerateSection:
     to generate the template using the context provided.
     
     NOTE: You are expected to only write the specified section of the template.
+    Do not include any conclusion after writing the section.
     You are free to get creative with the generation of the section whether template
     was provided or not using the given context. If you have a list of template, you
     can choose to work with the most appropriate
@@ -98,7 +100,7 @@ class AutoGenerateSection:
 
         result = self.llm(messages)
         return result.content
-    
+
     @duration
     def generate_section_2(self, context):
         prompt = self.HUMAN_PROMPT.format(
