@@ -3,7 +3,7 @@ import requests
 # Replace with the appropriate URL where your FastAPI server is running
 host="54.174.77.47"
 # host ="localhost:8000"
-api_url = f"http://{host}/api/v1/letter/2"
+api_url = f"http://{host}/api/v1/letter/stream"
 
 prompt_data = {
     "context": "write a letter to a principal for sick leave"
@@ -23,7 +23,7 @@ try:
                 try:
                     print(str(chunk, encoding="utf-8"), end="")
                 except Exception as e:
-                    print(e)
+                    pass
     else:
         print(f"Error: {response.status_code}\n{response.text}")
 
