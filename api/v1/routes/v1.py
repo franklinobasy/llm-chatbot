@@ -205,9 +205,9 @@ async def generate_proposal(user_input: UserInput2):
     return result
 
 
-@router.post('/generate/proposal/2')
+@router.post('/generate/proposal/stream')
 async def generate_proposal_2(user_input: UserInput2):
-    """ Version 2: Generate a proposal section """
+    """ Version 2: [Stream] Generate a proposal section """
     section_id = user_input.section_id
     template_index = user_input.template_index
     context = user_input.context
@@ -256,9 +256,9 @@ def write_letter(letter_context: LetterContext):
     return LetterResult(text=generated_letter)
 
 
-@router.post("/letter/2")
+@router.post("/letter/stream")
 def write_letter_2(letter_context: LetterContext):
-    """Write a letter based on the provided context.
+    """Version 2: [Stream] Write a letter based on the provided context.
 
     Args:
         letter_context (LetterContext): Context data for generating the letter.
@@ -294,9 +294,9 @@ async def chat(request: ChatPrompt):
     return {"Human": request.prompt, "AI": answer}
 
 
-@router.post("/chat/2")
+@router.post("/chat/stream")
 async def chat_2(request: ChatPrompt):
-    """Initiate a chat and process the user prompt.
+    """Version 2: [Stream] Initiate a chat and process the user prompt.
 
     Args:
         request (ChatPrompt): Chat prompt data including sender ID, conversation ID, and prompt.
@@ -481,29 +481,29 @@ def get_health():
     return {"message": "Everything is good here 👀"}
 
 
-@router.post("/style_engine")
-async def style_playground_endpoint(input_data: Input):
-    """Modify the input using the style engine.
+# @router.post("/style_engine")
+# async def style_playground_endpoint(input_data: Input):
+#     """Modify the input using the style engine.
 
-    Args:
-        input_data (Input): Input data to be modified.
+#     Args:
+#         input_data (Input): Input data to be modified.
 
-    Returns:
-        JSONResponse: A response containing the modified result.
+#     Returns:
+#         JSONResponse: A response containing the modified result.
     
-    Raises:
-        HTTPException: If there is an error during modification.
-    """
-    try:
-        style_guide = StyleGuide()
-        chain = style_guide.styleguide_modify_input()
-        chain_output = chain.invoke({"input": input_data.input})
-        response_data = (
-            chain_output if isinstance(chain_output, dict) else chain_output.dict()
-        )
-        return JSONResponse(content={"result": response_data})
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+#     Raises:
+#         HTTPException: If there is an error during modification.
+#     """
+#     try:
+#         style_guide = StyleGuide()
+#         chain = style_guide.styleguide_modify_input()
+#         chain_output = chain.invoke({"input": input_data.input})
+#         response_data = (
+#             chain_output if isinstance(chain_output, dict) else chain_output.dict()
+#         )
+#         return JSONResponse(content={"result": response_data})
+#     except Exception as e:
+#         raise HTTPException(status_code=400, detail=str(e))
 
 
 @router.get('/conversations/user/{user_id}')
@@ -601,9 +601,9 @@ async def nda_generate(input_data: NDAPrompt):
     )
 
 
-@router.post('/NDA/generate/2')
+@router.post('/NDA/generate/stream')
 async def nda_generate_2(input_data: NDAPrompt):
-    """Generate an NDA based on user input.
+    """Version2: [Stream] Generate an NDA based on user input.
 
     Args:
         input_data (NDAPrompt): Input data containing answers for generating an NDA.
