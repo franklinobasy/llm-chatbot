@@ -2,14 +2,14 @@ from typing import Annotated, Dict, List, Tuple, Union
 import time
 import logging
 import os
-import pickle as pkl
+import chromadb
 
 
-from langchain.document_loaders import DirectoryLoader
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.indexes.vectorstore import VectorStoreIndexWrapper
+from langchain_community.document_loaders.directory import DirectoryLoader
+from langchain_openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.vectorstores import Pinecone
+from langchain_community.vectorstores.pinecone import Pinecone
+from langchain_community.vectorstores.chroma import Chroma
 
 from chatbot_v2.vector_store import pinecone
 from utilities import duration
@@ -45,12 +45,35 @@ def split_documents(
 def initiate_index(
     id: str = None,
     persist: Annotated[bool, "Set as True or False to persist data"] = False,
-) -> Union[VectorStoreIndexWrapper, Pinecone]:
+    store_client = "pinecone",
+):
     ''''''
     data_dir = os.path.join(os.getcwd(), "bin", id)
-    # index_name = f"tempuser-{id}"
-    index_name = "ccl-vectorstore"
+    store_name = f"tempuser-{id}"
+    
+    if store_client == "pinecone":
+        return pinecone_store(
+            id,
+            persist,
+            data_dir,
+            index_name = "ccl-vectorstore",
+        )
+    
+    elif store_client == "chromadb":
+        return chromadb_store(
+            id,
+            collection_name=store_name,
+            persist=persist,
+            data_dir=data_dir,
+        )
 
+
+def pinecone_store(
+    id,
+    index_name: str  = None,
+    persist: bool = None,
+    data_dir: str = None
+):
     if not persist or index_name not in pinecone.list_indexes():
         bucket_util.download_files(id)
         documents = load_documents(data_dir)
@@ -119,3 +142,38 @@ def initiate_index(
         bucket_util.delete_from_bin(id)
 
     return index
+
+
+def chromadb_store(
+    id,
+    collection_name,
+    persist,
+    data_dir,
+    db_directory = "chroma_persist_directory",
+):
+    if not persist:
+        bucket_util.download_files(id)
+        documents = load_documents(data_dir)
+        docs = split_documents(documents)
+        
+        db = Chroma.from_documents(
+            docs,
+            embedding=OpenAIEmbeddings(),
+            collection_name=collection_name,
+            persist_directory=db_directory
+        )
+        
+        # clear bin
+        bucket_util.delete_from_bin(id)
+        
+        return db
+    
+    client = chromadb.PersistentClient(path=db_directory)
+    
+    db = Chroma(
+        client=client,
+        collection_name=collection_name,
+        embedding_function=OpenAIEmbeddings()
+    )
+    
+    return db
