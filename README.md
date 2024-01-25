@@ -25,24 +25,24 @@ This README file contains the following folders and files:
 
 - [data](data/) 
 
-- database
+- [database](database/)
 
-- test_streams
+- [test_streams](test_streams/)
 
-- utilities
+- [utilities](utilities/)
 
-- .gitignore
+- [.gitignore](.gitignore/)
 
 - architecture.jpg
 ![architecture](/architecture.jpg)
 
-- Jenkinsfile
+- [Jenkinsfile](Jenkinsfile/)
 
-- main.py
+- [main.py](main.py/)
 
-- README.md
+- [README.md](README.md/)
 
-- requirements.txt
+- [requirements.txt](requirements.txt/)
 
 #1.  Getting started
 All the codes and documents can be found on the github repository.
