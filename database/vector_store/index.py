@@ -11,7 +11,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores.pinecone import Pinecone
 from langchain_community.vectorstores.chroma import Chroma
 
-from chatbot_v2.vector_store import pinecone
+from database.vector_store import pinecone
 from utilities import duration
 from utilities.aws_tools import BucketUtil
 

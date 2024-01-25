@@ -1,5 +1,5 @@
 from chatbot_v2.configs.constants import MODEL_NAME
-from chatbot_v2.vector_store.index import initiate_index
+from database.vector_store.index import initiate_index
 from langchain_openai import ChatOpenAI
 from langchain.chains import LLMChain, ConversationalRetrievalChain
 from langchain_core.prompts import PromptTemplate

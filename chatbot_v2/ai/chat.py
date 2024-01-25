@@ -1,9 +1,9 @@
 import time
 from langchain.chains import ConversationalRetrievalChain, ConversationChain
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 
-from chatbot_v2.vector_store.index import initiate_index
+from database.vector_store.index import initiate_index
 from chatbot_v2.configs.constants import MODEL_NAME
 from database.mongodb.models import PromptModel
 from utilities import duration
@@ -11,6 +11,47 @@ from database.tracking.conversations import (
     get_conversation_prompts,
     save_prompt
 )
+
+
+@duration
+def doc_chat(
+    user_id: str,
+    conversation_id: str,
+    prompt: str,
+    record_chat: bool = False,
+    stream: bool = False
+) -> str:
+    '''
+    '''
+    index = initiate_index(
+        id=user_id,
+        store_client="chromadb",
+        persist=True
+    )
+    
+    chat_history = get_conversation_prompts(user_id, conversation_id)
+    
+    llm = ChatOpenAI(model=MODEL_NAME, cache=True, temperature=.7, streaming=stream)
+
+    chain = ConversationalRetrievalChain.from_llm(
+        llm=llm,
+        retriever=index.as_retriever(search_kwargs={"k": 4}),
+    )
+    if stream:
+        for chunk in chain.stream({"question": prompt, "chat_history": chat_history}):
+            print(1)
+    else:
+        result = chain.invoke({"question": prompt, "chat_history": chat_history})
+        
+        if record_chat:
+            prompt_model = PromptModel(
+                question=prompt,
+                answer=result["answer"]
+            )
+            save_prompt(user_id, conversation_id, prompt_model)
+        
+        return result["answer"]
+
 
 @duration
 def process_prompt(
