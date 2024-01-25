@@ -10,7 +10,7 @@ This is a conversational/interactive chatbot that utilises Large-language model(
 
 2. Prerequisites
 
-- Installation
+- Installation :cd:
 
 - Usage
 
@@ -23,7 +23,7 @@ This is a conversational/interactive chatbot that utilises Large-language model(
 This README file contains the following folders and files: 
 
 
-- data :graph:
+- [data](data/) 
 
 - database
 
