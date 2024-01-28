@@ -35,14 +35,18 @@ This folder contains the datasets for NDA templates  and style guide training da
 - ## [database](database/):
 This folder contains the database-related files and scripts for the chatbot.
 
-- ## [test_streams](test_streams/)
+- ## [test_streams](test_streams/):
+This folder contains the test data and scripts for the chatbot's streaming capabilities.
 
 - ## [utilities](utilities/)
+This folder contains utility scripts and tools used in the project.
 
 - ## [.gitignore](.gitignore/)
+This file specifies the files and directories that should be ignored by the version control system.
 
 - ## architecture.jpg
 ![architecture](/architecture.jpg)
+This image is a blueprint/representation of the chatbot flow system.
 
 - ## [Jenkinsfile](Jenkinsfile/)
 
@@ -50,7 +54,8 @@ This folder contains the database-related files and scripts for the chatbot.
 
 - [README.md](README.md/)
 
-- ## [requirements.txt](requirements.txt/)
+- ## [requirements.txt](requirements.txt/):
+This file contains a list of the required Python packages and libraries for the chatbot project.
 
 #1.  Getting started
 All the codes and documents can be found on the github repository.
