@@ -1,7 +1,7 @@
 # CCL Chatbot Official Documentation :book:
 
 This is Cyphercrescent's official chatbot project. 
-This is a conversational/interactive chatbot that utilises Large-language model(LLM) to interact with company data, generate proposals letters and Non-disclosure aggreement  
+This is a conversational/interactive chatbot that utilises Large-language model(LLM) to interact with company data, generate proposals, letters and Non-disclosure aggreement  
  
 
 ## Table of Contents
@@ -23,26 +23,34 @@ This is a conversational/interactive chatbot that utilises Large-language model(
 This README file contains the following folders and files: 
 
 
-- [data](data/) 
+- ## [api](api/):
+This folder contains the API-related files and scripts for the chatbot.
 
-- [database](database/)
+- ## [chatbot_v2](chatbot_v2/)
+This folder contains the main chatbot logic and components.
 
-- [test_streams](test_streams/)
+- ## [data](data/) 
+This folder contains the datasets for NDA templates  and style guide training data, used in the chatbot project.
 
-- [utilities](utilities/)
+- ## [database](database/):
+This folder contains the database-related files and scripts for the chatbot.
 
-- [.gitignore](.gitignore/)
+- ## [test_streams](test_streams/)
 
-- architecture.jpg
+- ## [utilities](utilities/)
+
+- ## [.gitignore](.gitignore/)
+
+- ## architecture.jpg
 ![architecture](/architecture.jpg)
 
-- [Jenkinsfile](Jenkinsfile/)
+- ## [Jenkinsfile](Jenkinsfile/)
 
-- [main.py](main.py/)
+- ### [main.py](main.py/)
 
 - [README.md](README.md/)
 
-- [requirements.txt](requirements.txt/)
+- ## [requirements.txt](requirements.txt/)
 
 #1.  Getting started
 All the codes and documents can be found on the github repository.
