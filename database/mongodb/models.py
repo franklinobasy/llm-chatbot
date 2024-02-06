@@ -7,7 +7,7 @@ from typing import List
 class PromptModel(BaseModel):
     question: str
     answer: str
-    
+
 
 class ConversationModel(BaseModel):
     date_created: datetime = Field(default_factory=datetime.utcnow)

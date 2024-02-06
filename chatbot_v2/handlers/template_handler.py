@@ -1,15 +1,12 @@
-
 from chatbot_v2.templates.templates import (
     clean_template,
 )
-from chatbot_v2.handlers.base_handler import (
-    BaseHandler,
-    section_templates
-)
+from chatbot_v2.handlers.base_handler import BaseHandler, section_templates
 
 
 class TemplateHandler(BaseHandler):
-    '''Templates handler'''
+    """Templates handler"""
+
     def __init__(self, section_type):
         super().__init__(section_type)
 
@@ -21,8 +18,8 @@ class TemplateHandler(BaseHandler):
     def section(self, section_type: str):
         if section_type not in section_templates.keys():
             raise ValueError(
-                f"This section type: \"{section_type}\" is not supported.\
-                \nAvailable supported sections are: {list(section_templates.keys())}"
+                f'This section type: "{section_type}" is not supported.\
+                \nAvailable supported sections are: {list(section_templates.keys())}'
             )
         self.__section_template = section_templates.get(section_type)
 
@@ -48,10 +45,5 @@ class TemplateHandler(BaseHandler):
         sumaries = self.get_summaries()
 
         for summary, template in zip(sumaries, templates):
-            templates_data.append(
-                {
-                    "summary": summary,
-                    "template": template
-                }
-            )
+            templates_data.append({"summary": summary, "template": template})
         return templates_data

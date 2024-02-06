@@ -6,8 +6,9 @@ from database.mongodb.tools import (
     create_conversation,
     delete_conversation,
     get_prompts_from_conversation,
-    get_user_conversations
+    get_user_conversations,
 )
+
 
 @duration
 def get_conversation_prompts(sender_id: str, conversation_id, k=2):
@@ -23,13 +24,12 @@ def get_conversation_prompts(sender_id: str, conversation_id, k=2):
     list: A list of PromptModel objects representing the retrieved prompts.
     """
     result = get_prompts_from_conversation(
-        user_id=sender_id,
-        conversation_id=conversation_id,
-        use_model=False
+        user_id=sender_id, conversation_id=conversation_id, use_model=False
     )
     if k and len(result) > k:
         return result[-k:]
     return result
+
 
 @duration
 def save_prompt(sender_id: str, conversation_id, prompt: PromptModel) -> bool:
@@ -45,8 +45,6 @@ def save_prompt(sender_id: str, conversation_id, prompt: PromptModel) -> bool:
     bool: True if the prompt was successfully saved, False otherwise.
     """
     result = add_prompt_to_conversation(
-        user_id=sender_id,
-        conversation_id=conversation_id,
-        prompt=prompt
+        user_id=sender_id, conversation_id=conversation_id, prompt=prompt
     )
     return result

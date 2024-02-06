@@ -38,7 +38,7 @@ class UserInput(BaseModel):
     section_id: int
     template_index: int
     answers: List[str] = []
-    
+
 
 class UserInput2(BaseModel):
     """

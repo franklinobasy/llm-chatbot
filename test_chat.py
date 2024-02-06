@@ -1,12 +1,11 @@
-from chatbot_v2.ai.chat import doc_chat
+from chatbot_v2.ai.style_engine import StyleGuide
+
+style_guide = StyleGuide()
+chain = style_guide.styleguide_modify_input()
 
 while True:
     prompt = input("User 🤪: ")
-    answer = doc_chat(
-        user_id="2",
-        conversation_id="1",
-        prompt=prompt,
-        record_chat=True,
-        stream=True
-    )
-    print(f"bot 🤖: {answer}")
+    print("Bot 🤖:", end="")
+    for chunk in chain.stream({"input": prompt}):
+        print(chunk.content, end="")
+    print()
