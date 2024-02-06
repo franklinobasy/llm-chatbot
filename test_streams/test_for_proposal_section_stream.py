@@ -7,9 +7,9 @@ api_url = f"http://{host}/api/v1/generate/proposal/stream"
 
 # Replace with your actual prompt
 prompt_data = {
-  "section_id": 4,
+  "section_id": 0,
   "template_index": 0,
-  "context": ""
+  "context": "Write a proposal about our data democratization software called SEPAL"
 }
 
 try:

@@ -1,4 +1,4 @@
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
 
 import os
@@ -17,18 +17,18 @@ class GenerateNDA:
         if len(questions) != len(answers):
             raise ValueError(f"Number of answers supplied mismatch number of questions")
         self.questions_answers = {
-            question:answer for question, answer in zip(questions, answers)
+            question: answer for question, answer in zip(questions, answers)
         }
         self.__model_name = model_name
         self.llm = ChatOpenAI(
             model=self.__model_name,
             openai_api_key=os.getenv("OPENAI_API_KEY"),
-            cache=True
+            cache=True,
         )
-    
+
     @duration
     def handle_section(self, section, context):
-        PROMPT = f'''
+        PROMPT = f"""
         Your job is to use the questions and answers given below
         to edit and rewrite the given text:
 
@@ -43,20 +43,16 @@ class GenerateNDA:
 
         Text:
         {section}
-        '''
-        
+        """
+
         messages = [
-            SystemMessage(
-                content=PROMPT
-            ),
-            HumanMessage(
-                content=f"context: {context}"
-            ),
+            SystemMessage(content=PROMPT),
+            HumanMessage(content=f"context: {context}"),
         ]
 
         result = self.llm(messages)
         return result.content
-    
+
     @duration
     def handle_sections(self):
         context = "Use the questions and answers supplied to edit the text."
@@ -74,9 +70,9 @@ class GenerateNDA:
         sections[0] = self.handle_section(sections[0], context)
         sections[1] = self.handle_section(sections[1], context)
         sections[3] = self.handle_section(sections[3], context)
-        
+
         text = "\n".join(sections)
-        
-        chunks = [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]
+
+        chunks = [text[i : i + chunk_size] for i in range(0, len(text), chunk_size)]
         for chunk in chunks:
             yield chunk

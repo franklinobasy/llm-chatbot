@@ -20,26 +20,19 @@ def clean_question(item: Tuple) -> Tuple[str, str]:
 
 
 def create_section(section_name, c_summary, base_path=BASE_PATH):
-    '''Creates a section'''
+    """Creates a section"""
     dict_ = {}
-    for i, template in enumerate(
-        files_for_section(base_path, section_name),
-        start=1
-    ):
-        values = [
-            c_summary,
-            template
-        ]
+    for i, template in enumerate(files_for_section(base_path, section_name), start=1):
+        values = [c_summary, template]
         dict_[str(i)] = values
     return dict_
 
 
 def create_question(section_name, base_path=BASE_PATH):
-    '''Create a section questions'''
+    """Create a section questions"""
     dict_ = {}
     for i, question in enumerate(
-        files_for_section(base_path, section_name, get_questions=True),
-        start=1
+        files_for_section(base_path, section_name, get_questions=True), start=1
     ):
         dict_[f"Question {i}"] = question
 
@@ -58,9 +51,7 @@ PROPOSED_SOLUTION_TEMPLATE = create_section(
 )
 IMPORTANCE_TEMPLATE = create_section("importance", "IMPORTANCE DESCRIPTION")
 BENEFITS_TEMPLATE = create_section("benefits", "BENEFITS TEMPLATE")
-EXECUTIVE_SUMMARY_TEMPLATE = create_section(
-    "executive_summary", "EXECUTIVE SUMMARY"
-)
+EXECUTIVE_SUMMARY_TEMPLATE = create_section("executive_summary", "EXECUTIVE SUMMARY")
 
 
 OVERVIEW_QUESTIONS = create_question("overview")
@@ -73,37 +64,15 @@ EXECUTIVE_SUMMARY_QUESTION = create_question("executive_summary")
 
 # templates
 section_templates: Dict[str, List[Dict]] = {
-    "about_cyphercrescent": [
-        ABOUT_CYPHERCRESCENT
-        ],
-    "our_team": [
-        OUR_TEAM
-        ],
-    "our_commitment": [
-        OUR_COMMITMENT
-        ],
-    "our_clients": [
-        OUR_CLIENTS
-        ],
-    "overview_template": [
-        OVERVIEW_TEMPLATE, OVERVIEW_QUESTIONS
-        ],
-    "introduction": [
-        INTRODUCTION_TEMPLATES, INTRODUCTION_DESCRIPTION_QUESTIONS
-        ],
-    "problems": [
-        PROBLEM_TEMPLATE, PROBLEM_DESCRIPTION_QUESTIONS
-        ],
-    "proposed_solution": [
-        PROPOSED_SOLUTION_TEMPLATE, PROPOSED_SOLUTION_QUESTIONS
-        ],
-    "importance": [
-        IMPORTANCE_TEMPLATE, IMPORTANCE_DESCRIPTION_QUESTION
-        ],
-    "benefits": [
-        BENEFITS_TEMPLATE, BENEFITS_DESCRIPTION_QUESTION
-        ],
-    "executive_summary": [
-        EXECUTIVE_SUMMARY_TEMPLATE, EXECUTIVE_SUMMARY_QUESTION
-        ],
+    "about_cyphercrescent": [ABOUT_CYPHERCRESCENT],
+    "our_team": [OUR_TEAM],
+    "our_commitment": [OUR_COMMITMENT],
+    "our_clients": [OUR_CLIENTS],
+    "overview_template": [OVERVIEW_TEMPLATE, OVERVIEW_QUESTIONS],
+    "introduction": [INTRODUCTION_TEMPLATES, INTRODUCTION_DESCRIPTION_QUESTIONS],
+    "problems": [PROBLEM_TEMPLATE, PROBLEM_DESCRIPTION_QUESTIONS],
+    "proposed_solution": [PROPOSED_SOLUTION_TEMPLATE, PROPOSED_SOLUTION_QUESTIONS],
+    "importance": [IMPORTANCE_TEMPLATE, IMPORTANCE_DESCRIPTION_QUESTION],
+    "benefits": [BENEFITS_TEMPLATE, BENEFITS_DESCRIPTION_QUESTION],
+    "executive_summary": [EXECUTIVE_SUMMARY_TEMPLATE, EXECUTIVE_SUMMARY_QUESTION],
 }

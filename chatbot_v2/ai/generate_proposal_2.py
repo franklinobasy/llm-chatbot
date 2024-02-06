@@ -1,17 +1,16 @@
-'''Module for proposal auto-generation'''
+"""Module for proposal auto-generation"""
 
 from typing import Dict, List, Union
 import os
 
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
-from langchain.prompts import PromptTemplate, ChatPromptTemplate, HumanMessagePromptTemplate
-from langchain.output_parsers import ResponseSchema, StructuredOutputParser
 from chatbot_v2.handlers.question_handler import QuestionHandler
 from chatbot_v2.handlers.template_handler import TemplateHandler
 from utilities.tools import duration
 
 # Remove unnecessary imports: json, logging, and duration (if not used elsewhere)
+
 
 class AutoGenerateSection:
     def __init__(self, model_name: str, section_type: str):
@@ -20,17 +19,17 @@ class AutoGenerateSection:
             model=self.__model_name,
             openai_api_key=os.getenv("OPENAI_API_KEY"),
             cache=True,
-            streaming=True
+            streaming=True,
         )
         self.section_type = section_type
         self.no_llm_sections = [
             "about_cyphercrescent",
             "our_team",
             "our_commitment",
-            "our_clients"
+            "our_clients",
         ]
 
-    SYSTEM_PROMPT = '''
+    SYSTEM_PROMPT = """
     You are a professional proposal writer that works in Cycphercrescent.
     Cyphercrscent mission is to co-create innovative technology solutions
     for enterprises to accelerate adoption of sustainable digitalisation
@@ -38,9 +37,9 @@ class AutoGenerateSection:
     
     You role is to write a particular section of a proposal.
     Do not include any conclution after writing the section.
-    '''
+    """
 
-    HUMAN_PROMPT = '''
+    HUMAN_PROMPT = """
     You are expected to write only a section of the proposal.
     The name of the section is {section_type}.
     
@@ -66,7 +65,7 @@ class AutoGenerateSection:
     
     TEMPLATE:
     {template}
-    '''
+    """
 
     def section_template(self, index=-1):
         th = TemplateHandler(self.section_type)
@@ -86,16 +85,12 @@ class AutoGenerateSection:
             section_type=self.section_type,
             context=context,
             questions=self.qs,
-            template=self.ts
+            template=self.ts,
         )
 
         messages = [
-            SystemMessage(
-                content=self.SYSTEM_PROMPT
-            ),
-            HumanMessage(
-                content=prompt
-            ),
+            SystemMessage(content=self.SYSTEM_PROMPT),
+            HumanMessage(content=prompt),
         ]
 
         result = self.llm(messages)
@@ -107,16 +102,12 @@ class AutoGenerateSection:
             section_type=self.section_type,
             context=context,
             questions=self.qs,
-            template=self.ts
+            template=self.ts,
         )
 
         messages = [
-            SystemMessage(
-                content=self.SYSTEM_PROMPT
-            ),
-            HumanMessage(
-                content=prompt
-            ),
+            SystemMessage(content=self.SYSTEM_PROMPT),
+            HumanMessage(content=prompt),
         ]
 
         for chunk in self.llm.stream(input=messages):
@@ -128,10 +119,10 @@ class AutoGenerateSection:
             return self.stream_section_generation
         else:
             return self.generate_section_2
-        
+
     @duration
     def stream_section_generation(self, chunk_size):
         text = self.ts
-        chunks = [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]
+        chunks = [text[i : i + chunk_size] for i in range(0, len(text), chunk_size)]
         for chunk in chunks:
             yield chunk

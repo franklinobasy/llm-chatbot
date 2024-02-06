@@ -1,1 +1,1 @@
-# Simple LLM-inspired Chatbot
+# Simple LLM Chatbot

@@ -7,7 +7,7 @@ from api.v1.routes.error_handler import (
     UnknownSectionID,
     UnknownSectionName,
     UnknownTemplateID,
-    VectorIndexError
+    VectorIndexError,
 )
 from utilities import (
     FilesDownloadError,
@@ -29,11 +29,12 @@ exception_handlers = {
     FilesDownloadError: 404,
     FolderNotFoundError: 404,
     S3BucketFailToCreateError: 422,
-    S3BucketFailToCreateError: 404
+    S3BucketFailToCreateError: 404,
 }
 
 
 for exception, status_code in exception_handlers.items():
+
     @app.exception_handler(exception)
     async def exception_handler(request, exc):
         return JSONResponse(status_code=status_code, content={"message": str(exc)})

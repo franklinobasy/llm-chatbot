@@ -2,10 +2,7 @@ from typing import Dict
 from chatbot_v2.templates.templates import (
     clean_question,
 )
-from chatbot_v2.handlers.base_handler import (
-    BaseHandler,
-    section_templates
-)
+from chatbot_v2.handlers.base_handler import BaseHandler, section_templates
 
 
 class QuestionHandler(BaseHandler):
@@ -21,8 +18,8 @@ class QuestionHandler(BaseHandler):
     def section(self, section_type: str):
         if section_type not in section_templates.keys():
             raise ValueError(
-                f"This section type: \"{section_type}\" is not supported.\
-                \nAvailable supported sections are: {section_templates.keys()}"
+                f'This section type: "{section_type}" is not supported.\
+                \nAvailable supported sections are: {section_templates.keys()}'
             )
         self.__section_template = section_templates.get(section_type)
 
