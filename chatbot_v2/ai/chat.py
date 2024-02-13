@@ -25,48 +25,50 @@ from langchain.prompts import (
 def process_prompt(
     sender_id: str, conversation_id: str, prompt: str, use_history: bool = False
 ):
-    # index = initiate_index(id=sender_id, persist=True)
-    chat_history = get_conversation_prompts(sender_id, conversation_id)
-    # context = "If there isn't relevant information in the context above, use your discretion and prior knowledge to answer the user's question"
-
-    # Initialize the LLM with the specified model name and parameters
-    # Prepare memory
-    memory = ConversationBufferMemory()
-    for qa in chat_history:
-        memory.chat_memory.add_user_message(qa[0])
-        memory.chat_memory.add_ai_message(qa[1])
+    if use_history:
+        history = get_conversation_prompts(sender_id, conversation_id, k=5)
+        chat_history = ChatMessageHistory()
+        for qa in history:
+            chat_history.add_user_message(qa[0])
+            chat_history.add_ai_message(qa[1])
+    else:
+        chat_history = ChatMessageHistory()
+        
+    memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=chat_history, return_messages=True)
+    
+    prompt_t = ChatPromptTemplate(
+        messages=[
+            SystemMessagePromptTemplate.from_template(
+                "You are a nice chatbot having a conversation with a human."
+            ),
+            # The `variable_name` here is what must align with memory
+            MessagesPlaceholder(variable_name="chat_history"),
+            HumanMessagePromptTemplate.from_template("{question}")
+        ]
+    )
 
     llm = ChatOpenAI(model=MODEL_NAME, cache=True, temperature=0.7)
 
-    # Create the ConversationalRetrievalChain with the LLM and the retriever
-    # chain = ConversationalRetrievalChain.from_llm(
-    #     llm=llm,
-    #     retriever=index.as_retriever(search_kwargs={"k": 4}),
-    # )
+    chain = LLMChain(
+        llm=llm,
+        prompt=prompt_t,
+        memory=memory
+    )
 
-    chain = ConversationChain(llm=llm, memory=memory)
-
-    # Execute the chain to get the result
-    # result = chain({"question": prompt, "chat_history": chat_history})
-    result = chain.run(input=prompt)
-
-    # chat_history.append((prompt, result['answer']))
-
+    result = chain.invoke({"question": prompt})
     if use_history:
-        # Save the prompt and answer to the database
+        
         prompt_model = PromptModel(
             question=prompt,
-            # answer=result["answer"]
-            answer=result,
+            answer=result['text']
         )
         save_prompt(sender_id, conversation_id, prompt_model)
 
-    # return result['answer']
-    return result
+    return result['text']
 
 
 @duration
-async def process_prompt_2(
+async def process_prompt_stream(
     sender_id: str, conversation_id: str, prompt: str, use_history: bool = False
 ):
     if use_history:

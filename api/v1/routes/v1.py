@@ -32,7 +32,7 @@ from api.v1.routes.error_handler import (
     UnknownTemplateID,
     VectorIndexError,
 )
-from chatbot_v2.ai.chat import process_prompt, process_prompt_2, rag_chat
+from chatbot_v2.ai.chat import process_prompt, process_prompt_stream, rag_chat
 # from chatbot_v2.ai.chat_agent import call_doc_agent
 from chatbot_v2.ai.generate_proposal import AutoFillTemplate
 from chatbot_v2.ai.generate_letter import AutoWriteLetter
@@ -59,9 +59,6 @@ from uuid import uuid4
 
 router = APIRouter()
 bucket_util = BucketUtil(bucket_name="ccl-chatbot-document-store")
-
-style_guide = StyleGuide()
-chain = style_guide.styleguide_modify_input()
 
 
 @router.get("/sections")
@@ -305,7 +302,7 @@ def chat_2(request: ChatPrompt):
         dict: A dictionary containing the user prompt and AI-generated response.
     """
     return StreamingResponse(
-        process_prompt_2(
+        process_prompt_stream(
             request.sender_id,
             request.conversation_id,
             CHAT_SYSTEM_PROMPT.format(request.prompt),
@@ -315,29 +312,36 @@ def chat_2(request: ChatPrompt):
     )
 
 
-# @router.post("/chat/styled/stream")
-# async def chat_styled(request: ChatPrompt):
-#     """Version 2: [Stream] Initiate a chat and process the user prompt.
+@router.post("/chat/styled/stream")
+async def chat_styled(request: ChatPrompt):
+    """Version 2: [Stream] Initiate a chat and process the user prompt.
 
-#     Args:
-#         request (ChatPrompt): Chat prompt data including sender ID, conversation ID, and prompt.
+    Args:
+        request (ChatPrompt): Chat prompt data including sender ID, conversation ID, and prompt.
 
-#     Returns:
-#         dict: A dictionary containing the user prompt and AI-generated response.
-#     """
+    Returns:
+        dict: A dictionary containing the user prompt and AI-generated response.
+    """
 
-#     answer = process_prompt(
-#         request.sender_id,
-#         request.conversation_id,
-#         CHAT_SYSTEM_PROMPT.format(request.prompt),
-#         use_history=request.use_history,
-#     )
+    chain = StyleGuide().styleguide_modify_input()
 
-#     def generate(output):
-#         for chunk in chain.stream({"input": output}):
-#             yield chunk.content
+    answer = process_prompt(
+        request.sender_id,
+        request.conversation_id,
+        CHAT_SYSTEM_PROMPT.format(request.prompt),
+        use_history=request.use_history,
+    )
 
-#     return StreamingResponse(generate(answer), media_type="text/event-stream")
+    def generate(output):
+        for chunk in chain.stream({"input": output}):
+            yield chunk.content
+
+    return StreamingResponse(generate(answer), media_type="text/event-stream")
+
+
+# @router.post("/style-engine")
+# async def style_engine():
+#     pass
 
 
 @router.post("/chat/doc/stream")
