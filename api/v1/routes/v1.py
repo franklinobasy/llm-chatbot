@@ -32,7 +32,7 @@ from api.v1.routes.error_handler import (
     UnknownTemplateID,
     VectorIndexError,
 )
-from chatbot_v2.ai.chat import process_prompt, process_prompt_2
+from chatbot_v2.ai.chat import process_prompt, process_prompt_2, rag_chat
 # from chatbot_v2.ai.chat_agent import call_doc_agent
 from chatbot_v2.ai.generate_proposal import AutoFillTemplate
 from chatbot_v2.ai.generate_letter import AutoWriteLetter
@@ -295,7 +295,7 @@ async def chat(request: ChatPrompt):
 
 
 @router.post("/chat/stream")
-async def chat_2(request: ChatPrompt):
+def chat_2(request: ChatPrompt):
     """Version 2: [Stream] Initiate a chat and process the user prompt.
 
     Args:
@@ -340,28 +340,19 @@ async def chat_2(request: ChatPrompt):
 #     return StreamingResponse(generate(answer), media_type="text/event-stream")
 
 
-# @router.post("/chat/doc/stream")
-# async def doc_chat(request: ChatPrompt):
-#     """Version 2: [Stream] Initiate a chat and process the user prompt.
-
-#     Args:
-#         request (ChatPrompt): Chat prompt data including sender ID, conversation ID, and prompt.
-
-#     Returns:
-#         dict: A dictionary containing the user prompt and AI-generated response.
-#     """
-#     output = call_doc_agent(
-#         request.sender_id,
-#         request.conversation_id,
-#         CHAT_SYSTEM_PROMPT.format(request.prompt),
-#         use_history=request.use_history,
-#     )
-
-#     def generate(output):
-#         for chunk in chain.stream({"input": output}):
-#             yield chunk.content
-
-#     return StreamingResponse(generate(output), media_type="text/event-stream")
+@router.post("/chat/doc/stream")
+async def doc_chat(request: ChatPrompt):
+    """Streaming RAG chat
+    """
+    return StreamingResponse(
+        rag_chat(
+            request.sender_id,
+            request.conversation_id,
+            CHAT_SYSTEM_PROMPT.format(request.prompt),
+            use_history=request.use_history,
+        ),
+        media_type="text/event-stream",
+    )
 
 
 @router.post("/upload")
