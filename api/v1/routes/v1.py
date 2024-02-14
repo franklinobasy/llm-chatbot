@@ -339,7 +339,7 @@ async def chat_styled(request: ChatPrompt):
     return StreamingResponse(generate(answer), media_type="text/event-stream")
 
 
-@router.post("/style-engine")
+@router.post("/style_engine")
 async def style_engine(text: str):
     '''
     Takes in an input text, conforms the text to CCL style guide, and streams out the text
@@ -516,31 +516,6 @@ def get_health():
         dict: A response indicating the health status.
     """
     return {"message": "Everything is good here 👀"}
-
-
-@router.post("/style_engine")
-async def style_playground_endpoint(input_data: Input):
-    """Modify the input using the style engine.
-
-    Args:
-        input_data (Input): Input data to be modified.
-
-    Returns:
-        JSONResponse: A response containing the modified result.
-
-    Raises:
-        HTTPException: If there is an error during modification.
-    """
-    try:
-        output = chain.invoke({"input": input_data.input})
-
-        def generate(output):
-            for chunk in chain.stream({"input": output}):
-                yield chunk.content
-
-        return StreamingResponse(generate(output), media_type="text/event-stream")
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
 
 
 @router.get("/conversations/user/{user_id}")

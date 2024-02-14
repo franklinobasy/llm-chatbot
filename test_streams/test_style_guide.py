@@ -8,7 +8,7 @@ import requests
 # Replace with the appropriate URL where your FastAPI server is running
 # host="54.174.77.47"
 host ="localhost:8000"
-api_url = f"http://{host}/api/v1/style-engine"
+api_url = f"http://{host}/api/v1/style_engine"
 
 # Replace with your actual prompt
 data = {
