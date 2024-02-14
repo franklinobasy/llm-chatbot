@@ -339,9 +339,19 @@ async def chat_styled(request: ChatPrompt):
     return StreamingResponse(generate(answer), media_type="text/event-stream")
 
 
-# @router.post("/style-engine")
-# async def style_engine():
-#     pass
+@router.post("/style-engine")
+async def style_engine(text: str):
+    '''
+    Takes in an input text, conforms the text to CCL style guide, and streams out the text
+    '''
+    
+    chain = StyleGuide().styleguide_modify_input()
+    
+    def generate(output):
+        for chunk in chain.stream({"input": output}):
+            yield chunk.content
+    
+    return StreamingResponse(generate(text), media_type="text/event-stream")
 
 
 @router.post("/chat/doc/stream")
