@@ -1,22 +1,24 @@
+'''
+The api streams input text as a text that conforms to CCL style guide
+'''
+
+
 import requests
 
 # Replace with the appropriate URL where your FastAPI server is running
 # host="54.174.77.47"
 host ="localhost:8000"
-api_url = f"http://{host}/api/v1/chat/stream"
+api_url = f"http://{host}/api/v1/style-engine"
 
 # Replace with your actual prompt
-prompt_data = {
-    "sender_id": "1",
-    "conversation_id": "1",
-    "prompt": "What do you know about Obasi Franklin?",
-    "use_history": True
+data = {
+    "text": "maximization is in favor of optimization",
 }
 
 try:
     response = requests.post(
         api_url,
-        json=prompt_data,
+        params=data,
         stream=True,
         headers={"accept": "application/json"},
     )

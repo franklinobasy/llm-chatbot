@@ -36,7 +36,7 @@ class AutoGenerateSection:
     practices.
     
     You role is to write a particular section of a proposal.
-    Do not include any conclution after writing the section.
+    Do not include any conclusion after writing the section.
     """
 
     HUMAN_PROMPT = """
@@ -51,11 +51,11 @@ class AutoGenerateSection:
     if no question is supplied, or/and no template is supplied, feel free
     to generate the template using the context provided.
     
-    NOTE: You are expected to only write the specified section of the template.
+    NOTE: You are expected to only write the specified section of the proposal.
     Do not include any conclusion after writing the section.
     You are free to get creative with the generation of the section whether template
     was provided or not using the given context. If you have a list of template, you
-    can choose to work with the most appropriate
+    can choose to work the ost suitable template
     
     CONTEXT:
     {context}
@@ -63,7 +63,7 @@ class AutoGenerateSection:
     QUESTIONS:
     {questions}
     
-    TEMPLATE:
+    TEMPLATE(S):
     {template}
     """
 
