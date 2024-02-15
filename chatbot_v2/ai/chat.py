@@ -1,4 +1,4 @@
-from langchain.chains import ConversationChain, ConversationalRetrievalChain, LLMChain
+from langchain.chains import ConversationalRetrievalChain, LLMChain
 from langchain_openai import ChatOpenAI
 from langchain.memory import ConversationBufferMemory, ChatMessageHistory
 
@@ -8,7 +8,7 @@ from database.mongodb.models import PromptModel
 from utilities import duration
 from database.tracking.conversations import get_conversation_prompts, save_prompt
 
-from langchain.callbacks import AsyncIteratorCallbackHandler, StdOutCallbackHandler
+from langchain.callbacks import AsyncIteratorCallbackHandler
 from langchain.callbacks.manager import AsyncCallbackManager
 
 import asyncio
@@ -135,7 +135,7 @@ async def rag_chat(
     callback = AsyncIteratorCallbackHandler()
 
     llm = ChatOpenAI(model=MODEL_NAME, cache=False, temperature=1, streaming=True, callback_manager=AsyncCallbackManager([callback]))
-    index = initiate_index(id="2", store_client="chromadb", persist=True)
+    index = initiate_index(id=sender_id, store_client="chromadb", persist=True)
     chain = ConversationalRetrievalChain.from_llm(
         llm=llm,
         retriever=index.as_retriever(search_kwargs={"k": 4}),

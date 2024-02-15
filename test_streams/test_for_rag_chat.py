@@ -9,7 +9,7 @@ api_url = f"http://{host}/api/v1/chat/doc/stream"
 prompt_data = {
     "sender_id": "1",
     "conversation_id": "1",
-    "prompt": "What do you know about Obasi Franklin?",
+    "prompt": "How can I contact cyphercrscent?",
     "use_history": True
 }
 
