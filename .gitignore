@@ -57,3 +57,9 @@ Thumbs.db
 __pycache__
 
 .langchain.db
+
+test.py
+test.json
+test1.py
+test2.py
+chroma_persist_directory/

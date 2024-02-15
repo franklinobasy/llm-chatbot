@@ -9,64 +9,64 @@ import logging
 
 class S3BucketNotFoundError(BotoCoreError):
     """Bucket not found exception class."""
-    fmt = 'S3 bucket not found: {bucket_name}'
 
-    def __init__(self, bucket_name, **kwargs):
+    fmt = "Could not find bucket - {bucket_name}, or {e}"
+
+    def __init__(self, bucket_name, e="", **kwargs):
         """Bucket not found exception class."""
-        kwargs['bucket_name'] = bucket_name
+        kwargs["bucket_name"] = bucket_name
+        kwargs["e"] = e
         super().__init__(**kwargs)
 
 
 class S3BucketFailToCreateError(BotoCoreError):
     """Bucket failed creation exception class."""
-    fmt = 'Failed to create S3 bucket: {reason}'
+
+    fmt = "Failed to create S3 bucket: {reason}"
 
     def __init__(self, reason, **kwargs):
         """Bucket failed creation exception class."""
-        kwargs['reason'] = reason
+        kwargs["reason"] = reason
         super().__init__(**kwargs)
 
 
 class FolderNotFoundError(BotoCoreError):
     """Folder not found exception class."""
-    fmt = 'Failed to find folder with id: {id} in bucket: {bucket_name}'
+
+    fmt = "Failed to find folder with id: {id} in bucket: {bucket_name}"
 
     def __init__(self, id, bucket_name, **kwargs):
         """Folder not found exception class."""
-        kwargs[id] = id
-        kwargs[bucket_name] = bucket_name
+        kwargs["id"] = id
+        kwargs["bucket_name"] = bucket_name
         super().__init__(**kwargs)
 
 
 class FilesDownloadError(BotoCoreError):
     """Files download error exception class."""
-    fmt = 'Failed to download folder with id: {id} in bucket: {bucket_name}'
+
+    fmt = "Failed to download folder with id: {id} in bucket: {bucket_name}"
 
     def __init__(self, id, bucket_name, **kwargs):
         """Files download error exception class."""
-        kwargs[id] = id
-        kwargs[bucket_name] = bucket_name
+        kwargs["id"] = id
+        kwargs["bucket_name"] = bucket_name
         super().__init__(**kwargs)
 
 
-class BucketUtil():
-    '''Class to initialize a bucket utility instance'''
-    
+class BucketUtil:
+    """Class to initialize a bucket utility instance"""
+
     # __BIN is the temporary folder for storing downloaded files
     # Contained within the bin folder, are folders with different
     # ids as folder name. Witin each id are files belonging to that
     # id.
-    __BIN = os.path.join(
-        os.getcwd(), "bin"
-    )
+    __BIN = os.path.join(os.getcwd(), "bin")
 
     def __init__(
-        self,
-        bucket_name: str,
-        force: bool=False,
-        region: str="us-east-1"
+        self, bucket_name: str, force: bool = False, region: str = "us-east-1"
     ):
-        '''
+        """
         Validates S3 bucket in a sspecified region
 
         If a region is not specified, the bucket is created in the S3 default
@@ -75,17 +75,17 @@ class BucketUtil():
         :param bucket_name: Bucket to create
         :param force: if true, creates bucket with bucket_name if bucket does not exist
         :param region: String region to create bucket in, e.g., 'us-west-2'
-        '''
+        """
 
         self.bucket_name = bucket_name
-        
+
         self.s3_client = boto3.client(
-            's3',
+            "s3",
             aws_access_key_id=os.getenv("AWS_ACCESS_KEY"),
             aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
-            region_name=region
+            region_name=region,
         )
-        
+
         # Check that the bucket exists
         try:
             self.s3_client.head_bucket(Bucket=self.bucket_name)
@@ -104,21 +104,43 @@ class BucketUtil():
                         reason=f"{e} Could not create bucket {self.bucket_name}"
                     )
             else:
-                raise S3BucketNotFoundError(
-                    bucket_name=self.bucket_name
-                )
+                raise S3BucketNotFoundError(bucket_name=self.bucket_name, e=e)
 
     def list_ids(self):
-        '''Return a list all ids in the bucket'''
-        
+        """Return a list all ids in the bucket"""
+
         response = self.s3_client.list_objects_v2(
-            Bucket=self.bucket_name, Delimiter='/'
+            Bucket=self.bucket_name, Delimiter="/"
         )
         ids = [
-            prefix.get('Prefix')[:-1] for prefix in response.get('CommonPrefixes', [])
+            prefix.get("Prefix")[:-1] for prefix in response.get("CommonPrefixes", [])
         ]
-        
+
         return ids
+
+    def list_files_in_folder(self, id):
+        """List all files in a specific folder ID.
+
+        :param id: Folder ID to list files from
+        :return: List of file names in the folder, or an empty list if the folder is empty or not found
+        """
+        if id not in self.list_ids():
+            raise FolderNotFoundError(id=id, bucket_name=self.bucket_name)
+
+        try:
+            # List objects in the bucket with the specified prefix (id)
+            objects = self.s3_client.list_objects_v2(
+                Bucket=self.bucket_name, Prefix=f"{id}/"
+            )
+
+            file_names = [
+                os.path.basename(obj["Key"]) for obj in objects.get("Contents", [])
+            ]
+            return file_names
+
+        except ClientError as e:
+            logging.error(e)
+            return []
 
     def upload_file(self, id, file_name, file_content):
         """Upload a file to an S3 bucket inside a folder with the specified ID
@@ -134,42 +156,68 @@ class BucketUtil():
 
         try:
             # Use put_object to upload file content directly
-            self.s3_client.put_object(Body=file_content, Bucket=self.bucket_name, Key=object_name)
+            self.s3_client.put_object(
+                Body=file_content, Bucket=self.bucket_name, Key=object_name
+            )
         except ClientError as e:
             logging.error(e)
             return False
 
         return True
 
-    def download_files(self, id):
-        '''Downloads files from s3
-        
-        :param id: Folder ID to use for organizing the files
-        :return: True if file was uploaded, else False
-        '''
+    def delete_file_in_folder(self, id, file_name):
+        """Delete a file from a specific folder in the S3 bucket.
+
+        :param id: Folder ID from which to delete the file
+        :param file_name: Name of the file to delete
+        :return: True if the file was deleted successfully, else False
+        """
         if id not in self.list_ids():
             raise FolderNotFoundError(id, self.bucket_name)
-        
-        storage_path = os.path.join(
-            os.getcwd(), self.__BIN, id
-        )
+
+        try:
+            # Construct the object key using the folder ID and file name
+            object_key = f"{id}/{file_name}"
+
+            # Delete the object from the S3 bucket
+            self.s3_client.delete_object(Bucket=self.bucket_name, Key=object_key)
+
+            return True
+        except ClientError as e:
+            logging.error(e)
+            return False
+
+    def download_files(self, id):
+        """Downloads files from s3
+
+        :param id: Folder ID to use for organizing the files
+        :return: True if file was uploaded, else False
+        """
+        if id not in self.list_ids():
+            raise FolderNotFoundError(id, self.bucket_name)
+
+        storage_path = os.path.join(os.getcwd(), self.__BIN, id)
 
         os.makedirs(storage_path, exist_ok=True)
 
         try:
             # List objects in the bucket with the specified prefix (id)
-            objects = self.s3_client.list_objects_v2(Bucket=self.bucket_name, Prefix=f"{id}/")
+            objects = self.s3_client.list_objects_v2(
+                Bucket=self.bucket_name, Prefix=f"{id}/"
+            )
 
-            for obj in objects.get('Contents', []):
+            for obj in objects.get("Contents", []):
                 # Extract the object key
-                object_key = obj['Key']
+                object_key = obj["Key"]
 
                 # Extract the file name from the object key
                 file_name = os.path.basename(object_key)
 
                 # Download the file
                 local_file_path = os.path.join(storage_path, file_name)
-                self.s3_client.download_file(self.bucket_name, object_key, local_file_path)
+                self.s3_client.download_file(
+                    self.bucket_name, object_key, local_file_path
+                )
 
             return True
         except ClientError as e:
@@ -177,44 +225,50 @@ class BucketUtil():
             return False
 
     def delete_from_bin(self, id):
-        '''Delete folder with id as name from bin
-        
+        """Delete folder with id as name from bin
+
         :param id: Folder ID contaning the files
         :return: True if folder was, else False
-        '''
-        
-        storage_path = os.path.join(
-            self.__BIN, id
-        )
-        
+        """
+
+        storage_path = os.path.join(self.__BIN, id)
+
         if not os.path.exists(storage_path):
             return True
         try:
-            shutil.rmtree(storage_path, )
+            shutil.rmtree(
+                storage_path,
+            )
             return True
         except OSError as e:
             logging.error(e)
             return False
 
     def delete_from_bucket(self, id):
-        '''Delete folder with id from bucket
-        
+        """Delete folder with id from bucket
+
         :param id: Folder ID contaning the files
         :return: True if folder was, else False
-        '''
+        """
 
         if id not in self.list_ids():
             raise FolderNotFoundError(id, self.bucket_name)
-        
+
         try:
             # List objects in the bucket with the specified prefix (id)
-            objects = self.s3_client.list_objects_v2(Bucket=self.bucket_name, Prefix=f"{id}/")
+            objects = self.s3_client.list_objects_v2(
+                Bucket=self.bucket_name, Prefix=f"{id}/"
+            )
 
             # Extract and delete each object
-            objects_to_delete = [{'Key': obj['Key']} for obj in objects.get('Contents', [])]
+            objects_to_delete = [
+                {"Key": obj["Key"]} for obj in objects.get("Contents", [])
+            ]
 
             if objects_to_delete:
-                self.s3_client.delete_objects(Bucket=self.bucket_name, Delete={'Objects': objects_to_delete})
+                self.s3_client.delete_objects(
+                    Bucket=self.bucket_name, Delete={"Objects": objects_to_delete}
+                )
                 return True
             else:
                 return False
@@ -222,13 +276,9 @@ class BucketUtil():
         except ClientError as e:
             logging.error(e)
             return False
-    
+
     def create_upload_presigned_url(
-        self,
-        id,
-        fields=None,
-        conditions=None,
-        expiration=3600
+        self, id, fields=None, conditions=None, expiration=3600
     ):
         """Generate a presigned URL S3 POST request to upload a file
 
@@ -240,7 +290,7 @@ class BucketUtil():
             url: URL to post to
             fields: Dictionary of form fields and values to submit with the POST
         :return: None if error.
-        
+
         ### Example:
         ```
         import requests    # To install: pip install requests
@@ -261,14 +311,14 @@ class BucketUtil():
         logging.info(f'File upload HTTP status code: {http_response.status_code}')
         ```
         """
-        
+
         try:
             response = self.s3_client.generate_presigned_post(
                 self.bucket_name,
                 id,
                 Fields=fields,
                 Conditions=conditions,
-                ExpiresIn=expiration
+                ExpiresIn=expiration,
             )
         except ClientError as e:
             logging.error(e)
@@ -276,14 +326,17 @@ class BucketUtil():
 
         # The response contains the presigned URL and required fields
         return response
-        
-        
+
+
 def main():
-    util = BucketUtil(
-        bucket_name="ccl-chatbot-document-store"
-    )
+    util = BucketUtil(bucket_name="ccl-chatbot-document-store")
     print(util.bucket_name)
-    print(util.create_upload_presigned_url("1"))
+    folder_id = "1"
+    files_in_folder = util.list_files_in_folder(folder_id)
+    if files_in_folder:
+        print(f"Files in folder {folder_id}: {files_in_folder}")
+    else:
+        print(f"No files found in folder {folder_id}.")
 
 
 if __name__ == "__main__":

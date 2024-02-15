@@ -1,45 +1,33 @@
 import os
 import glob
-from typing import List, Dict
+from typing import Any, List, Dict
 from pydantic import BaseModel, Field
-from langchain.llms import OpenAI
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.prompts import (
-    PromptTemplate,
     ChatPromptTemplate,
     HumanMessagePromptTemplate,
 )
+
 from langchain.schema.messages import SystemMessage
 from langchain.output_parsers import PydanticOutputParser
-from dotenv import load_dotenv
 
 from chatbot_v2.configs.constants import MODEL_NAME
 
-# Load .env file
-load_dotenv()
 
-# Accessing variables
-API_KEY = os.getenv("OPENAI_API_KEY")
-
-## define the output schema
 class StyleGuideParser(BaseModel):
     corrected_text: str = Field(
-        description="Suggest a simple modification/correction for \
-            the input,keep the corrected text precise as close as \
-            possible to the input. DO NOT make up additional text"
+        description="Suggest a simple modification/correction for the input, keep the corrected text precise as close as possible to the input. DO NOT make up additional text"
     )
     explanation: None | Dict[str, str | List[str]] = Field(
-        description="""In this field, several language style guide \
-            context headers will be provided, you will return a \
-            dictionary output as follows.
-            Keys: You most only list the provided context headers \
-            that were found applicable for editing and modifying \
-            the given input, DO NOT mention any header that was \
-            not found applicable for corrections.
-            Values: As values carefully explain under each context \
-            header that was found applicable, the different rules \
-            that was considered while making the corrections to provide \
-            the user with a rational explanation for your corrections."""
+        description="""In this field, several language style guide context headers will be provided, you will return a dictionary output as follows.
+                                              Keys: You most only list the provided context headers that were found applicable for editing and modifying the given input, DO NOT mention any header that was not found applicable for corrections.
+                                              Values: As values carefully explain under each context header that was found applicable, the different rules that was considered while making the corrections to provide the user with a rational explanation for your corrections."""
+    )  # as value answer correctly if the rule was followed with a Yes, No or Not Applicable. Do not mention any rule that was not applied.
+
+
+class StyleGuideParserV2(BaseModel):
+    corrected_text: str = Field(
+        description="Suggest a simple modification/correction for the input, keep the corrected text precise as close as possible to the input. DO NOT make up additional text"
     )
 
 
@@ -49,91 +37,82 @@ class StyleGuide:
         self.load_files()
 
     def read_style_guide_files(self, path: List[str]) -> Dict[str, str]:
-        file_contents = {file_path.split("\\")[-1]: open(file_path, "r", encoding='utf8').read() for file_path in path}
+        file_contents = {
+            file_path: open(file_path, "r", encoding="utf8").read()
+            for file_path in path
+        }
         return file_contents
 
     def load_files(self) -> None:
         if self.file_contents is None:
-            file_path = glob.glob(
-                "data/style_guide/*.txt"
-            )
+            file_dir = os.path.join(os.getcwd(), "data", "style_guide", "*.txt")
+            file_path = glob.glob(file_dir)
             self.file_contents = self.read_style_guide_files(file_path)
 
     def generate_chat_template(self) -> str:
+        current_directory = os.path.join(os.getcwd(), "data", "style_guide")
         ellipses = self.file_contents[
-            "ELLIPSES (…).txt"
+            os.path.join(current_directory, "ELLIPSES (…).txt")
         ]
         alphabetisation = self.file_contents[
-            "ALPHABETISATION.txt"
+            os.path.join(current_directory, "ALPHABETISATION.txt")
         ]
         dashes = self.file_contents[
-            "DASHES AND HYPHENS.txt"
+            os.path.join(current_directory, "DASHES AND HYPHENS.txt")
         ]
         bulleting = self.file_contents[
-            "BULLETED AND NUMBERED LISTS.txt"
+            os.path.join(current_directory, "BULLETED AND NUMBERED LISTS.txt")
         ]
         ampersand = self.file_contents[
-            "AMPERSANDS (&).txt"
+            os.path.join(current_directory, "AMPERSANDS (&).txt")
         ]
         dates_time = self.file_contents[
-            "DATES AND TIMES.txt"
+            os.path.join(current_directory, "DATES AND TIMES.txt")
         ]
         quotation = self.file_contents[
-            "QUOTATION MARKS.txt"
+            os.path.join(current_directory, "QUOTATION MARKS.txt")
         ]
         brackets = self.file_contents[
-            "BRACKETS () [].txt"
+            os.path.join(current_directory, "BRACKETS () [].txt")
         ]
         foreign_words = self.file_contents[
-            "FOREIGN WORDS.txt"
+            os.path.join(current_directory, "FOREIGN WORDS.txt")
         ]
         gender = self.file_contents[
-            "GENDER AND INCLUSIVE LANGUAGE.txt"
+            os.path.join(current_directory, "GENDER AND INCLUSIVE LANGUAGE.txt")
         ]
-        slashes = self.file_contents[
-            "SLASHES.txt"
-        ]
-        spellings = self.file_contents[
-            "SPELLINGS.txt"
-        ]
+        slashes = self.file_contents[os.path.join(current_directory, "SLASHES.txt")]
+        spellings = self.file_contents[os.path.join(current_directory, "SPELLINGS.txt")]
         business_emails = self.file_contents[
-            "BASICS OF A BUSINESS EMAIL.txt"
+            os.path.join(current_directory, "BASICS OF A BUSINESS EMAIL.txt")
         ]
-        acronyms = self.file_contents[
-            "ACRONYMS.txt"
-        ]
+        acronyms = self.file_contents[os.path.join(current_directory, "ACRONYMS.txt")]
         capitalization = self.file_contents[
-            "CAPITALISATION.txt"
+            os.path.join(current_directory, "CAPITALISATION.txt")
         ]
         full_stops = self.file_contents[
-            "FULL STOPS (.).txt"
+            os.path.join(current_directory, "FULL STOPS (.).txt")
         ]
         apostrophies = self.file_contents[
-            "APOSTROPHES.txt"
+            os.path.join(current_directory, "APOSTROPHES.txt")
         ]
-        money = self.file_contents[
-            "MONEY.txt"
-        ]
+        money = self.file_contents[os.path.join(current_directory, "MONEY.txt")]
         abbreviation = self.file_contents[
-            "ABBREVIATIONS, TITLES, AND CONTRACT.txt"
+            os.path.join(current_directory, "ABBREVIATIONS, TITLES, AND CONTRACT.txt")
         ]
         figures_tables = self.file_contents[
-            "FIGURES AND TABLES.txt"
+            os.path.join(current_directory, "FIGURES AND TABLES.txt")
         ]
-        numbers = self.file_contents[
-            "NUMBERS.txt"
-        ]
-        commas = self.file_contents[
-            "COMMAS (,).txt"
-        ]
+        numbers = self.file_contents[os.path.join(current_directory, "NUMBERS.txt")]
+        commas = self.file_contents[os.path.join(current_directory, "COMMAS (,).txt")]
         parallelism = self.file_contents[
-            "PARALLELISM.txt"
+            os.path.join(current_directory, "PARALLELISM.txt")
         ]
         colons = self.file_contents[
-            "COLONS AND SEMICOLONS.txt"
+            os.path.join(current_directory, "COLONS AND SEMICOLONS.txt")
         ]
         contacts = self.file_contents[
-            "CONTACT DETAILS.txt"
+            os.path.join(current_directory, "CONTACT DETAILS.txt")
         ]
 
         guide_template_context = """ 
@@ -244,18 +223,16 @@ class StyleGuide:
 
         return guide_template_context
 
-    def styleguide_modify_input(self):  # , input_query: str
-        # import styleguide context
+    def styleguide_modify_input(self, basemodel_class: BaseModel = StyleGuideParserV2):
+        chat_model = ChatOpenAI(model=MODEL_NAME, temperature=0, streaming=True)
 
-        chat_model = ChatOpenAI(model=MODEL_NAME, temperature=0, api_key=API_KEY)
-
-        parser = PydanticOutputParser(pydantic_object=StyleGuideParser)
+        parser = PydanticOutputParser(pydantic_object=basemodel_class)
         format_instructions = parser.get_format_instructions()
         style_guide_context = self.generate_chat_template()
         human_style_context = (
             """
         You are a Language Engine, you are tasked with validating, correcting, and interpreting user mistakes in a text inputs, in accordance with a set of intructions provided in an editorial style guide manual.
-        {format_instructions}
+        
         """
             + style_guide_context
             + """
@@ -270,7 +247,6 @@ class StyleGuide:
             )
         )
 
-        ## chat template
         chat_prompt_template = ChatPromptTemplate(
             messages=[
                 system_template,
@@ -280,35 +256,5 @@ class StyleGuide:
             partial_variables={"format_instructions": format_instructions},
         )
 
-        # chat_response = chat_model(query_window1.to_messages())
-        # chat_result = parser.parse(chat_response.content)
-        # modified_text: str = chat_result.corrected_text
-        # explanation: dict[str, str | list[str]] | None = chat_result.explanation
-
-        chain = chat_prompt_template | chat_model | parser
-        # chain_output = chain.invoke({"input": input_query})
-        return chain  # modified_text, explanation
-
-
-if __name__ == "__main__":
-    user_input = """
-    hello mister james
-
-    i am doctor martins, here are some of my request
-
-    1. color is yellow
-    b. 100000000 naira should be added to the sum of 2 million naira
-    """
-    style_guide = StyleGuide()
-    chain_result = style_guide.styleguide_modify_input()
-    # modified_text, _ = style_guide.styleguide_modify_input(user_input)
-
-    # corrected_text, explanation = process_user_input(user_input)
-    response_data = (
-        chain_result if isinstance(chain_result, dict) else chain_result.dict()
-    )
-    f = open("text.json", "w", encoding='utf8')
-    print(response_data, file=f)
-    f.close()
-    # print('\n')
-    # print(output.explanation)
+        chain = chat_prompt_template | chat_model
+        return chain

@@ -7,40 +7,34 @@ from api.v1.routes.error_handler import (
     UnknownSectionID,
     UnknownSectionName,
     UnknownTemplateID,
-    VectorIndexError
+    VectorIndexError,
+)
+from utilities import (
+    FilesDownloadError,
+    FolderNotFoundError,
+    S3BucketFailToCreateError,
+    S3BucketNotFoundError,
 )
 
-
-app = FastAPI()
-
+app = FastAPI(title="CCL Chatbot")
 app.include_router(v1.router, prefix="/api/v1")
 
-
-@app.exception_handler(AnswersMisMatchQuestion)
-async def answer_mismatch_question_exception_handler(request, exc):
-    return JSONResponse(status_code=404, content={"message": str(exc)})
-
-
-@app.exception_handler(UnknownSectionName)
-async def answer_mismatch_question_exception_handler(request, exc):
-    return JSONResponse(status_code=400, content={"message": str(exc)})
-
-
-@app.exception_handler(UnknownSectionID)
-async def answer_mismatch_question_exception_handler(request, exc):
-    return JSONResponse(status_code=404, content={"message": str(exc)})
+exception_handlers = {
+    AnswersMisMatchQuestion: 422,
+    UnknownSectionName: 404,
+    UnknownSectionID: 404,
+    UnknownTemplateID: 404,
+    PathTypeMisMatch: 422,
+    VectorIndexError: 404,
+    FilesDownloadError: 404,
+    FolderNotFoundError: 404,
+    S3BucketFailToCreateError: 422,
+    S3BucketFailToCreateError: 404,
+}
 
 
-@app.exception_handler(UnknownTemplateID)
-async def answer_mismatch_question_exception_handler(request, exc):
-    return JSONResponse(status_code=404, content={"message": str(exc)})
+for exception, status_code in exception_handlers.items():
 
-
-@app.exception_handler(PathTypeMisMatch)
-async def answer_mismatch_question_exception_handler(request, exc):
-    return JSONResponse(status_code=400, content={"message": str(exc)})
-
-
-@app.exception_handler(VectorIndexError)
-async def answer_mismatch_question_exception_handler(request, exc):
-    return JSONResponse(status_code=400, content={"message": str(exc)})
+    @app.exception_handler(exception)
+    async def exception_handler(request, exc):
+        return JSONResponse(status_code=status_code, content={"message": str(exc)})

@@ -1,1 +1,1 @@
-MODEL_NAME = "gpt-3.5-turbo-0301"
+MODEL_NAME = "gpt-4-1106-preview"
