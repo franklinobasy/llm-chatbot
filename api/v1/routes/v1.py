@@ -413,7 +413,7 @@ async def upload_files(
     # Start building index
     try:
         print("Building new index...")
-        initiate_index(id=id, persist=False)
+        initiate_index(id=id, store_client="chromadb", persist=False)
         print("Index build complete.")
     except Exception as e:
         raise VectorIndexError(e)
@@ -501,7 +501,7 @@ def reindex(buid_index_id: BuildIndexForId):
     """
     id = buid_index_id.id
     try:
-        initiate_index(id=id, persist=False)
+        initiate_index(id=id, store_client="chromadb", persist=False)
     except Exception as e:
         raise VectorIndexError(e)
 
