@@ -1,0 +1,6 @@
+models:
+  - type: main
+    engine: openai
+    models: gpt-4-1106-preview
+
+streaming: True

@@ -1,4 +1,4 @@
-from langchain.chains import ConversationalRetrievalChain, LLMChain
+from langchain.chains import ConversationalRetrievalChain, LLMChain, RetrievalQA
 from langchain_openai import ChatOpenAI
 from langchain.memory import ConversationBufferMemory, ChatMessageHistory
 
@@ -19,6 +19,9 @@ from langchain.prompts import (
     SystemMessagePromptTemplate,
     HumanMessagePromptTemplate,
 )
+
+
+from guardrails.configs.config import guardrail_app
 
 
 @duration
@@ -160,3 +163,22 @@ async def rag_chat(
         save_prompt(sender_id, conversation_id, prompt_model)
     
     await task
+
+@duration
+async def guardrail_chat(
+    sender_id: str, conversation_id: str, prompt: str, use_history: bool = False
+):
+    index = initiate_index(id=sender_id, store_client="chromadb", persist=True)
+    qa_ccl_chain = RetrievalQA.from_chain_type(
+        llm=guardrail_app.llm,
+        chain_type="stuff",
+        retriever=index.as_retriever(search_kwargs={"k": 4}),
+    )
+    guardrail_app.register_action(qa_ccl_chain, name="qa_ccl_chain")
+    
+    history = [{"role": "user", "content": f"{prompt}"}]
+
+    result = ""
+    async for chunk in guardrail_app.stream_async(messages=history):
+        result += chunk
+        yield chunk
