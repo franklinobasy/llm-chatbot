@@ -1,0 +1,1 @@
+from guardrails.configs.config import guardrail_app

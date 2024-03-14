@@ -1,0 +1,43 @@
+
+define user express greeting
+  "hello"
+  "hi"
+
+define bot express greeting
+  "Hello there!! Can I help you today? "
+
+
+define flow hello
+  user express greeting
+  bot express greeting
+
+define user express insult
+  "Are you mad?"
+  "Fuck you!"
+  "You must be sick"
+  "You are stupid"
+
+define bot answer insult
+  "I'm Sorry If I have offended you. How Can I continue to assist you? "
+
+define flow insult
+  user express insult
+  bot answer insult
+
+define user ask politics
+    "what are your political beliefs?"
+    "thoughts on the president?"
+
+define bot answer politics
+    "I'm a bot at Cyphercrescent, I don't like to talk about politics. "
+    "Sorry I can't talk about politics! "
+
+define flow politics
+    user ask politics
+    bot answer politics
+    bot offer help
+
+define flow
+    user ...
+    $answer = execute qa_ccl_chain(query=$last_user_message)
+    bot $answer

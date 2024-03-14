@@ -1,15 +1,15 @@
 import requests
 
 # Replace with the appropriate URL where your FastAPI server is running
-host="54.174.77.47"
-# host ="localhost:8000"
-api_url = f"http://{host}/api/v1/chat/doc/stream"
+# host="54.174.77.47"
+host ="localhost:8000"
+api_url = f"http://{host}/api/v1/test/guard"
 
 # Replace with your actual prompt
 prompt_data = {
     "sender_id": "1",
     "conversation_id": "1",
-    "prompt": "How can I contact cyphercrscent?",
+    "prompt": "What do you know about Cyphercrescent?",
     "use_history": True
 }
 

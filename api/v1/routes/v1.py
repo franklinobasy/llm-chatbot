@@ -32,7 +32,7 @@ from api.v1.routes.error_handler import (
     UnknownTemplateID,
     VectorIndexError,
 )
-from chatbot_v2.ai.chat import process_prompt, process_prompt_stream, rag_chat
+from chatbot_v2.ai.chat import guardrail_chat, process_prompt, process_prompt_stream, rag_chat
 # from chatbot_v2.ai.chat_agent import call_doc_agent
 from chatbot_v2.ai.generate_proposal import AutoFillTemplate
 from chatbot_v2.ai.generate_letter import AutoWriteLetter
@@ -360,6 +360,19 @@ async def doc_chat(request: ChatPrompt):
     """
     return StreamingResponse(
         rag_chat(
+            request.sender_id,
+            request.conversation_id,
+            CHAT_SYSTEM_PROMPT.format(request.prompt),
+            use_history=request.use_history,
+        ),
+        media_type="text/event-stream",
+    )
+
+
+@router.post('/test/guard')
+def test_guard(request: ChatPrompt):
+    return StreamingResponse(
+        guardrail_chat(
             request.sender_id,
             request.conversation_id,
             CHAT_SYSTEM_PROMPT.format(request.prompt),
