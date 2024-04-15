@@ -23,10 +23,10 @@ This is a conversational/interactive chatbot that utilises Large-language model(
 This README file contains the following folders and files: 
 
 
-- ## [api](api/):
-This folder contains the API-related files and scripts for the chatbot.
-
-- ## [chatbot_v2](chatbot_v2/)
+- ## [api](api/v1):
+This folder contains the API-related endpoints, and their corresponding handlers for the chatbot.
+    
+- ## [chatbot_v2](chatbot_v2/ai/)
 This folder contains the main chatbot logic and components.
 
 - ## [data](data/) 
