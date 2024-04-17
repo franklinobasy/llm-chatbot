@@ -23,30 +23,40 @@ This is a conversational/interactive chatbot that utilises Large-language model(
 This README file contains the following folders and files: 
 
 
-- ## [api](api/v1):
-This folder contains the API-related endpoints, and their corresponding handlers for the chatbot.
-    
+- ## [API](api/v1/):
+This section contains the API-related endpoints, and their corresponding handlers for the chatbot.
+    - [v1](api/v1/)
+- [models](api/v1/models/)
+    - [_init_.py](api/__init__.py)
+
 - ## [chatbot_v2](chatbot_v2/ai/)
-This folder contains the main chatbot logic and components.
+This section contains the main chatbot logic and components.
+- [ai]()
+- [configs]()
+- [handlers]()
+- [nda]()
+- [templates]()
+- [vector_store]()
+- [_init_.py]()
 
 - ## [data](data/) 
-This folder contains the datasets for NDA templates  and style guide training data, used in the chatbot project.
+This secton contains the datasets for NDA templates  and style guide training data, used in the chatbot project.
 
 - ## [database](database/):
-This folder contains the database-related files and scripts for the chatbot.
+This section contains the database-related files and scripts for the chatbot.
 
 - ## [test_streams](test_streams/):
-This folder contains the test data and scripts for the chatbot's streaming capabilities.
+This section contains the test data and scripts for the chatbot's streaming capabilities.
 
 - ## [utilities](utilities/)
-This folder contains utility scripts and tools used in the project.
+This section contains utility scripts and tools used in the project.
 
 - ## [.gitignore](.gitignore/)
-This file specifies the files and directories that should be ignored by the version control system.
+This specifies the files and directories that should be ignored by the version control system.
 
 - ## architecture.jpg
 ![architecture](/architecture.jpg)
-This image is a blueprint/representation of the chatbot flow system.
+This is a blueprint/representation of the chatbot flow system.
 
 - ## [Jenkinsfile](Jenkinsfile/)
 
