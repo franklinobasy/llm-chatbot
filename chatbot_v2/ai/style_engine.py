@@ -1,20 +1,37 @@
+"""
+Module: style_engine.py
+
+Module for language style correction and interpretation based on an editorial style guide manual.
+
+Classes:
+    - StyleGuideParser: Pydantic BaseModel for parsing style guide suggestions.
+    - StyleGuideParserV2: Pydantic BaseModel for parsing style guide suggestions (alternate version).
+    - StyleGuide: A class for generating and managing style guide information.
+
+Functions:
+    - styleguide_modify_input: Modify input text based on style guide suggestions.
+"""
+
+
 import os
 import glob
 from typing import Any, List, Dict
 from pydantic import BaseModel, Field
 from langchain_openai import ChatOpenAI
-from langchain.prompts import (
-    ChatPromptTemplate,
-    HumanMessagePromptTemplate,
-)
-
+from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
 from langchain.schema.messages import SystemMessage
 from langchain.output_parsers import PydanticOutputParser
-
 from chatbot_v2.configs.constants import MODEL_NAME
 
 
 class StyleGuideParser(BaseModel):
+    """
+    Pydantic BaseModel for parsing style guide suggestions.
+
+    Attributes:
+        corrected_text (str): Suggested correction for the input text.
+        explanation (Dict[str, Union[str, List[str]]]): Explanation for the correction under different context headers.
+    """
     corrected_text: str = Field(
         description="Suggest a simple modification/correction for the input, keep the corrected text precise as close as possible to the input. DO NOT make up additional text"
     )
@@ -26,17 +43,39 @@ class StyleGuideParser(BaseModel):
 
 
 class StyleGuideParserV2(BaseModel):
+    """
+    Pydantic BaseModel for parsing style guide suggestions (alternate version).
+
+    Attributes:
+        corrected_text (str): Suggested correction for the input text.
+    """
     corrected_text: str = Field(
         description="Suggest a simple modification/correction for the input, keep the corrected text precise as close as possible to the input. DO NOT make up additional text"
     )
 
 
 class StyleGuide:
+    """
+    A class for generating and managing style guide information.
+    """
+
     def __init__(self):
+        """
+        Initialize the StyleGuide class.
+        """
         self.file_contents = None
         self.load_files()
 
     def read_style_guide_files(self, path: List[str]) -> Dict[str, str]:
+        """
+        Read and store contents of style guide files.
+
+        Parameters:
+            path (List[str]): List of file paths.
+
+        Returns:
+            Dict[str, str]: Dictionary containing file contents indexed by file path.
+        """
         file_contents = {
             file_path: open(file_path, "r", encoding="utf8").read()
             for file_path in path
@@ -44,12 +83,21 @@ class StyleGuide:
         return file_contents
 
     def load_files(self) -> None:
+        """
+        Load style guide files into memory.
+        """
         if self.file_contents is None:
             file_dir = os.path.join(os.getcwd(), "data", "style_guide", "*.txt")
             file_path = glob.glob(file_dir)
             self.file_contents = self.read_style_guide_files(file_path)
 
     def generate_chat_template(self) -> str:
+        """
+        Generate a chat template based on style guide context.
+
+        Returns:
+            str: Generated chat template.
+        """
         current_directory = os.path.join(os.getcwd(), "data", "style_guide")
         ellipses = self.file_contents[
             os.path.join(current_directory, "ELLIPSES (…).txt")
@@ -224,6 +272,15 @@ class StyleGuide:
         return guide_template_context
 
     def styleguide_modify_input(self, basemodel_class: BaseModel = StyleGuideParserV2):
+        """
+        Modify input text based on style guide suggestions.
+
+        Parameters:
+            basemodel_class (BaseModel, optional): Pydantic BaseModel for parsing style guide suggestions. Defaults to StyleGuideParserV2.
+
+        Returns:
+            chain: A chain for modifying input text based on style guide suggestions.
+        """
         chat_model = ChatOpenAI(model=MODEL_NAME, temperature=0, streaming=True)
 
         parser = PydanticOutputParser(pydantic_object=basemodel_class)

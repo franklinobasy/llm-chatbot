@@ -48,12 +48,6 @@ from chatbot_v2.templates.templates import section_templates
 from chatbot_v2.templates.context_config import (
     CHAT_SYSTEM_PROMPT,
 )
-from database.mongodb.tools import (
-    delete_conversation,
-    get_user_conversations,
-    get_prompts_from_conversation,
-    create_conversation,
-)
 from utilities.aws_tools import BucketUtil
 from uuid import uuid4
 
@@ -362,8 +356,7 @@ async def doc_chat(request: ChatPrompt):
         rag_chat(
             request.sender_id,
             request.conversation_id,
-            CHAT_SYSTEM_PROMPT.format(request.prompt),
-            use_history=request.use_history,
+            CHAT_SYSTEM_PROMPT.format(request.prompt)
         ),
         media_type="text/event-stream",
     )
@@ -375,8 +368,7 @@ def test_guard(request: ChatPrompt):
         guardrail_chat(
             request.sender_id,
             request.conversation_id,
-            CHAT_SYSTEM_PROMPT.format(request.prompt),
-            use_history=request.use_history,
+            CHAT_SYSTEM_PROMPT.format(request.prompt)
         ),
         media_type="text/event-stream",
     )
@@ -529,63 +521,6 @@ def get_health():
         dict: A response indicating the health status.
     """
     return {"message": "Everything is good here 👀"}
-
-
-@router.get("/conversations/user/{user_id}")
-async def get_user_conversations_(user_id):
-    """Get conversations for a specific user.
-
-    Args:
-        user_id: The ID of the user.
-
-    Returns:
-        dict: A response containing the user's conversations.
-    """
-    conversations = get_user_conversations(user_id)
-    return conversations
-
-
-@router.get("/converstion/prompts/user/{user_id}/{conversation_id}")
-async def get_prompts_from_conversation_(user_id, conversation_id):
-    """Get prompts from a specific conversation.
-
-    Args:
-        user_id: The ID of the user.
-        conversation_id: The ID of the conversation.
-
-    Returns:
-        dict: A response containing the prompts from the conversation.
-    """
-    prompts = get_prompts_from_conversation(user_id, conversation_id)
-    return prompts
-
-
-@router.get("/conversation/create/{user_id}")
-def create_new_conversation(user_id):
-    """Create a new conversation for a user.
-
-    Args:
-        user_id: The ID of the user.
-
-    Returns:
-        dict: A response containing the ID of the new conversation.
-    """
-    conversation_id = create_conversation(user_id)
-    return conversation_id
-
-
-@router.delete("/conversation/delete/{user_id}/{conversation_id}")
-def delete_user_conversation(user_id, conversation_id):
-    """Delete a conversation for a specific user.
-
-    Args:
-        user_id: The ID of the user.
-        conversation_id: The ID of the conversation.
-
-    Returns:
-        dict: A response indicating the success of the operation.
-    """
-    return delete_conversation(user_id, conversation_id)
 
 
 @router.get("/NDA/questions")

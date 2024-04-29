@@ -1,4 +1,15 @@
-"""Module for generating letter using llm"""
+"""
+Module: generate_letter.py
+
+Module for generating formal letters using language models.
+
+Classes:
+    - AutoWriteLetter: A class for generating formal letters.
+
+Functions:
+    - generate: Generate a formal letter synchronously.
+    - generate_2: Generate a formal letter asynchronously with streaming.
+"""
 
 import os
 
@@ -10,10 +21,20 @@ from utilities.tools import duration
 
 class AutoWriteLetter:
     """
-    class fo generating formal letter
+    AutoWriteLetter class for generating formal letters.
+
+    Attributes:
+        model_name (str): The name of the language model to use.
+        llm (ChatOpenAI): The ChatOpenAI instance for generating letters.
     """
 
     def __init__(self, model_name="str"):
+        """
+        Initialize the AutoWriteLetter class.
+
+        Parameters:
+            model_name (str): The name of the language model to use. Default is "str".
+        """
         self.__model_name = model_name
         self.llm = ChatOpenAI(
             model=self.__model_name,
@@ -24,6 +45,15 @@ class AutoWriteLetter:
 
     @duration
     def generate(self, context):
+        """
+        Generate a formal letter synchronously.
+
+        Parameters:
+            context (str): The context or content to include in the letter.
+
+        Returns:
+            str: The generated formal letter.
+        """
         messages = [
             SystemMessage(content=LETTER_SYSTEM_PROMPT),
             HumanMessage(content=f"context: {context}"),
@@ -34,10 +64,19 @@ class AutoWriteLetter:
 
     @duration
     def generate_2(self, context):
+        """
+        Generate a formal letter asynchronously with streaming.
+
+        Parameters:
+            context (str): The context or content to include in the letter.
+
+        Yields:
+            str: A chunk of the generated formal letter.
+        """
         messages = [
             SystemMessage(content=LETTER_SYSTEM_PROMPT),
             HumanMessage(content=f"context: {context}"),
         ]
 
-        for chunck in self.llm.stream(input=messages):
-            yield chunck.content
+        for chunk in self.llm.stream(input=messages):
+            yield chunk.content

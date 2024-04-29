@@ -1,15 +1,70 @@
+"""
+Module: s3_util.py
+
+This module provides utility classes for managing operations related to Amazon S3 buckets and files.
+
+Classes:
+    - S3BucketNotFoundError: Exception raised when the specified S3 bucket cannot be found.
+    - S3BucketFailToCreateError: Exception raised when an S3 bucket cannot be created.
+    - FolderNotFoundError: Exception raised when the specified folder within an S3 bucket cannot be found.
+    - FilesDownloadError: Exception raised when files cannot be downloaded from an S3 bucket.
+    - BucketUtil: Utility class for managing S3 bucket operations including file and folder manipulation.
+
+Usage:
+    Example usage of the BucketUtil class:
+
+    ```python
+    from s3_util import BucketUtil
+
+    # Initialize BucketUtil instance
+    util = BucketUtil(bucket_name="your-bucket-name")
+
+    # List all folder IDs in the bucket
+    folder_ids = util.list_ids()
+    print("Folder IDs:", folder_ids)
+
+    # List files in a specific folder
+    folder_id = "1"
+    files_in_folder = util.list_files_in_folder(folder_id)
+    if files_in_folder:
+        print(f"Files in folder {folder_id}: {files_in_folder}")
+    else:
+        print(f"No files found in folder {folder_id}.")
+
+    # Upload a file to a specific folder
+    file_name = "example.txt"
+    file_content = b"Example file content"
+    upload_success = util.upload_file(id=folder_id, file_name=file_name, file_content=file_content)
+    if upload_success:
+        print("File uploaded successfully.")
+    else:
+        print("Failed to upload file.")
+
+    # Download files from a specific folder
+    download_success = util.download_files(id=folder_id)
+    if download_success:
+        print("Files downloaded successfully.")
+    else:
+        print("Failed to download files.")
+
+    # Delete a file from a specific folder
+    delete_success = util.delete_file_in_folder(id=folder_id, file_name=file_name)
+    if delete_success:
+        print("File deleted successfully.")
+    else:
+        print("Failed to delete file.")
+    ```
+"""
+
 import boto3
 from botocore.exceptions import BotoCoreError, ClientError
-
-
 import os
 import shutil
 import logging
 
 
 class S3BucketNotFoundError(BotoCoreError):
-    """Bucket not found exception class."""
-
+    """Exception raised when the specified S3 bucket cannot be found."""
     fmt = "Could not find bucket - {bucket_name}, or {e}"
 
     def __init__(self, bucket_name, e="", **kwargs):
@@ -20,8 +75,7 @@ class S3BucketNotFoundError(BotoCoreError):
 
 
 class S3BucketFailToCreateError(BotoCoreError):
-    """Bucket failed creation exception class."""
-
+    """Exception raised when an S3 bucket cannot be created."""
     fmt = "Failed to create S3 bucket: {reason}"
 
     def __init__(self, reason, **kwargs):
@@ -31,8 +85,7 @@ class S3BucketFailToCreateError(BotoCoreError):
 
 
 class FolderNotFoundError(BotoCoreError):
-    """Folder not found exception class."""
-
+    """Exception raised when the specified folder within an S3 bucket cannot be found."""
     fmt = "Failed to find folder with id: {id} in bucket: {bucket_name}"
 
     def __init__(self, id, bucket_name, **kwargs):
@@ -43,8 +96,7 @@ class FolderNotFoundError(BotoCoreError):
 
 
 class FilesDownloadError(BotoCoreError):
-    """Files download error exception class."""
-
+    """Exception raised when files cannot be downloaded from an S3 bucket."""
     fmt = "Failed to download folder with id: {id} in bucket: {bucket_name}"
 
     def __init__(self, id, bucket_name, **kwargs):
@@ -55,26 +107,25 @@ class FilesDownloadError(BotoCoreError):
 
 
 class BucketUtil:
-    """Class to initialize a bucket utility instance"""
+    """
+    A utility class for managing S3 bucket operations including file and folder manipulation.
+    
+    This class provides methods to create and manage files within specified S3 buckets using the AWS SDK for Python (boto3).
 
-    # __BIN is the temporary folder for storing downloaded files
-    # Contained within the bin folder, are folders with different
-    # ids as folder name. Witin each id are files belonging to that
-    # id.
+    Attributes:
+        bucket_name (str): The name of the S3 bucket.
+        s3_client (boto3.client): The boto3 S3 client.
+    """
     __BIN = os.path.join(os.getcwd(), "bin")
 
-    def __init__(
-        self, bucket_name: str, force: bool = False, region: str = "us-east-1"
-    ):
+    def __init__(self, bucket_name, force=False, region="us-east-1"):
         """
-        Validates S3 bucket in a sspecified region
+        Initializes the BucketUtil class, checking for the existence of the specified S3 bucket, and optionally creating it if not present.
 
-        If a region is not specified, the bucket is created in the S3 default
-        region (us-east-1).
-
-        :param bucket_name: Bucket to create
-        :param force: if true, creates bucket with bucket_name if bucket does not exist
-        :param region: String region to create bucket in, e.g., 'us-west-2'
+        Args:
+            bucket_name (str): The name of the S3 bucket to manage.
+            force (bool): If True, the bucket will be created if it does not exist. Defaults to False.
+            region (str): The AWS region where the bucket is located (or will be created). Defaults to 'us-east-1'.
         """
 
         self.bucket_name = bucket_name
@@ -107,7 +158,12 @@ class BucketUtil:
                 raise S3BucketNotFoundError(bucket_name=self.bucket_name, e=e)
 
     def list_ids(self):
-        """Return a list all ids in the bucket"""
+        """
+        Lists all folder-like prefixes in the bucket, which represent unique IDs.
+
+        Returns:
+            list: A list of folder IDs in the bucket.
+        """
 
         response = self.s3_client.list_objects_v2(
             Bucket=self.bucket_name, Delimiter="/"
@@ -119,10 +175,17 @@ class BucketUtil:
         return ids
 
     def list_files_in_folder(self, id):
-        """List all files in a specific folder ID.
+        """
+        Lists all files within a specific folder identified by 'id' in the S3 bucket.
 
-        :param id: Folder ID to list files from
-        :return: List of file names in the folder, or an empty list if the folder is empty or not found
+        Args:
+            id (str): The folder ID whose files should be listed.
+
+        Returns:
+            list: A list of file names found in the specified folder. Returns an empty list if no files are found.
+
+        Raises:
+            FolderNotFoundError: If the specified folder ID does not exist in the bucket.
         """
         if id not in self.list_ids():
             raise FolderNotFoundError(id=id, bucket_name=self.bucket_name)
@@ -143,12 +206,16 @@ class BucketUtil:
             return []
 
     def upload_file(self, id, file_name, file_content):
-        """Upload a file to an S3 bucket inside a folder with the specified ID
+        """
+        Uploads a file to a specific folder within the S3 bucket.
 
-        :param id: Folder ID to use for organizing the files
-        :param file_name: Name to be used for the uploaded file
-        :param file_content: Content of the file to upload
-        :return: True if file was uploaded, else False
+        Args:
+            id (str): The folder ID where the file will be uploaded.
+            file_name (str): The name of the file to upload.
+            file_content (bytes): The content of the file to upload.
+
+        Returns:
+            bool: True if the file was uploaded successfully, False otherwise.
         """
 
         # Append the folder ID to the object_name to create a folder structure
@@ -166,11 +233,15 @@ class BucketUtil:
         return True
 
     def delete_file_in_folder(self, id, file_name):
-        """Delete a file from a specific folder in the S3 bucket.
+        """
+        Deletes a specific file from a folder within the S3 bucket.
 
-        :param id: Folder ID from which to delete the file
-        :param file_name: Name of the file to delete
-        :return: True if the file was deleted successfully, else False
+        Args:
+            id (str): The folder ID from which the file will be deleted.
+            file_name (str): The name of the file to delete.
+
+        Returns:
+            bool: True if the file was successfully deleted, False otherwise.
         """
         if id not in self.list_ids():
             raise FolderNotFoundError(id, self.bucket_name)
@@ -188,10 +259,14 @@ class BucketUtil:
             return False
 
     def download_files(self, id):
-        """Downloads files from s3
+        """
+        Downloads all files from a specific folder ID within the S3 bucket to a local directory.
 
-        :param id: Folder ID to use for organizing the files
-        :return: True if file was uploaded, else False
+        Args:
+            id (str): The folder ID whose files should be downloaded.
+
+        Returns:
+            bool: True if files were successfully downloaded, False otherwise.
         """
         if id not in self.list_ids():
             raise FolderNotFoundError(id, self.bucket_name)
@@ -225,10 +300,14 @@ class BucketUtil:
             return False
 
     def delete_from_bin(self, id):
-        """Delete folder with id as name from bin
+        """
+        Deletes a local directory associated with a specific folder ID.
 
-        :param id: Folder ID contaning the files
-        :return: True if folder was, else False
+        Args:
+            id (str): The folder ID associated with the local directory to be deleted.
+
+        Returns:
+            bool: True if the directory was successfully deleted, False otherwise.
         """
 
         storage_path = os.path.join(self.__BIN, id)
@@ -245,10 +324,14 @@ class BucketUtil:
             return False
 
     def delete_from_bucket(self, id):
-        """Delete folder with id from bucket
+        """
+        Deletes all files and subfolders within a specific folder ID from the S3 bucket.
 
-        :param id: Folder ID contaning the files
-        :return: True if folder was, else False
+        Args:
+            id (str): The folder ID from which files and subfolders will be deleted.
+
+        Returns:
+            bool: True if the folder was successfully deleted, False otherwise.
         """
 
         if id not in self.list_ids():
@@ -277,39 +360,18 @@ class BucketUtil:
             logging.error(e)
             return False
 
-    def create_upload_presigned_url(
-        self, id, fields=None, conditions=None, expiration=3600
-    ):
-        """Generate a presigned URL S3 POST request to upload a file
+    def create_upload_presigned_url(self, id, fields=None, conditions=None, expiration=3600):
+        """
+        Generates a presigned URL for uploading files to a specific folder ID in the S3 bucket.
 
-        :param id: string
-        :param fields: Dictionary of prefilled form fields
-        :param conditions: List of conditions to include in the policy
-        :param expiration: Time in seconds for the presigned URL to remain valid
-        :return: Dictionary with the following keys:
-            url: URL to post to
-            fields: Dictionary of form fields and values to submit with the POST
-        :return: None if error.
+        Args:
+            id (str): The folder ID to which the file will be uploaded.
+            fields (dict): Additional form fields to include in the presigned POST request.
+            conditions (list): Conditions to include in the policy.
+            expiration (int): The time in seconds for which the presigned URL is valid.
 
-        ### Example:
-        ```
-        import requests    # To install: pip install requests
-
-        # Generate a presigned S3 POST URL
-        util = BucketUtil(
-            bucket_name="..."
-        )
-        response = util.create_upload_presigned_post(id="1")
-        if response is None:
-            exit(1)
-
-        # Demonstrate how another Python program can use the presigned URL to upload a file
-        with open(object_name, 'rb') as f:
-            files = {'file': (object_name, f)}
-            http_response = requests.post(response['url'], data=response['fields'], files=files)
-        # If successful, returns HTTP status code 204
-        logging.info(f'File upload HTTP status code: {http_response.status_code}')
-        ```
+        Returns:
+            dict: A dictionary containing the URL and fields for the presigned POST request, or None if an error occurs.
         """
 
         try:
@@ -329,15 +391,9 @@ class BucketUtil:
 
 
 def main():
-    util = BucketUtil(bucket_name="ccl-chatbot-document-store")
-    print(util.bucket_name)
-    folder_id = "1"
-    files_in_folder = util.list_files_in_folder(folder_id)
-    if files_in_folder:
-        print(f"Files in folder {folder_id}: {files_in_folder}")
-    else:
-        print(f"No files found in folder {folder_id}.")
-
+    # Example usage
+    util = BucketUtil(bucket_name="your-bucket-name")
+    print("Initialized S3 bucket utility for bucket:", util.bucket_name)
 
 if __name__ == "__main__":
     main()

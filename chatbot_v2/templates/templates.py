@@ -1,9 +1,33 @@
+"""
+Module: templates.py
+
+Contains utility functions and templates for generating sections and questions.
+
+Functions:
+    - clean_template: Utility function to clean template texts.
+    - clean_question: Utility function to clean question texts.
+    - create_section: Function to create a section.
+    - create_question: Function to create section questions.
+
+Attributes:
+    - section_templates (dict): Dictionary containing templates for different sections.
+
+"""
+
 from typing import Dict, List, Tuple
 from chatbot_v2.templates.dynamic_template_search import BASE_PATH, files_for_section
 
 
 def clean_template(item: Tuple) -> Tuple[str, List[str]]:
-    """Utility for cleaning template texts"""
+    """
+    Utility function to clean template texts.
+
+    Parameters:
+        item (Tuple): Tuple containing the template summary and template text.
+
+    Returns:
+        Tuple[str, List[str]]: Cleaned template summary and template text.
+    """
     item = list(item)
     summary = item[1][0].replace("\n", "").replace(" " * 8, "")
     template = item[1][1].replace("\n", "").replace(" " * 8, "")
@@ -12,7 +36,15 @@ def clean_template(item: Tuple) -> Tuple[str, List[str]]:
 
 
 def clean_question(item: Tuple) -> Tuple[str, str]:
-    """Utility for cleaning question texts"""
+    """
+    Utility function to clean question texts.
+
+    Parameters:
+        item (Tuple): Tuple containing the question identifier and question text.
+
+    Returns:
+        Tuple[str, str]: Cleaned question identifier and question text.
+    """
     item = list(item)
     question = item[1].replace("\n", "").replace(" " * 4, "")
     item = (item[0], question)
@@ -20,7 +52,17 @@ def clean_question(item: Tuple) -> Tuple[str, str]:
 
 
 def create_section(section_name, c_summary, base_path=BASE_PATH):
-    """Creates a section"""
+    """
+    Creates a section.
+
+    Parameters:
+        section_name (str): Name of the section.
+        c_summary (str): Summary of the section.
+        base_path (str, optional): Base path for the templates. Defaults to BASE_PATH.
+
+    Returns:
+        dict: Dictionary containing the section.
+    """
     dict_ = {}
     for i, template in enumerate(files_for_section(base_path, section_name), start=1):
         values = [c_summary, template]
@@ -29,7 +71,16 @@ def create_section(section_name, c_summary, base_path=BASE_PATH):
 
 
 def create_question(section_name, base_path=BASE_PATH):
-    """Create a section questions"""
+    """
+    Creates section questions.
+
+    Parameters:
+        section_name (str): Name of the section.
+        base_path (str, optional): Base path for the templates. Defaults to BASE_PATH.
+
+    Returns:
+        dict: Dictionary containing the section questions.
+    """
     dict_ = {}
     for i, question in enumerate(
         files_for_section(base_path, section_name, get_questions=True), start=1
