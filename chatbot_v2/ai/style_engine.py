@@ -87,7 +87,8 @@ class StyleGuide:
         Load style guide files into memory.
         """
         if self.file_contents is None:
-            file_dir = os.path.join(os.getcwd(), "data", "style_guide", "*.txt")
+            file_dir = os.path.join(
+                os.getcwd(), "data", "style_guide", "*.txt")
             file_path = glob.glob(file_dir)
             self.file_contents = self.read_style_guide_files(file_path)
 
@@ -127,14 +128,18 @@ class StyleGuide:
             os.path.join(current_directory, "FOREIGN WORDS.txt")
         ]
         gender = self.file_contents[
-            os.path.join(current_directory, "GENDER AND INCLUSIVE LANGUAGE.txt")
+            os.path.join(current_directory,
+                         "GENDER AND INCLUSIVE LANGUAGE.txt")
         ]
-        slashes = self.file_contents[os.path.join(current_directory, "SLASHES.txt")]
-        spellings = self.file_contents[os.path.join(current_directory, "SPELLINGS.txt")]
+        slashes = self.file_contents[os.path.join(
+            current_directory, "SLASHES.txt")]
+        spellings = self.file_contents[os.path.join(
+            current_directory, "SPELLINGS.txt")]
         business_emails = self.file_contents[
             os.path.join(current_directory, "BASICS OF A BUSINESS EMAIL.txt")
         ]
-        acronyms = self.file_contents[os.path.join(current_directory, "ACRONYMS.txt")]
+        acronyms = self.file_contents[os.path.join(
+            current_directory, "ACRONYMS.txt")]
         capitalization = self.file_contents[
             os.path.join(current_directory, "CAPITALISATION.txt")
         ]
@@ -144,15 +149,19 @@ class StyleGuide:
         apostrophies = self.file_contents[
             os.path.join(current_directory, "APOSTROPHES.txt")
         ]
-        money = self.file_contents[os.path.join(current_directory, "MONEY.txt")]
+        money = self.file_contents[os.path.join(
+            current_directory, "MONEY.txt")]
         abbreviation = self.file_contents[
-            os.path.join(current_directory, "ABBREVIATIONS, TITLES, AND CONTRACT.txt")
+            os.path.join(current_directory,
+                         "ABBREVIATIONS, TITLES, AND CONTRACT.txt")
         ]
         figures_tables = self.file_contents[
             os.path.join(current_directory, "FIGURES AND TABLES.txt")
         ]
-        numbers = self.file_contents[os.path.join(current_directory, "NUMBERS.txt")]
-        commas = self.file_contents[os.path.join(current_directory, "COMMAS (,).txt")]
+        numbers = self.file_contents[os.path.join(
+            current_directory, "NUMBERS.txt")]
+        commas = self.file_contents[os.path.join(
+            current_directory, "COMMAS (,).txt")]
         parallelism = self.file_contents[
             os.path.join(current_directory, "PARALLELISM.txt")
         ]
@@ -281,7 +290,8 @@ class StyleGuide:
         Returns:
             chain: A chain for modifying input text based on style guide suggestions.
         """
-        chat_model = ChatOpenAI(model=MODEL_NAME, temperature=0, streaming=True)
+        chat_model = ChatOpenAI(
+            model=MODEL_NAME, temperature=0, streaming=True)
 
         parser = PydanticOutputParser(pydantic_object=basemodel_class)
         format_instructions = parser.get_format_instructions()

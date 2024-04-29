@@ -38,19 +38,20 @@ def process_prompt(
 ):
     """
     Process a single prompt in a synchronous manner.
-    
+
     Parameters:
         sender_id (str): ID of the sender.
         conversation_id (str): ID of the conversation.
         prompt (str): The prompt to process.
-    
+
     Returns:
         str: The response generated for the prompt.
     """
     # Initialize chat history memory
     chat_history = ChatMessageHistory()
-    memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=chat_history, return_messages=True)
-    
+    memory = ConversationBufferMemory(
+        memory_key="chat_history", chat_memory=chat_history, return_messages=True)
+
     # Define chat prompt template
     prompt_t = ChatPromptTemplate(
         messages=[
@@ -64,7 +65,7 @@ def process_prompt(
 
     # Initialize ChatOpenAI model
     llm = ChatOpenAI(model=MODEL_NAME, cache=True, temperature=0.7)
-    
+
     # Initialize LLMChain with ChatOpenAI model and memory
     chain = LLMChain(
         llm=llm,
@@ -84,19 +85,20 @@ async def process_prompt_stream(
 ):
     """
     Process a single prompt in an asynchronous manner with streaming.
-    
+
     Parameters:
         sender_id (str): ID of the sender.
         conversation_id (str): ID of the conversation.
         prompt (str): The prompt to process.
-    
+
     Yields:
         str: A chunk of the response generated for the prompt.
     """
     # Initialize chat history memory
     chat_history = ChatMessageHistory()
-    memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=chat_history, return_messages=True)
-    
+    memory = ConversationBufferMemory(
+        memory_key="chat_history", chat_memory=chat_history, return_messages=True)
+
     # Define chat prompt template
     prompt_t = ChatPromptTemplate(
         messages=[
@@ -110,15 +112,16 @@ async def process_prompt_stream(
 
     # Initialize ChatOpenAI model with asynchronous streaming
     callback = AsyncIteratorCallbackHandler()
-    llm = ChatOpenAI(model=MODEL_NAME, cache=False, temperature=1, streaming=True, callback_manager=AsyncCallbackManager([callback]))
-    
+    llm = ChatOpenAI(model=MODEL_NAME, cache=False, temperature=1,
+                     streaming=True, callback_manager=AsyncCallbackManager([callback]))
+
     # Initialize LLMChain with ChatOpenAI model, prompt template, and memory
     chain = LLMChain(
         llm=llm,
         prompt=prompt_t,
         memory=memory
     )
-    
+
     # Invoke the chain asynchronously with the prompt
     task = asyncio.create_task(
         chain.ainvoke({'question': prompt})
@@ -130,7 +133,7 @@ async def process_prompt_stream(
             yield token
     finally:
         callback.done.set()
-        
+
     await task
 
 
@@ -140,12 +143,12 @@ async def rag_chat(
 ):
     """
     Conduct a chat using Retrieval-Aided Generation (RAG) method.
-    
+
     Parameters:
         sender_id (str): ID of the sender.
         conversation_id (str): ID of the conversation.
         prompt (str): The prompt to process.
-    
+
     Yields:
         str: A chunk of the response generated for the prompt.
     """
@@ -153,17 +156,18 @@ async def rag_chat(
     callback = AsyncIteratorCallbackHandler()
 
     # Initialize ChatOpenAI model with asynchronous streaming
-    llm = ChatOpenAI(model=MODEL_NAME, cache=False, temperature=1, streaming=True, callback_manager=AsyncCallbackManager([callback]))
-    
+    llm = ChatOpenAI(model=MODEL_NAME, cache=False, temperature=1,
+                     streaming=True, callback_manager=AsyncCallbackManager([callback]))
+
     # Initialize conversation index for retrieval
     index = initiate_index(id=sender_id, store_client="chromadb", persist=True)
-    
+
     # Initialize ConversationalRetrievalChain with ChatOpenAI model and conversation retriever
     chain = ConversationalRetrievalChain.from_llm(
         llm=llm,
         retriever=index.as_retriever(search_kwargs={"k": 4}),
     )
-    
+
     # Invoke the chain asynchronously with the prompt
     task = asyncio.create_task(
         chain.ainvoke({'question': prompt, 'chat_history': []})
@@ -175,7 +179,7 @@ async def rag_chat(
             yield token
     finally:
         callback.done.set()
-    
+
     await task
 
 
@@ -185,19 +189,19 @@ async def guardrail_chat(
 ):
     """
     Conduct a chat using Guardrail mechanism.
-    
+
     Parameters:
         sender_id (str): ID of the sender.
         conversation_id (str): ID of the conversation.
         prompt (str): The prompt to process.
         use_history (bool): Whether to use chat history in the conversation.
-    
+
     Yields:
         str: A chunk of the response generated for the prompt.
     """
     # Initialize conversation index for retrieval
     index = initiate_index(id=sender_id, store_client="chromadb", persist=True)
-    
+
     # Initialize RetrievalQA chain with Guardrail application settings
     qa_ccl_chain = RetrievalQA.from_chain_type(
         llm=guardrail_app.llm,
@@ -205,7 +209,7 @@ async def guardrail_chat(
         retriever=index.as_retriever(search_kwargs={"k": 4}),
     )
     guardrail_app.register_action(qa_ccl_chain, name="qa_ccl_chain")
-    
+
     # Initialize chat history
     history = [{"role": "user", "content": f"{prompt}"}]
 

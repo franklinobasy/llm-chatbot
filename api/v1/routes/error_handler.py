@@ -5,7 +5,8 @@ Custom error handler for API routes.
 
 class AnswersMisMatchQuestion(Exception):
     """
-    Exception raised when the number of provided answers mismatches the number of questions.
+    Exception raised when the number of provided answers
+    mismatches the number of questions.
 
     Attributes:
         n_questions (int): Number of expected questions.
@@ -21,7 +22,8 @@ class AnswersMisMatchQuestion(Exception):
             n_answers (int): Number of provided answers.
         """
         super().__init__(
-            f"Number of expected answers given mismatched number of questions. Questions: {n_questions}, Answers: {n_answers}."
+            f"Number of expected answers given mismatched number of \
+                questions. Questions: {n_questions}, Answers: {n_answers}."
         )
 
 
@@ -40,7 +42,8 @@ class UnknownSectionName(Exception):
         Args:
             section_name (str): Name of the unknown section.
         """
-        super().__init__(f"'{section_name}' is not a supported template section.")
+        super().__init__(
+            f"'{section_name}' is not a supported template section.")
 
 
 class UnknownSectionID(Exception):
@@ -112,4 +115,5 @@ class VectorIndexError(Exception):
         Args:
             e (str): Error message.
         """
-        super().__init__(f"Something went wrong while building vector store: '{e}'")
+        super().__init__(
+            f"Something went wrong while building vector store: '{e}'")

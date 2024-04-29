@@ -21,6 +21,7 @@ from utilities.tools import duration
 
 templates = NDA()
 
+
 class GenerateNDA:
     """
     GenerateNDA class for generating Non-Disclosure Agreements (NDAs).
@@ -41,7 +42,8 @@ class GenerateNDA:
         """
         questions = templates.prepare_questions()
         if len(questions) != len(answers):
-            raise ValueError("Number of answers supplied mismatch number of questions")
+            raise ValueError(
+                "Number of answers supplied mismatch number of questions")
         self.questions_answers = {
             question: answer for question, answer in zip(questions, answers)
         }
@@ -124,6 +126,7 @@ class GenerateNDA:
 
         text = "\n".join(sections)
 
-        chunks = [text[i : i + chunk_size] for i in range(0, len(text), chunk_size)]
+        chunks = [text[i: i + chunk_size]
+                  for i in range(0, len(text), chunk_size)]
         for chunk in chunks:
             yield chunk

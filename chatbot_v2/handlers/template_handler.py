@@ -11,6 +11,7 @@ Classes:
 from chatbot_v2.templates.templates import clean_template
 from chatbot_v2.handlers.base_handler import BaseHandler, section_templates
 
+
 class TemplateHandler(BaseHandler):
     """
     Class for handling templates.

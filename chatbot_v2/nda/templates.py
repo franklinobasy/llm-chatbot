@@ -1,7 +1,8 @@
 """
 Module: nda/templates.py
 
-Contains utility functions for preparing sections and questions from NDA templates.
+Contains utility functions for preparing sections and
+questions from NDA templates.
 
 Functions:
     - prepare_sections: Function to prepare sections from NDA templates.
@@ -19,6 +20,7 @@ import os
 from chatbot_v2.templates.templates import create_section, create_question
 
 BASE_PATH = os.path.join(os.getcwd(), "data", "NDA", "NDA_templates")
+
 
 class NDA:
     """

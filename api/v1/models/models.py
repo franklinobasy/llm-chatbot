@@ -124,7 +124,8 @@ class UploadRequestModel(BaseModel):
         files (List[UploadFile]): List of uploaded files.
     """
     sender_id: str
-    files: Annotated[List[UploadFile], File(description="Multiple files as UploadFile")]
+    files: Annotated[List[UploadFile], File(
+        description="Multiple files as UploadFile")]
 
 
 class BuildIndexForId(BaseModel):

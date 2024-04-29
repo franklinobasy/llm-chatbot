@@ -12,6 +12,7 @@ from typing import Dict
 from chatbot_v2.templates.templates import clean_question
 from chatbot_v2.handlers.base_handler import BaseHandler, section_templates
 
+
 class QuestionHandler(BaseHandler):
     """
     Class for handling questions within templates.

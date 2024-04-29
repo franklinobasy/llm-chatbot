@@ -14,6 +14,7 @@ Attributes:
 from abc import ABC, abstractmethod, abstractproperty
 from chatbot_v2.templates.templates import section_templates
 
+
 class BaseHandler(ABC):
     """
     Abstract base class for section handlers.
@@ -25,7 +26,7 @@ class BaseHandler(ABC):
 
         Parameters:
             section_type (str): Type of section.
-        
+
         Raises:
             ValueError: If the provided section type is not supported.
         """

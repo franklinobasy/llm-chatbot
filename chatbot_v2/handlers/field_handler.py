@@ -12,6 +12,7 @@ import re
 from typing import Dict, List
 from utilities.tools import duration
 
+
 class FieldHandler:
     """
     Class for handling fields within templates.

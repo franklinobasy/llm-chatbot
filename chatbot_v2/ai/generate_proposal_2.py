@@ -23,6 +23,7 @@ from chatbot_v2.handlers.question_handler import QuestionHandler
 from chatbot_v2.handlers.template_handler import TemplateHandler
 from utilities.tools import duration
 
+
 class AutoGenerateSection:
     """
     AutoGenerateSection class for generating proposal sections.
@@ -195,6 +196,7 @@ class AutoGenerateSection:
             str: A chunk of the generated proposal section.
         """
         text = self.ts
-        chunks = [text[i : i + chunk_size] for i in range(0, len(text), chunk_size)]
+        chunks = [text[i: i + chunk_size]
+                  for i in range(0, len(text), chunk_size)]
         for chunk in chunks:
             yield chunk

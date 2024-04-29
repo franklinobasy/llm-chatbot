@@ -58,7 +58,7 @@
 
 #     async def on_chat_model_error(self, error: BaseException, **kwargs) -> None:
 #         self.done.set()
-    
+
 
 # async def call_doc_agent(
 #     sender_id: str, conversation_id: str, prompt: str, use_history: bool = False
@@ -71,7 +71,7 @@
 #             chat_history.add_ai_message(qa[1])
 #     else:
 #         chat_history = ChatMessageHistory()
-        
+
 #     memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=chat_history, return_messages=True)
 
 #     system_message = SystemMessage(
@@ -99,7 +99,7 @@
 #     agent = create_openai_functions_agent(llm=llm, tools=tools, prompt=prompt_template)
 
 #     agent_executor = AgentExecutor(agent=agent, tools=tools, memory=memory)
-    
+
 #     task = asyncio.create_task(
 #         agent_executor.run(prompt)
 #     )
@@ -117,5 +117,5 @@
 #     if use_history:
 #         prompt_model = PromptModel(question=prompt, answer=result)
 #         save_prompt(sender_id, conversation_id, prompt_model)
-    
+
 #     await task

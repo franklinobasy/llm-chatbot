@@ -102,7 +102,8 @@ PROPOSED_SOLUTION_TEMPLATE = create_section(
 )
 IMPORTANCE_TEMPLATE = create_section("importance", "IMPORTANCE DESCRIPTION")
 BENEFITS_TEMPLATE = create_section("benefits", "BENEFITS TEMPLATE")
-EXECUTIVE_SUMMARY_TEMPLATE = create_section("executive_summary", "EXECUTIVE SUMMARY")
+EXECUTIVE_SUMMARY_TEMPLATE = create_section(
+    "executive_summary", "EXECUTIVE SUMMARY")
 
 
 OVERVIEW_QUESTIONS = create_question("overview")

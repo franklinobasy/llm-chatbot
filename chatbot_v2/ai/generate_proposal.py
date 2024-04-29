@@ -23,7 +23,8 @@ from utilities.tools import duration
 
 response_schema = [
     ResponseSchema(name="question", description="This is the question asked"),
-    ResponseSchema(name="answer", description="This is the answer you provided"),
+    ResponseSchema(
+        name="answer", description="This is the answer you provided"),
 ]
 
 output_parser = StructuredOutputParser.from_response_schemas(response_schema)
@@ -113,7 +114,8 @@ class AutoFillTemplate:
         """
 
         prompt = ChatPromptTemplate(
-            messages=[HumanMessagePromptTemplate.from_template(template_string)],
+            messages=[HumanMessagePromptTemplate.from_template(
+                template_string)],
             partial_variables={"format_instructions": format_instructions},
         )
 
