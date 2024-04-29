@@ -1,5 +1,18 @@
-from utilities import duration
+"""
+Module for managing conversations in the tracking system.
 
+This module provides functions to interact with conversations, including retrieving
+prompts from conversations and saving prompts to conversations.
+
+Functions:
+    - get_conversation_prompts(sender_id, conversation_id, k=2):
+        Get the latest prompts for the specified user and conversation.
+
+    - save_prompt(sender_id, conversation_id, prompt: PromptModel) -> bool:
+        Save a prompt from a user to the specified conversation.
+"""
+
+from utilities import duration
 from database.mongodb.models import PromptModel
 from database.mongodb.tools import (
     add_prompt_to_conversation,

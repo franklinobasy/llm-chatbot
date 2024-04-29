@@ -37,4 +37,7 @@ for exception, status_code in exception_handlers.items():
 
     @app.exception_handler(exception)
     async def exception_handler(request, exc):
-        return JSONResponse(status_code=status_code, content={"message": str(exc)})
+        return JSONResponse(
+            status_code=status_code,
+            content={"message": str(exc)}
+        )

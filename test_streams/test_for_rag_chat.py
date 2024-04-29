@@ -1,15 +1,15 @@
 import requests
 
 # Replace with the appropriate URL where your FastAPI server is running
-# host="54.174.77.47"
-host ="localhost:8000"
+host="54.174.77.47"
+# host ="localhost:8000"
 api_url = f"http://{host}/api/v1/chat/doc/stream"
 
 # Replace with your actual prompt
 prompt_data = {
     "sender_id": "1",
     "conversation_id": "1",
-    "prompt": "What do you know about Obasi Franklin?",
+    "prompt": "How can I contact cyphercrscent?",
     "use_history": True
 }
 

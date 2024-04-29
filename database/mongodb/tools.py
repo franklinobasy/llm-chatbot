@@ -1,14 +1,56 @@
-# tools
-from database.mongodb import collection
-from database.mongodb.models import PromptModel, ConversationModel, UserModel
-from uuid import uuid4
+"""
+Module: database.mongodb.tools
+
+The `tools.py` module provides functions for interacting with MongoDB collections, including user and conversation management.
+
+Functions:
+    - create_user_if_not_exists: Creates a new user if not already exists in the database.
+    - create_conversation: Creates a new conversation for a user.
+    - delete_conversation: Deletes a conversation for a user.
+    - add_prompt_to_conversation: Adds a prompt to a conversation for a user.
+    - get_user_conversations: Retrieves conversations for a user.
+    - process_prompt: Processes a prompt to a readable format.
+    - get_prompts_from_conversation: Retrieves prompts from a specific conversation for a user.
+
+Usage:
+    from database.mongodb.tools import (
+        create_user_if_not_exists,
+        create_conversation,
+        delete_conversation,
+        add_prompt_to_conversation,
+        get_user_conversations,
+        process_prompt,
+        get_prompts_from_conversation,
+    )
+
+    # Example usage of functions
+    create_user_if_not_exists(user_id="123")
+    conversation_id = create_conversation(user_id="123")
+    delete_conversation(user_id="123", conversation_id=conversation_id)
+    add_prompt_to_conversation(user_id="123", conversation_id=conversation_id, prompt=prompt)
+    conversations = get_user_conversations(user_id="123")
+    processed_prompt = process_prompt(prompt)
+    prompts = get_prompts_from_conversation(user_id="123", conversation_id=conversation_id)
+"""
 import logging
 from pymongo.collection import Collection
 from datetime import datetime
+from uuid import uuid4
 from typing import List
-
+from database.mongodb import collection
+from database.mongodb.models import PromptModel, ConversationModel, UserModel
 
 def create_user_if_not_exists(user_id: str, collection: Collection = collection):
+    """
+    Creates a new user if not already exists in the database.
+
+    Args:
+        - user_id (str): The ID of the user.
+        - collection (pymongo.collection.Collection): MongoDB collection to operate on.
+
+    Returns:
+        bool: True if user created, False if user already exists.
+    """
     existing_user = collection.find_one({"user_id": user_id})
     if not existing_user:
         user_data = UserModel(user_id=user_id)
@@ -20,11 +62,14 @@ def create_user_if_not_exists(user_id: str, collection: Collection = collection)
 
 def create_conversation(user_id: str, collection: Collection = collection) -> str:
     """
-    Create a new conversation for a user.
+    Creates a new conversation for a user.
 
-    :param user_id: User ID.
-    :param collection: MongoDB collection.
-    :return: Conversation ID if created, None if already exists.
+    Args:
+        - user_id (str): The ID of the user.
+        - collection (pymongo.collection.Collection): MongoDB collection to operate on.
+
+    Returns:
+        str: The ID of the created conversation.
     """
     conversation_id = uuid4().hex
     existing_user = collection.find_one({"user_id": user_id})
@@ -52,12 +97,15 @@ def delete_conversation(
     user_id: str, conversation_id: str, collection: Collection = collection
 ) -> bool:
     """
-    Delete a conversation for a user.
+    Deletes a conversation for a user.
 
-    :param user_id: User ID.
-    :param conversation_id: Conversation ID.
-    :param collection: MongoDB collection.
-    :return: True if deleted, False if not found.
+    Args:
+        - user_id (str): The ID of the user.
+        - conversation_id (str): The ID of the conversation to delete.
+        - collection (pymongo.collection.Collection): MongoDB collection to operate on.
+
+    Returns:
+        bool: True if conversation deleted, False if user or conversation not found.
     """
     result = collection.update_one(
         {"user_id": user_id},
@@ -78,13 +126,16 @@ def add_prompt_to_conversation(
     collection: Collection = collection,
 ) -> bool:
     """
-    Add a prompt to a conversation for a user.
+    Adds a prompt to a conversation for a user.
 
-    :param user_id: User ID.
-    :param conversation_id: Conversation ID.
-    :param prompt: PromptModel.
-    :param collection: MongoDB collection.
-    :return: True if added, False if user or conversation not found.
+    Args:
+        - user_id (str): The ID of the user.
+        - conversation_id (str): The ID of the conversation.
+        - prompt (PromptModel): The prompt to add.
+        - collection (pymongo.collection.Collection): MongoDB collection to operate on.
+
+    Returns:
+        bool: True if prompt added, False if user or conversation not found.
     """
     current_time = datetime.utcnow()
 
@@ -157,11 +208,14 @@ def get_user_conversations(
     user_id: str, collection: Collection = collection
 ) -> List[ConversationModel]:
     """
-    Get conversations for a user.
+    Retrieves conversations for a user.
 
-    :param user_id: User ID.
-    :param collection: MongoDB collection.
-    :return: List of ConversationModel.
+    Args:
+        - user_id (str): The ID of the user.
+        - collection (pymongo.collection.Collection): MongoDB collection to operate on.
+
+    Returns:
+        List[ConversationModel]: List of ConversationModel objects.
     """
     user_data = collection.find_one({"user_id": user_id})
     if user_data:
@@ -173,7 +227,15 @@ def get_user_conversations(
 
 
 def process_prompt(prompt: PromptModel) -> tuple:
-    """process prompt to readable format"""
+    """
+    Processes a prompt to a readable format.
+
+    Args:
+        - prompt (PromptModel): The prompt to process.
+
+    Returns:
+        tuple: A tuple containing the question and answer of the prompt.
+    """
     prompt = prompt.model_dump()
     return (prompt["question"], prompt["answer"])
 
@@ -185,12 +247,16 @@ def get_prompts_from_conversation(
     use_model: bool = True,
 ) -> List[PromptModel]:
     """
-    Get all prompts from a specific conversation for a user.
+    Retrieves prompts from a specific conversation for a user.
 
-    :param user_id: User ID.
-    :param conversation_id: Conversation ID.
-    :param collection: MongoDB collection.
-    :return: List of PromptModel.
+    Args:
+        - user_id (str): The ID of the user.
+        - conversation_id (str): The ID of the conversation.
+        - collection (pymongo.collection.Collection): MongoDB collection to operate on.
+        - use_model (bool): Whether to return prompts as PromptModel objects (default) or as processed tuples.
+
+    Returns:
+        List[PromptModel]: List of PromptModel objects if use_model is True, else list of processed tuples.
     """
     user_data = collection.find_one({"user_id": user_id})
     if user_data:

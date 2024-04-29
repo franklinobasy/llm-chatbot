@@ -32,7 +32,12 @@ from api.v1.routes.error_handler import (
     UnknownTemplateID,
     VectorIndexError,
 )
-from chatbot_v2.ai.chat import process_prompt, process_prompt_stream, rag_chat
+from chatbot_v2.ai.chat import (
+    guardrail_chat,
+    process_prompt,
+    process_prompt_stream,
+    rag_chat
+)
 # from chatbot_v2.ai.chat_agent import call_doc_agent
 from chatbot_v2.ai.generate_proposal import AutoFillTemplate
 from chatbot_v2.ai.generate_letter import AutoWriteLetter
@@ -47,12 +52,6 @@ from database.vector_store.index import initiate_index
 from chatbot_v2.templates.templates import section_templates
 from chatbot_v2.templates.context_config import (
     CHAT_SYSTEM_PROMPT,
-)
-from database.mongodb.tools import (
-    delete_conversation,
-    get_user_conversations,
-    get_prompts_from_conversation,
-    create_conversation,
 )
 from utilities.aws_tools import BucketUtil
 from uuid import uuid4
@@ -79,7 +78,8 @@ async def get_section_questions(section_id: int):
         section_id (int): The ID of the section.
 
     Returns:
-        Questions: A response containing the section name and a list of questions.
+        Questions: A response containing the section
+        name and a list of questions.
 
     Raises:
         PathTypeMisMatch: If the provided section ID is not an integer.
@@ -105,7 +105,8 @@ async def get_section_templates(section_id: int):
         section_id (int): The ID of the section.
 
     Returns:
-        Templates: A response containing the section name and a list of templates.
+        Templates: A response containing the section
+        name and a list of templates.
 
     Raises:
         PathTypeMisMatch: If the provided section ID is not an integer.
@@ -128,7 +129,8 @@ async def generate_proposal(user_input: UserInput):
     """Generate a proposal based on user input.
 
     Args:
-        user_input (UserInput): User input data including section ID, template index, and answers.
+        user_input (UserInput): User input data including
+        section ID, template index, and answers.
 
     Returns:
         ProposalResult: A response containing the generated proposal text.
@@ -136,7 +138,8 @@ async def generate_proposal(user_input: UserInput):
     Raises:
         UnknownSectionID: If the section ID is out of range.
         UnknownTemplateID: If the template index is out of range.
-        AnswersMisMatchQuestion: If the number of answers does not match the number of questions.
+        AnswersMisMatchQuestion: If the number of answers does not
+        match the number of questions.
     """
     section_id = user_input.section_id
     template_index = user_input.template_index
@@ -159,7 +162,9 @@ async def generate_proposal(user_input: UserInput):
         questions_answers = question_handler.set_answers(answers)
     except ValueError as _:
         raise AnswersMisMatchQuestion(
-            n_questions=len(question_handler.get_questions()), n_answers=len(answers)
+            n_questions=len(
+                question_handler.get_questions()
+            ), n_answers=len(answers)
         )
 
     # Field selection section
@@ -268,7 +273,10 @@ def write_letter_2(letter_context: LetterContext):
     """
     context = letter_context.context
     llm = AutoWriteLetter(MODEL_NAME)
-    return StreamingResponse(llm.generate_2(context), media_type="text/event-stream")
+    return StreamingResponse(
+        llm.generate_2(context),
+        media_type="text/event-stream"
+    )
 
 
 @router.post("/chat")
@@ -276,10 +284,12 @@ async def chat(request: ChatPrompt):
     """Initiate a chat and process the user prompt.
 
     Args:
-        request (ChatPrompt): Chat prompt data including sender ID, conversation ID, and prompt.
+        request (ChatPrompt): Chat prompt data including
+        sender ID, conversation ID, and prompt.
 
     Returns:
-        dict: A dictionary containing the user prompt and AI-generated response.
+        dict: A dictionary containing the user prompt
+        and AI-generated response.
     """
     answer = process_prompt(
         request.sender_id,
@@ -296,10 +306,12 @@ def chat_2(request: ChatPrompt):
     """Version 2: [Stream] Initiate a chat and process the user prompt.
 
     Args:
-        request (ChatPrompt): Chat prompt data including sender ID, conversation ID, and prompt.
+        request (ChatPrompt): Chat prompt data including sender ID,
+        conversation ID, and prompt.
 
     Returns:
-        dict: A dictionary containing the user prompt and AI-generated response.
+        dict: A dictionary containing the user prompt and
+        AI-generated response.
     """
     return StreamingResponse(
         process_prompt_stream(
@@ -317,10 +329,12 @@ async def chat_styled(request: ChatPrompt):
     """Version 2: [Stream] Initiate a chat and process the user prompt.
 
     Args:
-        request (ChatPrompt): Chat prompt data including sender ID, conversation ID, and prompt.
+        request (ChatPrompt): Chat prompt data including
+        sender ID, conversation ID, and prompt.
 
     Returns:
-        dict: A dictionary containing the user prompt and AI-generated response.
+        dict: A dictionary containing the user prompt and
+        AI-generated response.
     """
 
     chain = StyleGuide().styleguide_modify_input()
@@ -336,22 +350,29 @@ async def chat_styled(request: ChatPrompt):
         for chunk in chain.stream({"input": output}):
             yield chunk.content
 
-    return StreamingResponse(generate(answer), media_type="text/event-stream")
+    return StreamingResponse(
+        generate(answer),
+        media_type="text/event-stream"
+    )
 
 
 @router.post("/style_engine")
 async def style_engine(text: str):
     '''
-    Takes in an input text, conforms the text to CCL style guide, and streams out the text
+    Takes in an input text, conforms the text to
+    CCL style guide, and streams out the text
     '''
-    
+
     chain = StyleGuide().styleguide_modify_input()
-    
+
     def generate(output):
         for chunk in chain.stream({"input": output}):
             yield chunk.content
-    
-    return StreamingResponse(generate(text), media_type="text/event-stream")
+
+    return StreamingResponse(
+        generate(text),
+        media_type="text/event-stream"
+    )
 
 
 @router.post("/chat/doc/stream")
@@ -362,8 +383,19 @@ async def doc_chat(request: ChatPrompt):
         rag_chat(
             request.sender_id,
             request.conversation_id,
-            CHAT_SYSTEM_PROMPT.format(request.prompt),
-            use_history=request.use_history,
+            CHAT_SYSTEM_PROMPT.format(request.prompt)
+        ),
+        media_type="text/event-stream",
+    )
+
+
+@router.post('/test/guard')
+def test_guard(request: ChatPrompt):
+    return StreamingResponse(
+        guardrail_chat(
+            request.sender_id,
+            request.conversation_id,
+            CHAT_SYSTEM_PROMPT.format(request.prompt)
         ),
         media_type="text/event-stream",
     )
@@ -376,7 +408,8 @@ async def upload_files(
         list[UploadFile], File(description="Multiple files as UploadFile")
     ],
 ):
-    """Upload files to an S3 bucket and initiate the building of a new index.
+    """Upload files to an S3 bucket and initiate the
+    building of a new index.
 
     Args:
         id: The folder ID for organizing the files.
@@ -404,7 +437,8 @@ async def upload_files(
                 uploaded_files.append(file.filename)
             else:
                 raise HTTPException(
-                    status_code=500, detail=f"Failed to upload file: {file.filename}"
+                    status_code=500,
+                    detail=f"Failed to upload file: {file.filename}"
                 )
     except Exception as e:
         # Handle errors if needed
@@ -413,12 +447,15 @@ async def upload_files(
     # Start building index
     try:
         print("Building new index...")
-        initiate_index(id=id, persist=False)
+        initiate_index(id=id, store_client="chromadb", persist=False)
         print("Index build complete.")
     except Exception as e:
         raise VectorIndexError(e)
 
-    return JSONResponse(content={"uploaded_files": uploaded_files}, status_code=200)
+    return JSONResponse(
+        content={"uploaded_files": uploaded_files},
+        status_code=200
+    )
 
 
 @router.get("/user/{user_id}/documents/list")
@@ -491,7 +528,8 @@ def reindex(buid_index_id: BuildIndexForId):
     """Reset the vector store database.
 
     Args:
-        buid_index_id (BuildIndexForId): Data containing the ID for building the index.
+        buid_index_id (BuildIndexForId): Data containing
+        the ID for building the index.
 
     Returns:
         dict: A response indicating the success of the operation.
@@ -501,7 +539,7 @@ def reindex(buid_index_id: BuildIndexForId):
     """
     id = buid_index_id.id
     try:
-        initiate_index(id=id, persist=False)
+        initiate_index(id=id, store_client="chromadb", persist=False)
     except Exception as e:
         raise VectorIndexError(e)
 
@@ -516,63 +554,6 @@ def get_health():
         dict: A response indicating the health status.
     """
     return {"message": "Everything is good here 👀"}
-
-
-@router.get("/conversations/user/{user_id}")
-async def get_user_conversations_(user_id):
-    """Get conversations for a specific user.
-
-    Args:
-        user_id: The ID of the user.
-
-    Returns:
-        dict: A response containing the user's conversations.
-    """
-    conversations = get_user_conversations(user_id)
-    return conversations
-
-
-@router.get("/converstion/prompts/user/{user_id}/{conversation_id}")
-async def get_prompts_from_conversation_(user_id, conversation_id):
-    """Get prompts from a specific conversation.
-
-    Args:
-        user_id: The ID of the user.
-        conversation_id: The ID of the conversation.
-
-    Returns:
-        dict: A response containing the prompts from the conversation.
-    """
-    prompts = get_prompts_from_conversation(user_id, conversation_id)
-    return prompts
-
-
-@router.get("/conversation/create/{user_id}")
-def create_new_conversation(user_id):
-    """Create a new conversation for a user.
-
-    Args:
-        user_id: The ID of the user.
-
-    Returns:
-        dict: A response containing the ID of the new conversation.
-    """
-    conversation_id = create_conversation(user_id)
-    return conversation_id
-
-
-@router.delete("/conversation/delete/{user_id}/{conversation_id}")
-def delete_user_conversation(user_id, conversation_id):
-    """Delete a conversation for a specific user.
-
-    Args:
-        user_id: The ID of the user.
-        conversation_id: The ID of the conversation.
-
-    Returns:
-        dict: A response indicating the success of the operation.
-    """
-    return delete_conversation(user_id, conversation_id)
 
 
 @router.get("/NDA/questions")
@@ -590,7 +571,8 @@ async def nda_generate(input_data: NDAPrompt):
     """Generate an NDA based on user input.
 
     Args:
-        input_data (NDAPrompt): Input data containing answers for generating an NDA.
+        input_data (NDAPrompt): Input data containing
+        answers for generating an NDA.
 
     Returns:
         JSONResponse: A response containing the generated NDA.
@@ -612,7 +594,8 @@ async def nda_generate_2(input_data: NDAPrompt):
     """Version2: [Stream] Generate an NDA based on user input.
 
     Args:
-        input_data (NDAPrompt): Input data containing answers for generating an NDA.
+        input_data (NDAPrompt): Input data containing
+        answers for generating an NDA.
 
     Returns:
         JSONResponse: A response containing the generated NDA.
