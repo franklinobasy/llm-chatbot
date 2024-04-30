@@ -1,11 +1,12 @@
-# Chat Bot System
+# CCL Official Chatbot Documentation :book:
 
-This repository contains the source code for a comprehensive chat bot system, designed to provide various functionalities including chat interaction, non-disclosure agreement (NDA) generation, proposal generation, and style guide enforcement. Below is an overview of the main components:
+This repository contains the source code for Cypher Crescent's comprehensive chatbot system.
+This is a conversational/interactive AI chatbot designed to provide various functionalities including chat interaction, non-disclosure agreement (NDA) generation, proposal generation, and style guide enforcement. Below is an overview of the main components:
 
 ## Dockerfile and Jenkinsfile
 These files provide instructions for building Docker images and defining the Jenkins pipeline for automation.
 
-## API
+## [API](./api/Readme.md)
 The `api/` directory contains code related to the API implementation, including versioning, models, and routes.
 
 ## [Chatbot_v2](./chatbot_v2/Readme.md)
@@ -16,10 +17,10 @@ The `chatbot_v2/` directory comprises the core components of the chat bot system
 - `nda/`: Implements NDA generation functionalities.
 - `templates/`: Contains templates for various components of the chat interactions and generated documents.
 
-## Database
+## [Database](./Database/Readme.md)
 The `database/` directory contains implementations related to database functionalities, including MongoDB integration, tests, tracking, and vector store.
 
-## Guardrails
+## [Guardrails](./guardrails/Readme.md)
 The `guardrails/` directory includes configurations and files for enforcing style guide rules.
 
 ## Other Files and Directories
