@@ -9,6 +9,8 @@ from api.v1.routes.error_handler import (
     UnknownTemplateID,
     VectorIndexError,
 )
+from fastapi.middleware.cors import CORSMiddleware
+
 from utilities import (
     FilesDownloadError,
     FolderNotFoundError,
@@ -17,6 +19,20 @@ from utilities import (
 )
 
 app = FastAPI(title="CCL Chatbot")
+
+origins = [
+    "*"
+]
+
+# Add CORSMiddleware to the application instance
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(v1.router, prefix="/api/v1")
 
 exception_handlers = {
