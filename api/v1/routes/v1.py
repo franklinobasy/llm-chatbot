@@ -295,11 +295,11 @@ async def chat(request: ChatPrompt):
         dict: A dictionary containing the user prompt
         and AI-generated response.
     """
-    answer = process_prompt(
+    answer = process_prompt_stream(
         request.sender_id,
         request.conversation_id,
         CHAT_SYSTEM_PROMPT.format(request.prompt),
-        use_history=request.use_history,
+        # use_history=request.use_history,
     )
 
     return {"Human": request.prompt, "AI": answer}
