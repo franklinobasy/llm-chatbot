@@ -8,7 +8,7 @@ from langchain.agents import create_openai_functions_agent, AgentExecutor, creat
 model = ChatOpenAI(
     model=MODEL_NAME,
     temperature=0.7,
-    max_tokens=200
+    max_tokens=500
 )
 
 prompt = ChatPromptTemplate.from_messages([
