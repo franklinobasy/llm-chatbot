@@ -317,15 +317,6 @@ def chat_2(request: ChatPrompt):
         dict: A dictionary containing the user prompt and
         AI-generated response.
     """
-    # return StreamingResponse(
-    #     process_prompt_stream(
-    #         request.sender_id,
-    #         request.conversation_id,
-    #         CHAT_SYSTEM_PROMPT.format(request.prompt),
-    #         use_history=request.use_history,
-    #     ),
-    #     media_type="text/event-stream",
-    # )
     return StreamingResponse(
         agent_chat(
             agentExecutor, request.prompt, []

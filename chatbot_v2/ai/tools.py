@@ -19,13 +19,6 @@ def about_cyphercrescent(query):
     docs = retriever.similarity_search(query)
     return docs
 
-@tool
-def guardrail():
-    '''Use this tool to ensure that the user's question is safe'''
-    return '''
-        - Refrain from answering questions regarding sports or politics. Instead, kindly respond with a polite message, encouraging the user to ask only questions related to Cycphercrescent.
-    '''
-    pass
 
 # lang_retriever_tool = create_retriever_tool(
 #     initiate_index(id="1", store_client="chromadb", persist=True).as_retriever(),
