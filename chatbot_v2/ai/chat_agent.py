@@ -4,6 +4,7 @@ from chatbot_v2.configs.constants import MODEL_NAME
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.agents import create_openai_functions_agent, AgentExecutor, create_react_agent
 
+
 model = ChatOpenAI(
     model=MODEL_NAME,
     temperature=0.7
