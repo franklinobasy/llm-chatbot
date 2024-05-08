@@ -295,14 +295,14 @@ async def chat(request: ChatPrompt):
         dict: A dictionary containing the user prompt
         and AI-generated response.
     """
-    answer = process_prompt_stream(
-        request.sender_id,
-        request.conversation_id,
-        CHAT_SYSTEM_PROMPT.format(request.prompt),
-        # use_history=request.use_history,
+    return StreamingResponse(
+        process_prompt_stream(
+            request.sender_id,
+            request.conversation_id,
+            CHAT_SYSTEM_PROMPT.format(request.prompt),
+        ),
+        media_type="text/event-stream",
     )
-
-    return {"Human": request.prompt, "AI": answer}
 
 
 @router.post("/chat/stream")
