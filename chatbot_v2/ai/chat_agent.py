@@ -2,7 +2,7 @@
 # from langchain.agents import tool
 # from langchain.tools.retriever import create_retriever_tool
 # from langchain.memory import ConversationBufferMemory, ChatMessageHistory
-# from langchain_openai import ChatOpenAI
+# 
 # from langchain.agents.openai_functions_agent.base import OpenAIFunctionsAgent
 # from langchain.agents import create_openai_functions_agent
 # from langchain.schema import SystemMessage
@@ -119,3 +119,42 @@
 #         save_prompt(sender_id, conversation_id, prompt_model)
 
 #     await task
+
+
+from langchain_openai import ChatOpenAI
+from chatbot_v2.ai.tools import tools
+from chatbot_v2.configs.constants import MODEL_NAME
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain.agents import create_openai_functions_agent, AgentExecutor
+
+model = ChatOpenAI(
+    model=MODEL_NAME,
+    temperature=0.7
+)
+
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "You are a chatbot assistance for a Cyphercrescent (A software company). Your name is CCL Chatbot."),
+    MessagesPlaceholder(variable_name="chat_history"),
+    ("human", "{input}"),
+    MessagesPlaceholder(variable_name="agent_scratchpad")
+])
+
+
+agent = create_openai_functions_agent(
+    llm=model,
+    prompt=prompt,
+    tools=tools
+)
+
+agentExecutor = AgentExecutor(
+    agent=agent,
+    tools=tools
+)
+
+def process_chat(agentExecutor, user_input, chat_history):
+    response = agentExecutor.invoke({
+        "input": user_input,
+        "chat_history": chat_history
+    })
+    return response["output"]
+

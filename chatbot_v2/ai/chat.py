@@ -31,6 +31,8 @@ from langchain.prompts import (
 )
 from guardrails.configs.config import guardrail_app
 
+from chatbot_v2.ai.chat_agent import agentExecutor, agent
+
 
 @duration
 def process_prompt(
@@ -200,15 +202,16 @@ async def guardrail_chat(
         str: A chunk of the response generated for the prompt.
     """
     # Initialize conversation index for retrieval
-    index = initiate_index(id=sender_id, store_client="chromadb", persist=True)
+    # index = initiate_index(id=sender_id, store_client="chromadb", persist=True)
 
     # Initialize RetrievalQA chain with Guardrail application settings
-    qa_ccl_chain = RetrievalQA.from_chain_type(
-        llm=guardrail_app.llm,
-        chain_type="stuff",
-        retriever=index.as_retriever(search_kwargs={"k": 4}),
-    )
-    guardrail_app.register_action(qa_ccl_chain, name="qa_ccl_chain")
+    # qa_ccl_chain = RetrievalQA.from_chain_type(
+    #     llm=guardrail_app.llm,
+    #     chain_type="stuff",
+    #     retriever=index.as_retriever(search_kwargs={"k": 4}),
+    # )
+    # guardrail_app.register_action(qa_ccl_chain, name="qa_ccl_chain")
+    guardrail_app.register_action(agent, name="qa_ccl_chain")
 
     # Initialize chat history
     history = [{"role": "user", "content": f"{prompt}"}]

@@ -39,6 +39,10 @@ from chatbot_v2.ai.chat import (
     rag_chat
 )
 # from chatbot_v2.ai.chat_agent import call_doc_agent
+from chatbot_v2.ai.chat_agent import (
+    agentExecutor,
+    process_chat as agent_chat,
+)
 from chatbot_v2.ai.generate_proposal import AutoFillTemplate
 from chatbot_v2.ai.generate_letter import AutoWriteLetter
 from chatbot_v2.ai.generate_nda import GenerateNDA, templates
@@ -313,12 +317,18 @@ def chat_2(request: ChatPrompt):
         dict: A dictionary containing the user prompt and
         AI-generated response.
     """
+    # return StreamingResponse(
+    #     process_prompt_stream(
+    #         request.sender_id,
+    #         request.conversation_id,
+    #         CHAT_SYSTEM_PROMPT.format(request.prompt),
+    #         use_history=request.use_history,
+    #     ),
+    #     media_type="text/event-stream",
+    # )
     return StreamingResponse(
-        process_prompt_stream(
-            request.sender_id,
-            request.conversation_id,
-            CHAT_SYSTEM_PROMPT.format(request.prompt),
-            use_history=request.use_history,
+        agent_chat(
+            agentExecutor, request.prompt, []
         ),
         media_type="text/event-stream",
     )
