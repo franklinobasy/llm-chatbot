@@ -1,7 +1,7 @@
 # ai
 This folder contains the codes and tools that drive the ai functionalities of the chatbot. It contains the following files/modules:
 
-- ## [`chat/`]:
+- ### `chat`:
 This module contains functions for processing prompts and conducting chats using various methods such as retrieval-aided generation (RAG) and Guardrail mechanism.
 
 Functions:
@@ -22,7 +22,7 @@ Functions:
     await task
 ```
 
-- ## [`chat_agent/`]: 
+- ### `chat_agent`: 
 This contains the codes for the CCL chat agent.
 
 ##### Example
@@ -42,7 +42,7 @@ async def process_chat(agentExecutor, user_input, chat_history):
                 yield content
 ```
 
-- ## generate_letter:
+- ### `generate_letter`:
 This is the Module for generating formal letters using language models. 
 It contains functions that generate a formal letter synchronously using parameters as context strings from the user.
 
@@ -67,7 +67,7 @@ It contains functions that generate a formal letter synchronously using paramete
         return result.content
 
 ```
-- ## [`generate_nda/`]:
+- ### `generate_nda`:
 This is the Module for generating Non-Disclosure Agreements (NDAs) using language models.
 
 Classes:
@@ -104,7 +104,7 @@ Functions:
 
 ```
 
-- ## [`generate_proposal/`]:
+- ### `generate_proposal`:
 This is the Module for filling fields into text using LLM (Large Language Model).
 
 Classes:
@@ -130,7 +130,7 @@ Functions:
             cache=True,
         )
 ```
-- ## [`generate_proposal_2/`]:
+- ### `generate_proposal_2`:
 This is the Module for auto-generating proposal sections.
 
 Classes:
@@ -162,7 +162,7 @@ Functions:
         for chunk in chunks:
             yield chunk
 ```
-- ## [`style_engine/`]:
+- ### `style_engine`:
 Module for language style correction and interpretation based on an editorial style guide manual.
 
 Classes:
@@ -192,7 +192,7 @@ Functions:
         return file_contents
 
 ```
-- ## [`tools/`]:
+- ### `tools`:
 This contains tools for searching and returning questions concerning CypherCrescent also called CCL.
 
 ##### Example:
