@@ -3,7 +3,7 @@
 This repository contains the source code for Cypher Crescent's comprehensive chatbot system.
 This is a conversational/interactive AI chatbot designed to provide various functionalities including chat interaction, non-disclosure agreement (NDA) generation, proposal generation, and style guide enforcement. Below is an overview of the main components:
 
-## [Dockerfile and Jenkinsfile](README.md)
+## [Dockerfile and Jenkinsfile](architecture.jpg)
 These files provide instructions for building Docker images and defining the Jenkins pipeline for automation.
 
 ## [API](./api/Readme.md)
@@ -24,8 +24,11 @@ The `database/` directory contains implementations related to database functiona
 The `guardrails/` directory includes configurations and files for enforcing style guide rules.
 
 ## Other Files and Directories
-- `data/`: Holds data files such as NDA templates and style guides.
-- `test_streams/`: Contains tests for various components including chat, NDA, proposal generation, and style guide enforcement.
+- #### [data](./data/Readme.md): 
+Holds data files such as NDA templates and style guides.
+ 
+- ### [`test_streams/`](./test_streams/Readme.md): 
+Contains tests for various components including chat, NDA, proposal generation, and style guide enforcement.
 - `utilities/`: Provides utility functionalities including AWS tools.
 
 For more detailed information on each component, refer to the respective directories and files in the repository.
