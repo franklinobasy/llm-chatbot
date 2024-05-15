@@ -32,5 +32,8 @@ Contains tests for various components including chat, NDA, proposal generation, 
 - ### [`utilities`](./utilities/Readme.md):
  Provides utility functionalities including AWS tools.
 
+- ### [`architecture.jpg`](./architecture.jpg)
+This is a blueprint/representation of the chatbot flow system. 
+
 For more detailed information on each component, refer to the respective directories and files in the repository.
 
