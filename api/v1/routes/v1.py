@@ -1,6 +1,6 @@
 #!/bin/python3
 import os
-from typing import Annotated
+from typing import Annotated, Dict
 from fastapi import (
     File,
     UploadFile,
@@ -8,6 +8,7 @@ from fastapi import (
     HTTPException,
 )
 from fastapi.responses import JSONResponse, StreamingResponse
+from pydantic import BaseModel
 
 from api.v1.models.models import (
     BuildIndexForId,
@@ -295,14 +296,14 @@ async def chat(request: ChatPrompt):
         dict: A dictionary containing the user prompt
         and AI-generated response.
     """
-    answer = process_prompt(
-        request.sender_id,
-        request.conversation_id,
-        CHAT_SYSTEM_PROMPT.format(request.prompt),
-        use_history=request.use_history,
+    return StreamingResponse(
+        process_prompt_stream(
+            request.sender_id,
+            request.conversation_id,
+            CHAT_SYSTEM_PROMPT.format(request.prompt),
+        ),
+        media_type="text/event-stream",
     )
-
-    return {"Human": request.prompt, "AI": answer}
 
 
 @router.post("/chat/stream")
@@ -358,22 +359,26 @@ async def chat_styled(request: ChatPrompt):
 
 
 @router.post("/style_engine")
-async def style_engine(text: str):
+async def style_engine(input_data: Input):
     '''
     Takes in an input text, conforms the text to
     CCL style guide, and streams out the text
     '''
 
-    chain = StyleGuide().styleguide_modify_input()
+    try:
+        # Get the chain from the styleguide_modify_input method
+        chain = StyleGuide().styleguide_modify_input()
+        
+        # Invoke the chain with the provided input data.
+        # Assuming that the chain can be called like a function with a dictionary argument
+        chain_output = chain.invoke({"input": input_data.input})
 
-    def generate(output):
-        for chunk in chain.stream({"input": output}):
-            yield chunk.content
+        # If chain_output is not in a response-friendly format, convert it to a dict
+        response_data = chain_output if isinstance(chain_output, Dict) else chain_output.dict()
 
-    return StreamingResponse(
-        generate(text),
-        media_type="text/event-stream"
-    )
+        return JSONResponse(content={"result": response_data})
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 @router.post("/chat/doc/stream")

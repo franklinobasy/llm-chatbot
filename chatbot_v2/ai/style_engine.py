@@ -16,7 +16,7 @@ Functions:
 import os
 import glob
 from typing import Any, List, Dict
-from pydantic import BaseModel, Field
+from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
 from langchain.schema.messages import SystemMessage
@@ -280,7 +280,7 @@ class StyleGuide:
 
         return guide_template_context
 
-    def styleguide_modify_input(self, basemodel_class: BaseModel = StyleGuideParserV2):
+    def styleguide_modify_input(self, basemodel_class: BaseModel = StyleGuideParser):
         """
         Modify input text based on style guide suggestions.
 
@@ -291,22 +291,19 @@ class StyleGuide:
             chain: A chain for modifying input text based on style guide suggestions.
         """
         chat_model = ChatOpenAI(
-            model=MODEL_NAME, temperature=0, streaming=True)
+            model=MODEL_NAME, temperature=0)
 
         parser = PydanticOutputParser(pydantic_object=basemodel_class)
         format_instructions = parser.get_format_instructions()
         style_guide_context = self.generate_chat_template()
-        human_style_context = (
-            """
+        human_style_context = """
         You are a Language Engine, you are tasked with validating, correcting, and interpreting user mistakes in a text inputs, in accordance with a set of intructions provided in an editorial style guide manual.
-        
-        """
-            + style_guide_context
-            + """
+        {format_instructions}
+        """ + style_guide_context + """
         "INPUT": {input}
         "OUTPUT":
         """
-        )
+
         system_template = SystemMessage(
             content=(
                 """You are an intelligent Language engine, you will provide helpful language related corrections.
@@ -323,5 +320,5 @@ class StyleGuide:
             partial_variables={"format_instructions": format_instructions},
         )
 
-        chain = chat_prompt_template | chat_model
+        chain = chat_prompt_template | chat_model | parser
         return chain
