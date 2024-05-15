@@ -8,7 +8,7 @@ This project contains the codebase for Chatbot Version 2, which is a conversatio
 
 The project structure is organized into several directories and subdirectories:
 
-- **ai**: Contains modules related to AI functionality, such as chat agents, style engines, and generators for letters, NDAs, and proposals.
+- **[ai](./ai/Readme.md)**: Contains modules related to AI functionality, such as chat agents, style engines, and generators for letters, NDAs, and proposals.
 - **configs**: Includes configuration files and constants used throughout the project.
 - **handlers**: Contains modules responsible for handling various types of requests or tasks.
 - **nda**: Includes modules related to Non-Disclosure Agreements (NDAs), including configuration and templates.
