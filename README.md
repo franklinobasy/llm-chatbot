@@ -24,12 +24,12 @@ The `database/` directory contains implementations related to database functiona
 The `guardrails/` directory includes configurations and files for enforcing style guide rules.
 
 ## Other Files and Directories
-- #### [`data/`](./data/Readme.md): 
+- #### [`data`](./data/Readme.md): 
 Holds data files such as NDA templates and style guides.
  
-- ### [`test_streams/`](./test_streams/Readme.md): 
+- ### [`test_streams`](./test_streams/Readme.md): 
 Contains tests for various components including chat, NDA, proposal generation, and style guide enforcement.
-- ### [`utilities/`](./utilities/Readme.md):
+- ### [`utilities`](./utilities/Readme.md):
  Provides utility functionalities including AWS tools.
 
 For more detailed information on each component, refer to the respective directories and files in the repository.
