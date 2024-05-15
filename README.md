@@ -17,7 +17,7 @@ The `chatbot_v2/` directory comprises the core components of the chat bot system
 - [`nda`](./chatbot_v2/nda/): Implements NDA generation functionalities.
 - [`templates`](./chatbot_v2/templates/): Contains templates for various components of the chat interactions and generated documents.
 
-## [Database](./Database/Readme.md)
+## [Database](./database/Readme.md)
 The `database/` directory contains implementations related to database functionalities, including MongoDB integration, tests, tracking, and vector store.
 
 ## [Guardrails](./guardrails/Readme.md)
