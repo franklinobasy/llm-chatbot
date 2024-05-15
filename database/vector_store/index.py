@@ -198,6 +198,7 @@ def chromadb_store(
     """
     if not persist:
         bucket_util.download_files(id)
+        print(" index...")
         documents = load_documents(data_dir)
         docs = split_documents(documents)
 

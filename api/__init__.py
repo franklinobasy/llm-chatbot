@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
+
 from api.v1.routes import v1
 from api.v1.routes.error_handler import (
     AnswersMisMatchQuestion,
@@ -17,6 +19,14 @@ from utilities import (
 )
 
 app = FastAPI(title="CCL Chatbot")
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+
 app.include_router(v1.router, prefix="/api/v1")
 
 exception_handlers = {

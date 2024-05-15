@@ -2,8 +2,8 @@
 API models for version 1.
 """
 
-from typing import List
-from pydantic import BaseModel, Annotated
+from typing import List, Annotated
+from pydantic import BaseModel
 from fastapi import File, UploadFile
 
 
