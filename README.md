@@ -11,11 +11,11 @@ The `api/` directory contains code related to the API implementation, including 
 
 ## [Chatbot_v2](./chatbot_v2/Readme.md)
 The `chatbot_v2/` directory comprises the core components of the chat bot system. It includes functionalities for AI interaction, NDA generation, proposal generation, and style enforcement. Detailed breakdown:
-- [`ai/`](./chatbot_v2/ai/Readme.md): Contains AI-related functionalities such as chat agents and style engines.
-- [`configs/`](./chatbot_v2/): Holds configuration files including constants and prompt templates.
-- [`handlers/`](./chatbot_v2/handlers/): Implements various handlers for chat interactions, fields, questions, and templates.
-- [`nda/`](./chatbot_v2/nda/): Implements NDA generation functionalities.
-- [`templates/`](./chatbot_v2/templates/): Contains templates for various components of the chat interactions and generated documents.
+- [`ai`](./chatbot_v2/ai/Readme.md): Contains AI-related functionalities such as chat agents and style engines.
+- [`configs`](./chatbot_v2/): Holds configuration files including constants and prompt templates.
+- [`handlers`](./chatbot_v2/handlers/): Implements various handlers for chat interactions, fields, questions, and templates.
+- [`nda`](./chatbot_v2/nda/): Implements NDA generation functionalities.
+- [`templates`](./chatbot_v2/templates/): Contains templates for various components of the chat interactions and generated documents.
 
 ## [Database](./Database/Readme.md)
 The `database/` directory contains implementations related to database functionalities, including MongoDB integration, tests, tracking, and vector store.
