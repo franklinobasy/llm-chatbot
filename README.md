@@ -11,7 +11,7 @@ The `api/` directory contains code related to the API implementation, including 
 
 ## [Chatbot_v2](./chatbot_v2/Readme.md)
 The `chatbot_v2/` directory comprises the core components of the chat bot system. It includes functionalities for AI interaction, NDA generation, proposal generation, and style enforcement. Detailed breakdown:
-- `ai/`: Contains AI-related functionalities such as chat agents and style engines.
+- [`ai/`](./chatbot_v2/ai/): Contains AI-related functionalities such as chat agents and style engines.
 - `configs/`: Holds configuration files including constants and prompt templates.
 - `handlers/`: Implements various handlers for chat interactions, fields, questions, and templates.
 - `nda/`: Implements NDA generation functionalities.
@@ -24,12 +24,13 @@ The `database/` directory contains implementations related to database functiona
 The `guardrails/` directory includes configurations and files for enforcing style guide rules.
 
 ## Other Files and Directories
-- #### [data](./data/Readme.md): 
+- #### [`data/`](./data/Readme.md): 
 Holds data files such as NDA templates and style guides.
  
 - ### [`test_streams/`](./test_streams/Readme.md): 
 Contains tests for various components including chat, NDA, proposal generation, and style guide enforcement.
-- `utilities/`: Provides utility functionalities including AWS tools.
+- ### [`utilities/`](./utilities/Readme.md):
+ Provides utility functionalities including AWS tools.
 
 For more detailed information on each component, refer to the respective directories and files in the repository.
 
