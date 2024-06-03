@@ -18,3 +18,5 @@ langchain_openai
 nemoguardrails
 sphinx
 sphinx-rtd-theme
+pytest
+moto
