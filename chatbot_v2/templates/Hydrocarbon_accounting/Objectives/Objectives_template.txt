@@ -1,4 +1,5 @@
 ~Objectives of the Hydrocarbon Accounting Solution
+
 The objectives of the Hydrocarbon Accounting Solution encompass a comprehensive
 approach to addressing the challenges and opportunities within the oil and gas industry.
 Firstly, it aims to elevate the accuracy and integrity of hydrocarbon production data through
@@ -19,7 +20,7 @@ Overall, the objectives of the Hydrocarbon Accounting Solution represent a holis
 to transforming the industry, ensuring sustainability, resilience, and competitive advantage in
 a rapidly evolving energy landscape.
 
-Specific Goals and Targets to Address the Identified Challenges
+[sub-heading] Specific Goals and Targets to Address the Identified Challenges
 The specific goals and targets are as follows:
 1. Achieve 99% Data Accuracy
 Implement systems and processes to ensure that hydrocarbon production data accuracy
@@ -40,7 +41,7 @@ Establish platforms and communication channels to facilitate collaboration and k
 sharing among internal teams, external partners, and regulatory authorities, fostering
 transparency, trust, and cooperation within the oil and gas ecosystem.
 
-Expected Benefits and Outcomes of Implementing the Hydrocarbon Accounting
+[sub-heading] Expected Benefits and Outcomes of Implementing the Hydrocarbon Accounting
 Solution
 The expected benefits of implementing the Hydrocarbon Accounting Solution are as follows:
 1. Enhance Data Accuracy and Integrity

@@ -1,5 +1,6 @@
 ~Current Challenges in Hydrocarbon Accounting
-1. Identification of Existing Challenges in Hydrocarbon Accounting
+
+[sub-heading] Identification of Existing Challenges in Hydrocarbon Accounting
 Hydrocarbon accounting in Nigeria faces a myriad of challenges stemming from the
 industry&#39;s complexity, regulatory landscape, and operational realities. Firstly, data accuracy
 and integrity pose significant hurdles, with inconsistencies and discrepancies often marring
@@ -26,7 +27,7 @@ and geopolitical uncertainties, adds another layer of complexity to hydrocarbon 
 The inability to adapt quickly to changing circumstances further exacerbates challenges
 related to forecasting, risk management, and decision-making.
 
-2. Impact of These Challenges on Operational Efficiency and Regulatory Compliance
+[sub-heading] Impact of These Challenges on Operational Efficiency and Regulatory Compliance
 The ramifications of these challenges reverberate throughout the Nigerian oil and gas
 industry, affecting operational efficiency and regulatory compliance at every level.
 Inaccuracies in hydrocarbon accounting data not only hinder effective decision-making but
