@@ -12,7 +12,7 @@ Attributes:
 """
 
 from abc import ABC, abstractmethod, abstractproperty
-from chatbot_v2.templates.templates import section_templates
+from chatbot_v2.templates.domains import DOMAINS
 
 
 class BaseHandler(ABC):
@@ -20,7 +20,7 @@ class BaseHandler(ABC):
     Abstract base class for section handlers.
     """
 
-    def __init__(self, section_type: str):
+    def __init__(self, domain:str, section_type: str):
         """
         Initialize the BaseHandler.
 
@@ -30,12 +30,16 @@ class BaseHandler(ABC):
         Raises:
             ValueError: If the provided section type is not supported.
         """
-        if section_type not in section_templates.keys():
+        self.domain = domain
+        if domain not in DOMAINS.keys():
+            raise ValueError(f'Invalid domain: {domain}')
+        
+        if section_type not in DOMAINS[domain].keys():
             raise ValueError(
                 f'This section type: "{section_type}" is not supported.\
-                \nAvailable supported sections are: {list(section_templates.keys())}'
+                \nAvailable supported sections are: {list(DOMAINS[domain].keys())}'
             )
-        self._section_template = section_templates.get(section_type)
+        self._section_template = DOMAINS[domain].get(section_type)
 
     @abstractproperty
     def section(self):

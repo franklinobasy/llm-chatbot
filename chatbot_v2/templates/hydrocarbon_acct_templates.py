@@ -14,65 +14,40 @@ Attributes:
 
 """
 
-from typing import Dict, List, Tuple
-from chatbot_v2.templates.dynamic_template_search import BASE_PATH, files_for_section
+import os
+from chatbot_v2.templates.dynamic_template_search_v2 import files_for_section
 
 
-def clean_template(item: Tuple) -> Tuple[str, List[str]]:
+# Define the top-level folder path
+BASE_PATH = os.path.join(os.getcwd(), "chatbot_v2",
+                         "templates", "Hydrocarbon_accounting")
+
+
+def get_section(section_name, include_hint=False, base_path=BASE_PATH):
     """
-    Utility function to clean template texts.
-
-    Parameters:
-        item (Tuple): Tuple containing the template summary and template text.
-
-    Returns:
-        Tuple[str, List[str]]: Cleaned template summary and template text.
-    """
-    item = list(item)
-    summary = item[1][0].replace("\n", "").replace(" " * 8, "")
-    template = item[1][1].replace("\n", "").replace(" " * 8, "")
-    item = (item[0], [summary, template])
-    return item
-
-
-def clean_question(item: Tuple) -> Tuple[str, str]:
-    """
-    Utility function to clean question texts.
-
-    Parameters:
-        item (Tuple): Tuple containing the question identifier and question text.
-
-    Returns:
-        Tuple[str, str]: Cleaned question identifier and question text.
-    """
-    item = list(item)
-    question = item[1].replace("\n", "").replace(" " * 4, "")
-    item = (item[0], question)
-    return item
-
-
-def create_section(section_name, c_summary, base_path):
-    """
-    Creates a section.
+    Get a section.
 
     Parameters:
         section_name (str): Name of the section.
-        c_summary (str): Summary of the section.
+        include_hint (bool): Whether or not to include section context
         base_path (str, optional): Base path for the templates. Defaults to BASE_PATH.
 
     Returns:
         dict: Dictionary containing the section.
     """
     dict_ = {}
-    for i, template in enumerate(files_for_section(base_path, section_name), start=1):
-        values = [c_summary, template]
-        dict_[str(i)] = values
+    contexts = None
+    if include_hint:
+        contexts = files_for_section(base_path, section_name, get_hint=True)
+    sections = files_for_section(base_path, section_name)
+    for i, template in enumerate(zip(sections, contexts) if include_hint else (sections), start=1):
+        dict_[str(i)] = template
     return dict_
 
 
-def create_question(section_name, base_path):
+def get_hints(section_name, base_path=BASE_PATH):
     """
-    Creates section questions.
+    Get section hints.
 
     Parameters:
         section_name (str): Name of the section.
@@ -82,12 +57,36 @@ def create_question(section_name, base_path):
         dict: Dictionary containing the section questions.
     """
     dict_ = {}
-    for i, question in enumerate(
-        files_for_section(base_path, section_name, get_questions=True), start=1
+    for i, hint in enumerate(
+        files_for_section(base_path, section_name, get_hint=True), start=1
     ):
-        dict_[f"Question {i}"] = question
+        dict_[f"Hint {i}"] = hint
 
     return dict_
+
+
+INTRODUCTION = get_section('introduction', include_hint=True)
+CURRENT_CHALLENGES = get_section('current_challenges', include_hint=True)
+OBJECTIVES = get_section('objectives', include_hint=True)
+COLLABORATIVE_APPROACH = get_section('collaborative_approach', include_hint=True)
+CONCLUSION = get_section('conclusion', include_hint=True)
+PROPOSED_SOLUTION = get_section('proposed_solution', include_hint=True)
+STRATEGIC_INVESTMENT_PLAN = get_section('strategic_investment_plan', include_hint=True)
+
+
+section_templates = {
+    'introduction': INTRODUCTION,
+    'collaborative_approach': COLLABORATIVE_APPROACH,
+    'objectives': OBJECTIVES,
+    'current_challenges': CURRENT_CHALLENGES,
+    'proposed_solution': PROPOSED_SOLUTION,
+    'strategic_investment_plan': STRATEGIC_INVESTMENT_PLAN,
+    'conclusion': CONCLUSION
+}
+
+static_sections = [
+    
+]
 
 
 # ABOUT_CYPHERCRESCENT = create_section("about", "ABOUT CYPHERCRESCENT SUMMARY")
