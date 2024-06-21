@@ -19,8 +19,8 @@ from typing import Dict, List, Union
 import os
 from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
-from chatbot_v2.handlers.question_handler import QuestionHandler
 from chatbot_v2.handlers.template_handler import TemplateHandler
+from chatbot_v2.templates.domains import DOMAINS, STATIC_SECTIONS
 from utilities.tools import duration
 
 
@@ -35,7 +35,7 @@ class AutoGenerateSection:
         no_llm_sections (List[str]): Sections that do not require the language model.
     """
 
-    def __init__(self, model_name: str, section_type: str):
+    def __init__(self, model_name: str, domain:str, section_type: str):
         """
         Initialize the AutoGenerateSection class.
 
@@ -43,6 +43,15 @@ class AutoGenerateSection:
             model_name (str): The name of the language model to use.
             section_type (str): The type of the proposal section to generate.
         """
+        if domain not in DOMAINS.keys():
+            raise ValueError(f'Invalid domain: {domain}')
+        
+        if section_type not in DOMAINS[domain].keys():
+            raise ValueError(f'section_type: "{section_type}" not valid for this domain: "{domain}"')
+        
+        self._domain = domain
+        self.section_type = section_type
+        
         self.__model_name = model_name
         self.llm = ChatOpenAI(
             model=self.__model_name,
@@ -50,13 +59,8 @@ class AutoGenerateSection:
             cache=True,
             streaming=True,
         )
-        self.section_type = section_type
-        self.no_llm_sections = [
-            "about_cyphercrescent",
-            "our_team",
-            "our_commitment",
-            "our_clients",
-        ]
+        
+        self.no_llm_sections = STATIC_SECTIONS[self._domain]
 
     SYSTEM_PROMPT = """
     You are a professional proposal writer that works in Cycphercrescent.
@@ -64,21 +68,17 @@ class AutoGenerateSection:
     for enterprises to accelerate adoption of sustainable digitalisation
     practices.
     
-    You role is to write a particular section of a proposal.
+    You role is to write the particular section of a proposal.
     Do not include any conclusion after writing the section.
     """
 
     HUMAN_PROMPT = """
     You are expected to write only a section of the proposal.
-    The name of the section is {section_type}.
+    The section of the proposal you are writing is {section_type}.
     
-    A list of questions has been given below, followed by a template example
-    of how the proposal section shoud be. A context will be provided to help you
-    answer the questions. Note that answering the questions will help you
-    with more information on how to write the section of the proposal.
-    
-    if no question is supplied, or/and no template is supplied, feel free
-    to generate the template using the context provided.
+    Use the provided context to write the section.
+    A template has also been provided to give you an example of how
+    the section should be.
     
     NOTE: You are expected to only write the specified section of the proposal.
     Do not include any conclusion after writing the section.
@@ -89,31 +89,24 @@ class AutoGenerateSection:
     CONTEXT:
     {context}
     
-    QUESTIONS:
-    {questions}
-    
     TEMPLATE(S):
     {template}
     """
 
-    def section_template(self, index=-1):
+    def set_template(self):
         """
         Set the template for the proposal section.
 
         Parameters:
             index (int): The index of the template to use. Default is -1 for all templates.
         """
-        th = TemplateHandler(self.section_type)
-        ts = th.get_templates()
-        if index != -1:
-            if index >= len(ts):
-                raise IndexError("Index out of range for template list")
-        self.ts: Union[List, str] = ts if index == -1 else ts[index]
+        th = TemplateHandler(self._domain, self.section_type)
+        self.ts = th.get_template()
 
-    def template_questions(self):
-        """Get the questions related to the proposal section."""
-        qh = QuestionHandler(self.section_type)
-        self.qs = qh.get_questions()
+    def template_hint(self):
+        """Get the context related to the proposal section."""
+        th = TemplateHandler(self.domain, self.section_type)
+        return th.get_hint()
 
     @duration
     def generate_section(self, context):
@@ -129,7 +122,6 @@ class AutoGenerateSection:
         prompt = self.HUMAN_PROMPT.format(
             section_type=self.section_type,
             context=context,
-            questions=self.qs,
             template=self.ts,
         )
 
@@ -155,7 +147,6 @@ class AutoGenerateSection:
         prompt = self.HUMAN_PROMPT.format(
             section_type=self.section_type,
             context=context,
-            questions=self.qs,
             template=self.ts,
         )
 
@@ -180,9 +171,9 @@ class AutoGenerateSection:
             function: The function for generating the proposal section.
         """
         if self.section_type in self.no_llm_sections:
-            return self.stream_section_generation
+            return self.stream_section_generation(chunk_size)
         else:
-            return self.generate_section_2
+            return self.generate_section_2(context)
 
     @duration
     def stream_section_generation(self, chunk_size):

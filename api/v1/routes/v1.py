@@ -2,7 +2,9 @@
 import os
 from typing import Annotated, Dict
 from fastapi import (
+    Body,
     File,
+    Query,
     UploadFile,
     APIRouter,
     HTTPException,
@@ -13,14 +15,15 @@ from pydantic import BaseModel
 from api.v1.models.models import (
     BuildIndexForId,
     ChatPrompt,
+    Domains,
     Input,
     LetterContext,
     LetterResult,
     NDAPrompt,
     ProposalResult,
-    Questions,
+    Hint,
     Sections,
-    Templates,
+    Template,
     UserInput,
     UploadRequestModel,
     UserInput2,
@@ -28,7 +31,7 @@ from api.v1.models.models import (
 from api.v1.routes.error_handler import (
     AnswersMisMatchQuestion,
     PathTypeMisMatch,
-    UnknownSectionID,
+    UnknownSection,
     UnknownSectionName,
     UnknownTemplateID,
     VectorIndexError,
@@ -51,10 +54,9 @@ from chatbot_v2.ai.generate_proposal_2 import AutoGenerateSection
 from chatbot_v2.ai.style_engine import StyleGuide
 from chatbot_v2.configs.constants import MODEL_NAME
 from chatbot_v2.handlers.field_handler import FieldHandler
-from chatbot_v2.handlers.question_handler import QuestionHandler
 from chatbot_v2.handlers.template_handler import TemplateHandler
+from chatbot_v2.templates.domains import DOMAINS
 from database.vector_store.index import initiate_index
-from chatbot_v2.templates.templates import section_templates
 from chatbot_v2.templates.context_config import (
     CHAT_SYSTEM_PROMPT,
 )
@@ -65,68 +67,78 @@ router = APIRouter()
 bucket_util = BucketUtil(bucket_name="ccl-chatbot-document-store")
 
 
-@router.get("/sections")
-async def get_all_sections():
-    """Get all available sections.
+@router.get('/proposal_domains', response_model=Domains)
+async def get_all_proposal_domains():
+    """Get all available proposal domain names
+    
+    Returns:
+        Domains: A response containing a list of available proposal domains
+    """
+    domains = DOMAINS.keys()
+    return Domains(domains=list(domains))
+
+
+class SectionsRequest(BaseModel):
+    domain_name: str
+
+@router.post("/sections", response_model=Sections)
+async def get_all_sections(request: SectionsRequest = Body(...)):
+    """Get all available sections in a proposal domain.
 
     Returns:
-        Sections: A response containing a list of available sections.
+        SectionsResponse: A response containing a list of available sections.
     """
-    return Sections(sections=list(section_templates.keys()))
+    domain_name = request.domain_name
+    if domain_name not in DOMAINS:
+        raise HTTPException(status_code=400, detail=f'{domain_name} is not supported.')
+    
+    sections = DOMAINS[domain_name].keys()
+    return Sections(domain_name=domain_name, sections=list(sections))
 
 
-@router.get("/questions/{section_id}")
-async def get_section_questions(section_id: int):
-    """Get questions for a specific section.
+class HintRequest(BaseModel):
+    domain_name: str
 
-    Args:
-        section_id (int): The ID of the section.
-
-    Returns:
-        Questions: A response containing the section
-        name and a list of questions.
-
-    Raises:
-        PathTypeMisMatch: If the provided section ID is not an integer.
-        UnknownSectionID: If the section ID is out of range.
-    """
-    if not isinstance(section_id, int):
-        raise PathTypeMisMatch(section_id)
-
-    try:
-        section_name = list(section_templates.keys())[section_id]
-        section = QuestionHandler(section_name)
-        questions = section.get_questions()
-        return Questions(section_name=section_name, questions=questions)
-    except IndexError:
-        raise UnknownSectionID(section_id)
+@router.post("/hint/{section_type}", response_model=Hint)
+async def get_section_hint(section_type: str, request: HintRequest = Body(...)):
+    """Get questions for a specific section."""
+    domain_name = request.domain_name
+    th = TemplateHandler(domain_name, section_type)
+    hint = th.get_hint()
+    return Hint(
+        domain_name=domain_name,
+        section_name=section_type,
+        hint=hint
+    )
 
 
-@router.get("/templates/{section_id}")
-async def get_section_templates(section_id: int):
+class TemplateRequest(BaseModel):
+    domain_name: str
+    section_type: str
+
+
+@router.post("/templates", response_model=Template)
+async def get_section_templates(request: TemplateRequest = Body(...)):
     """Get templates for a specific section.
 
     Args:
-        section_id (int): The ID of the section.
+        request (TemplateRequest): A request containing the domain name and section type.
 
     Returns:
-        Templates: A response containing the section
-        name and a list of templates.
-
-    Raises:
-        PathTypeMisMatch: If the provided section ID is not an integer.
-        UnknownSectionID: If the section ID is out of range.
+        TemplateResponse: A response containing the domain name, section name, and the template.
     """
-    if not isinstance(section_id, int):
-        raise PathTypeMisMatch(section_id)
+    domain_name = request.domain_name
+    section_type = request.section_type
 
-    try:
-        section_name = list(section_templates.keys())[section_id]
-        template_store = TemplateHandler(section_name)
-        templates = template_store.get_templates()
-        return Templates(section_name=section_name, templates=templates)
-    except IndexError:
-        raise UnknownSectionID(section_id)
+    
+    th = TemplateHandler(domain_name, section_type)
+    template = th.get_template()
+    
+    return Template(
+        domain_name=domain_name,
+        section_name=section_type,
+        template=template
+    )
 
 
 @router.post("/generate")
@@ -195,22 +207,14 @@ async def generate_proposal(user_input: UserInput):
 @router.post("/generate/proposal")
 async def generate_proposal(user_input: UserInput2):
     """Version 2: Generate a proposal section"""
-    section_id = user_input.section_id
-    template_index = user_input.template_index
+    domain_name = user_input.domain_name
+    section_type = user_input.section_type
     context = user_input.context
 
-    try:
-        section_name = list(section_templates.keys())[section_id]
-    except IndexError as _:
-        raise UnknownSectionID(section_id)
-
-    generator = AutoGenerateSection(MODEL_NAME, section_name)
+    generator = AutoGenerateSection(MODEL_NAME, domain_name, section_type)
 
     # prepare template
-    generator.section_template(template_index)
-
-    # prepare questions
-    generator.template_questions()
+    generator.set_template()
 
     result = generator.generate_section(context)
     return result
@@ -219,34 +223,16 @@ async def generate_proposal(user_input: UserInput2):
 @router.post("/generate/proposal/stream")
 async def generate_proposal_2(user_input: UserInput2):
     """Version 2: [Stream] Generate a proposal section"""
-    section_id = user_input.section_id
-    template_index = user_input.template_index
+    domain_name = user_input.domain_name
+    section_type = user_input.section_type
     context = user_input.context
 
-    try:
-        section_name = list(section_templates.keys())[section_id]
-    except IndexError as _:
-        raise UnknownSectionID(section_id)
+    generator = AutoGenerateSection(MODEL_NAME, domain_name, section_type)
 
-    generator = AutoGenerateSection(MODEL_NAME, section_name)
-
-    # prepare template
-    try:
-        generator.section_template(template_index)
-    except IndexError as _:
-        raise UnknownSectionID(section_id)
-
-    if section_name in generator.no_llm_sections:
-        return StreamingResponse(
-            generator.stream_section_generation(chunk_size=100),
-            media_type="text/event-stream",
-        )
-
-    # prepare questions
-    generator.template_questions()
+    generator.set_template()
 
     return StreamingResponse(
-        generator.generate_section_2(context), media_type="text/event-stream"
+        generator.generate_controller(context), media_type="text/event-stream"
     )
 
 

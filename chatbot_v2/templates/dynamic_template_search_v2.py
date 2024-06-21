@@ -8,11 +8,11 @@ import os
 # its subfolders recursively
 
 
-def files_for_section(base_path, folder_name, get_questions: bool = False):
+def files_for_section(base_path, folder_name, get_hint: bool = False):
     """Get files content for a section"""
     files_contents = []
-    if get_questions:
-        path = os.path.join(base_path, folder_name, f"{folder_name}_question")
+    if get_hint:
+        path = os.path.join(base_path, folder_name, f"{folder_name}_context")
     else:
         path = os.path.join(base_path, folder_name)
     if folder_name in os.listdir(base_path):
@@ -28,13 +28,12 @@ def files_for_section(base_path, folder_name, get_questions: bool = False):
     return files_contents
 
 
-# Define the top-level folder path
-BASE_PATH = os.path.join(os.getcwd(), "chatbot_v2",
-                         "templates", "Old_template_files")
-
-
 if __name__ == "__main__":
-    texts = files_for_section(BASE_PATH, "our_clients")
+    # Define the top-level folder path
+    BASE_PATH = os.path.join(os.getcwd(), "chatbot_v2",
+                            "templates", "Hydrocarbon_accounting")
+    
+    texts = files_for_section(BASE_PATH, "Conclusion")
 
     for i, text in enumerate(texts):
         print(f"Contents of file {i + 1}:\n{text}\n")
