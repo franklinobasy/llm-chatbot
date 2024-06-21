@@ -1,6 +1,6 @@
-~Proposed Solution
+# Proposed Solution
 
-[sub-heading] Comprehensive Hydrocarbon Accounting Solution Architecture
+# Comprehensive Hydrocarbon Accounting Solution Architecture
 We have designed this comprehensive solution architecture to address the unique
 challenges and requirements of hydrocarbon accounting in the Nigerian oil and gas industry,
 providing a robust framework for improving operational efficiency, regulatory compliance,
@@ -61,7 +61,7 @@ agility in deployment.
  Implement modular components and microservices architecture to facilitate easy
 integration, customization, and extensibility of the solution.
 
-[sub-heading] Key Components of the Solution
+# Key Components of the Solution
 1. Software platforms and tools for data management and analysis
 2. Standardized processes and procedures for measurement, allocation, and reporting
 3. Integration with existing systems and technologies
