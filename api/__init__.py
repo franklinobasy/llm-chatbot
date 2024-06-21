@@ -6,7 +6,6 @@ from api.v1.routes import v1
 from api.v1.routes.error_handler import (
     AnswersMisMatchQuestion,
     PathTypeMisMatch,
-    UnknownSectionID,
     UnknownSectionName,
     UnknownTemplateID,
     VectorIndexError,
@@ -32,7 +31,6 @@ app.include_router(v1.router, prefix="/api/v1")
 exception_handlers = {
     AnswersMisMatchQuestion: 422,
     UnknownSectionName: 404,
-    UnknownSectionID: 404,
     UnknownTemplateID: 404,
     PathTypeMisMatch: 422,
     VectorIndexError: 404,

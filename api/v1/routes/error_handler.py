@@ -46,22 +46,22 @@ class UnknownSectionName(Exception):
             f"'{section_name}' is not a supported template section.")
 
 
-class UnknownSectionID(Exception):
+class UnknownSection(Exception):
     """
-    Exception raised for unknown section ID.
+    Exception raised for unknown section type.
 
     Attributes:
-        section_id (int): ID of the unknown section.
+        section_type: unknown section.
     """
 
-    def __init__(self, section_id):
+    def __init__(self, section_type):
         """
-        Initialize the exception with the unknown section ID.
+        Initialize the exception with the unknown section type.
 
         Args:
-            section_id (int): ID of the unknown section.
+            section_type: unknown section.
         """
-        super().__init__(f"No section with section_id:'{section_id}'.")
+        super().__init__(f"No section with type:'{section_type}'.")
 
 
 class UnknownTemplateID(Exception):

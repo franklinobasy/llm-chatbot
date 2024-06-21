@@ -7,38 +7,54 @@ from pydantic import BaseModel
 from fastapi import File, UploadFile
 
 
+class Domains(BaseModel):
+    '''
+    Model for Domains
+    
+    Attributes:
+        domains (List[str]): List of domain names
+    '''
+    domains: List[str]
+    
+
 class Sections(BaseModel):
     """
     Model for sections.
 
     Attributes:
+        domain_name (str): Name of the proposal domain
         sections (List[str]): List of section names.
     """
+    domain_name: str
     sections: List[str] = []
 
 
-class Questions(BaseModel):
+class Hint(BaseModel):
     """
-    Model for questions.
+    Model for hint.
 
     Attributes:
+        domain_name (str): Name of the proposal domain
         section_name (str): Name of the section.
-        questions (List[str]): List of questions.
+        hint (str): hint.
     """
+    domain_name: str
     section_name: str
-    questions: List[str] = []
+    hint: str
 
 
-class Templates(BaseModel):
+class Template(BaseModel):
     """
     Model for templates.
 
     Attributes:
+        domain_name (str): Name of proposal domain
         section_name (str): Name of the section.
         templates (List[str]): List of templates.
     """
+    domain_name: str
     section_name: str
-    templates: List[str]
+    template: str
 
 
 class UserInput(BaseModel):
@@ -60,12 +76,12 @@ class UserInput2(BaseModel):
     Model for user input.
 
     Attributes:
-        section_id (int): ID of the section.
-        template_index (int): Index of the selected template.
+        domain_name (str): Name of proposal domin
+        section_type (str): Section category
         context (str): Context for generating the section.
     """
-    section_id: int
-    template_index: int = -1
+    domain_name: str
+    section_type: str
     context: str
 
 

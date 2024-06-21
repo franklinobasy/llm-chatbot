@@ -1,0 +1,87 @@
+~Project Personnel
+This project will be supervised by Mr. Fidelis Tendo who will also serve as the project
+technical manager.
+Name: Fidelis Tendo
+Email: fidelis.tendo@cyphercrescent.com
+
+~~Profile of Technical Assurance Team for the Gas Lift Network Optimisation
+Our team of world-class industry experts with over 300-man years of experience are drawn from
+diverse backgrounds and are passionate about reservoir studies, WRFM, field development planning,
+and pressure maintenance. They have excelled in various multidisciplinary roles, have extensive
+background in modelling integrated production systems and complex processing facilities globally
+and are highly respected by our clients. Brief profile of our key personnel who will champion the gas
+lift optimisation service are shown below:
+
+1. Fidelis Tendo: Subject Matter Expert on IPSM and Reservoir Management
+
+Fidelis Tendo is an experience Petroleum Engineer with over 30 years of
+experience in the international Oil and Gas industry in some of the major
+hydrocarbon regions of the world (North Sea, Gulf of Mexico, sub-Sahara
+Africa, Middle East and Southeast Asia).
+During his time in Shell, Fidelis held various technical and leadership roles in
+reservoir engineering, operations and also worked as a global consultant in
+WRFM/PSO.
+His areas of expertise are Decision Based Integrated Reservoir Modelling (DB-
+IRM), Production Operations Management, Production System Optimisation (PSO), Production
+Forecasting, Integrated Production System Modelling (IPSM), Integrated Field Development
+Planning.
+He is a recognised Subject Matter Expert in IPSM, PSO and DB-IRM. He also has a strong knowledge
+of Petroleum Resources Economics and Commercial Issues. Also, he has a strong knowledge and
+experience in Resource volumes estimation, classification and reporting to SEC and SPE standards.
+He is currently the Director of Technical Operations and Consultancy for CypherCrescent Limited.
+
+2. Collins Alaka: Subject Matter Expert on WRFM, Artificial Lift Design
+
+Mr Alaka is an astute oil &amp; gas industry veteran with a lustrous 33 years'
+experience across both the operating and service sectors of the industry.
+Some of the companies he has worked with include Schlumberger, Chevron,
+and Shell where he held various Appointment of a New Managing
+Director/CEO, CypherCrescent Nigeria Limited positions including Asset
+Development Manager – SPDC Onshore NOV; Business Opportunity Manager
+– Iseni, Okpukunou/Tuomo and Brass Fertiliser Projects, as well as other 
+influential senior leadership positions.
+During his time in these reputable organisations, Collins held various 
+technical and leadership roles such as Asset Development Manager, SPÐC, 
+Non-operate ventures; Business opportunity Manager,
+Iseni, Okpokunou/Tuomu west and Brass fertilizer projects. 
+He is currently the Executive Director,
+Operations of CypherCrescent Ltd with renowned technical expertise.
+
+3. Burney Waring: Principal Technical Expert on IPSM and Production System Optimisation
+
+Burney Waring is a principal technical expert with over 35 years of rich
+industry experience in production system optimisation (PSO) and wells
+reservoir &amp; facility management (WRFM). He brings vast technical depth and
+real-life experiences in facilitating, authoring, and coaching PSO/WRFM across
+career stages. He is the author of “Practical Optimization of Petroleum
+Production Systems”. He has developed and taught WFRM and PSO courses.
+Burney is focused on helping teams create standard operating procedures for 
+surveillance and optimisation processes.
+
+4. Prof. David O. Ogbe: Subsurface Advisor Technical
+
+Prof. David O. Ogbe, Ph.D., P.E. is a Director in CypherCrescent. His over 35
+years’ experience and expertise cuts across the academia and the E&amp;P
+industry. During his time as the Lead Reservoir Engineer at Schlumberger, he
+developed reservoir simulation workflow for modelling stress sensitive
+reservoirs using geomechanics models coupled with fluid-flow models. As well
+as evaluated the impact of stress on depletion of tight gas sands in the
+Piceance Basin, Rocky Mountain Region, USA. He is experienced in the use of
+Eclipse, CMG Stars Simulators and VISAGE (Geomechanics).
+
+5. ThankGod Egbe: Subject Matter Expert on Reservoir Simulation and IPSM
+
+ThankGod Egbe holds a bachelor’s and master’s degree in petroleum
+engineering and diploma in Scientific Computing. He has over 15 years
+petroleum engineering and software development experience. He started his
+career in 2001 as a computer programmer/software developer and has led
+the development of key petroleum engineering software used in the oil and
+gas industry. He was a key player in the development of PETROCON in 2003, a
+petroleum economics application used for marginal field economic analysis.
+He also led the development of QIKREACH (a proprietary in-house hydrocarbons accounting and
+production management application) for an E &amp; P operator in Nigeria.
+During his time in Shell, both regional and International, he worked on some key Shell oil fields
+leading and developing integrated production system modelling (IPSM) projects in over 12 countries
+covering all the continents of the world. He held various senior technical positions for Shell
+International and is a recognised global expert in integrated production system modelling and
+optimisation.

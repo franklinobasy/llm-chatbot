@@ -1,0 +1,23 @@
+~Integrated Production System Modeling (IPSM)
+Integrated Production System Modelling (IPSM) involves the development of an integrated
+reservoir, wellbore, and surface facilities model to analyse and predict the behaviour of the
+entire production system under various operating conditions. IPSM enables engineers to
+evaluate the impact of different operating conditions on production performance, identify
+bottlenecks, and optimise the overall system efficiency.
+
+Figure 4 below shows a sample integrated production system network model to be created.
+
+To maximise value from [COMPANY NAME] Producing Limited gas lift system, an IPSM
+model will be developed and used to identify optimal operating conditions/configurations. In
+this scope, we will:
+ develop a detailed reservoir model using MBAL/DC that accurately represents the
+subsurface characteristics, including reservoir geometry, rock properties, and fluid
+behaviour.
+ Integrate well models from the gas lift modelling phase and build well models for
+wells whose production dynamics is critical to the overall gas lift system optimisation.
+ develop an integrated production facility network model for using GAP, to simulate
+production performance while considering reservoir, well and facility constraints.
+ calibrate integrated reservoir, well and facility models using available production data
+to ensure accurate representation of the production system&#39;s behaviour.
+Using the IPSM framework, we will optimise strategies to enhance production rates,
+minimise operational costs, and maximise resource recovery.

@@ -1,0 +1,21 @@
+~Project/Service Objective
+The primary objectives of this project are as follows:
+a. Develop a comprehensive gas lift optimisation strategy: We will utilise industry
+recognised simulation software and advanced production system modelling
+techniques to develop a robust gas lift optimisation strategy. By analysing well data,
+static and flowing wellbore conditions, and fluid properties, we will identify key areas
+for improvement and tailor the optimisation strategy to the specific needs of each
+well.
+b. Enhance production rates and reservoir recovery by improving gas injection
+efficiency: Our objective is to optimise the gas injection rates and distribution within
+the wellbore, ensuring the efficient lifting of hydrocarbons to the surface. Through
+reliable modelling and prediction of gas lift performance, we will identify the optimal
+gas injection rates and depth for new and existing wells requiring gas lift, thereby
+maximising production rates and improving overall reservoir recovery.
+c. Optimise the gas injection network to utilise available gas: We will conduct a
+thorough analysis of the gas injection network to ensure efficient utilisation of
+available lift gas volumes. By optimising the lift gas allocation across the wells, we
+will maximise the utilisation of the available lift gas, leading to improved production
+rates and overall system efficiency.
+By achieving these objectives, our Gas Lift Optimisation service aims to significantly
+enhance gas lift performance in [COMPANY NAME] Producing Limited.
