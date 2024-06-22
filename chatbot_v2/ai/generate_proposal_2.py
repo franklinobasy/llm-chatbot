@@ -81,7 +81,7 @@ class AutoGenerateSection:
     the section should be.
     
     NOTE: You are expected to only write the specified section of the proposal.
-    Do not include any conclusion after writing the section.
+    Do not include any conclusion, summary or closing remarks after writing the section.
     You are free to get creative with the generation of the section whether template
     was provided or not using the given context. If you have a list of template, you
     can choose to work the ost suitable template
