@@ -18,7 +18,7 @@ WORKDIR /llm-chatbot
 RUN apt-get update && \
     apt-get install -y git python3-dev gcc g++ && \
     rm -rf /var/lib/apt/lists/* && \
-    git clone -b version-2 https://github.com/franklinobasy/llm-chatbot.git .
+    git clone -b version-2c https://github.com/franklinobasy/llm-chatbot.git .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
