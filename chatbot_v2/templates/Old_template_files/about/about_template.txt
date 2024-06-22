@@ -1,4 +1,4 @@
-ABOUT CYPHERCRESCENT~
+# ABOUT CYPHERCRESCENT
 CypherCrescent is a fast-growing wholly indigenous company that provides services in
 energy, technology and human capacity development with core expertise in mathematical
 modelling, petroleum engineering, software development and oil & gas asset management

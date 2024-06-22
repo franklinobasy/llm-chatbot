@@ -1,6 +1,6 @@
-~Introduction
+# Introduction
 
-[sub-heading] Overview of the Nigerian Oil and Gas Industry
+# Overview of the Nigerian Oil and Gas Industry
 Nigeria&#39;s oil and gas industry is a multifaceted tapestry interwoven with the nation&#39;s socio-
 economic fabric, a narrative spanning decade of exploration, discovery, and production.
 Nestled within the intricate geography of the West African landscape, Nigeria&#39;s hydrocarbon
@@ -21,7 +21,7 @@ challenges, the need for robust governance, efficient resource management, and
 transparent accountability becomes paramount, laying the groundwork for the imperative of
 hydrocarbon accounting.
 
-[sub-heading] The Importance of Hydrocarbon Accounting in Nigeria
+# The Importance of Hydrocarbon Accounting in Nigeria
 In the tapestry of Nigeria&#39;s oil and gas industry, hydrocarbon accounting emerges as a
 critical thread, weaving together the intricate strands of production, distribution, revenue
 generation, and regulatory compliance. At its core, hydrocarbon accounting is not merely a
@@ -42,7 +42,7 @@ opportunities that our proposed initiative emerges, seeking to address the short
 the present and chart a course toward a more transparent, efficient, and equitable future for
 Nigeria&#39;s oil and gas industry.
 
-[sub-heading] Purpose of the Proposed Solution Development
+# Purpose of the Proposed Solution Development
 Amidst the complexities and challenges of Nigeria&#39;s oil and gas sector, our initiative arises as
 a beacon of hope, a catalyst for change, and a harbinger of progress. It is rooted in a
 profound recognition of the industry&#39;s potential to transform lives, uplift communities, and
