@@ -1,2 +1,2 @@
-~Project details
+# Project details
 Insert figure

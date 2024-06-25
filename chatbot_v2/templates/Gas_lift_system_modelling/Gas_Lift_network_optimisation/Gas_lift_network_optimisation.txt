@@ -1,4 +1,5 @@
-~Gas Lift Network Optimisation
+# Gas Lift Network Optimisation
+
 Following the estimation of the optimal gas lift injection rate and pressure for each of the
 wells based on the creaming curve (as seen in the example in Figure 2 above), there is a
 need to determine the best allocation of lift gas considering the constraints in the gas lift

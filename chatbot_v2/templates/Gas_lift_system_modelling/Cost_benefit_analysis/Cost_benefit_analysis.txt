@@ -1,4 +1,5 @@
-~Cost Benefit Analysis
+# Cost Benefit Analysis
+
 Gas lift operations play a crucial role in optimizing production rates and enhancing reservoir
 performance. To ensure the economic viability of implementing and optimising gas lift
 systems, conducting a comprehensive cost-benefit analysis is essential. By evaluating the
@@ -7,6 +8,7 @@ with new gas lift installations or existing gas lift system adjustment, asset te
 informed decisions about the profitability and feasibility of these production enhancement
 opportunities.
 (insert figure)
+
 To ensure maximum profitability from gas lifting operations, this part of the service will cover:
  Generation of 10-years production forecast for the gas lifted wells based on the
 selected optimal gas lift setting.

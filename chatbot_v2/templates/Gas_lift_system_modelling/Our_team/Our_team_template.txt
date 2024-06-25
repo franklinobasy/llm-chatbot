@@ -1,4 +1,4 @@
-~Our Team
+# Our Team
 Our dedicated team of experts are drawn from diverse backgrounds, with skills and experience
 garnered from the E&amp;P industry, information technology and academia. Our motivation is
 anchored on the desire to continuously innovate and create values by closing existing technical
