@@ -40,7 +40,6 @@ environs==11.0.0
 exceptiongroup==1.2.0
 fastapi==0.110.0
 fastapi_cors==0.0.6
-fastembed
 filelock==3.13.1
 filetype==1.2.0
 flatbuffers==24.3.6
