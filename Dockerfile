@@ -5,7 +5,7 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update
 RUN apt-get install -y git
-RUN git clone -b version-2c https://github.com/franklinobasy/llm-chatbot.git /llm-chatbot
+RUN git clone -b dev https://github.com/franklinobasy/llm-chatbot.git /llm-chatbot
 RUN pip install --no-cache-dir -r /llm-chatbot/requirements.txt
 
 WORKDIR /llm-chatbot
