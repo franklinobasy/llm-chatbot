@@ -115,7 +115,7 @@ nvidia-nvtx-cu12==12.1.105
 oauthlib==3.2.2
 omegaconf==2.3.0
 onnx
-onnxruntime
+onnxruntime>=1.16
 openai==1.13.3
 opencv-python==4.9.0.80
 opentelemetry-api==1.23.0
