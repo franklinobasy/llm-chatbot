@@ -1,0 +1,6 @@
+~Project Timeline
+The proposed Gas Lift Modelling and Optimisation service to [COMPANY NAME]
+Producing Limited will be a 3-months project broken down into three distinct Milestones
+assuming a typical well count of thirty (30 wells). The Gantt chart below (Figure 6) shows
+the project breakdown and milestone deliverables.
+(insert figure)

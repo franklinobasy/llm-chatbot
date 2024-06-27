@@ -1,0 +1,26 @@
+# Cost Benefit Analysis
+
+
+Gas lift operations play a crucial role in optimizing production rates and enhancing reservoir
+performance. To ensure the economic viability of implementing and optimising gas lift
+systems, conducting a comprehensive cost-benefit analysis is essential. By evaluating the
+upfront investment costs, operational expenses, and potential production gains associated
+with new gas lift installations or existing gas lift system adjustment, asset teams can make
+informed decisions about the profitability and feasibility of these production enhancement
+opportunities.
+(insert figure)
+
+To ensure maximum profitability from gas lifting operations, this part of the service will cover:
+ Generation of 10-years production forecast for the gas lifted wells based on the
+selected optimal gas lift setting.
+ Generation of representative CAPEX (if applicable) and OPEX cost required to
+efficiently manage the gas lift operations on a day-to-day basis, which will serve as
+an input into the economic modelling.
+ Setting up an economical model based on the terms of either PPTA or PIA fiscal
+regime to evaluate the incremental profitability of the recommendations (gas lift
+optimisation or new wells to be gas lifted).
+ Evaluate key economic indicators (such as NPV, IRR, UOC, Payback period, etc.) for
+each identified gas lift optimisation opportunity.
+At the end of this phase, the gas lift optimisation opportunities, or new wells to be gas lifted,
+will be ranked to identify the most profitable opportunities to execute within the short-term to
+mid-term period.

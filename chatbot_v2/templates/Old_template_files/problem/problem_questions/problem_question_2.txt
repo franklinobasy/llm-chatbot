@@ -1,0 +1,2 @@
+What methods can be employed to address the industry's reliance on periodic tests
+and capture crucial in-between changes more effectively?
