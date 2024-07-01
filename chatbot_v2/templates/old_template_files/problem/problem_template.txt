@@ -1,0 +1,6 @@
+In [Industry or Niche], we are data rich but information poor. Real-time data
+gathering is not an issue, but validation and usage of such data is. For example,
+[Specific Problem or Challenge in Your Industry].
+Traditionally this problem is often attempted using [Traditional Solution]. 
+This method cannot capture important changes in between [Specific Events or Tests] 
+[Explanation of Why Current Method is Inadequate].

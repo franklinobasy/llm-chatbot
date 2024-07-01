@@ -1,0 +1,20 @@
+# Gas Lift Network Optimisation
+
+Following the estimation of the optimal gas lift injection rate and pressure for each of the
+wells based on the creaming curve (as seen in the example in Figure 2 above), there is a
+need to determine the best allocation of lift gas considering the constraints in the gas lift
+injection network, that will still ensure that the maximum oil is produced from the system.
+This involves using the integrated network model containing the calibrated well, reservoir,
+and surface layout models and defining the current constraints in the gas lift injection
+network (e.g., volume of gas available, compressor output, etc), to evaluate the optimal
+system configuration that meets the target objective of maximising oil production.
+To ensure maximum value realisation from [COMPANY NAME] Producing Limited gas lift
+injection network, this part of the service will cover:
+ Physical inspection and definition of injection constraints in the integrated model.
+ System optimisation to determine and predict optimal gas lift volume allocation to all
+the wells considering the current constraints and layout.
+ Evaluation of the ability of the current compression system to meet the required gas
+lift injection rate and pressure for the wells.
+At the end of this phase, the optimal allocation of gas lift volume to all the wells considering
+the current constraints in the injection network while also maximizing the total oil production
+rate from the facilities, will be determined and documented.
